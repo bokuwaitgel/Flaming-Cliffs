@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Flaming Cliffs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- LightGallery CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css"
+    />
+
+    <style>
+      .rotate-180 {
+        transform: rotate(180deg);
+      }
+    </style>
+  </head>
+  <body class="bg-[#1a130f] min-h-screen">
+    <header
+      class="bg-gradient-to-b from-[#2c1c12] to-[#000000] text-white shadow-md border-b border-black"
+    >
+      <div
+        class="flex items-center justify-between px-4 sm:px-10 md:px-20 lg:px-40 py-4"
+      >
+        <!-- Logo & Title -->
+        <a href="index.html" class="flex flex-row items-center gap-2">
+          <img
+            src="img/baynzag logo.png"
+            alt="Flaming Cliffs Logo"
+            class="h-10 w-auto"
+          />
+          <span class="text-lg font-bold text-white">Flaming Cliffs</span>
+        </a>
+
+        <!-- Desktop/Tablet Navigation -->
+        <nav
+          class="hidden xl:flex gap-4 lg:gap-8 text-sm font-semibold text-white"
+        >
+          <a href="index.html" class="hover:text-yellow-500">HOME</a>
+          <a href="about.html" class="hover:text-yellow-500">ABOUT</a>
+          <a href="learn_detail.html" class="hover:text-yellow-500"
+            >FOSSILS & DISCOVERIES</a
+          >
+          <a href="status.html" class="hover:text-yellow-500"
+            >LIVE STATS FROM VISITORS</a
+          >
+          <a href="#" class="hover:text-yellow-500">PRESERVATION</a>
+          <a href="photo_gallery.html" class="hover:text-yellow-500">GALLERY</a>
+          <a href="#contact" class="hover:text-yellow-500">CONTACT</a>
+          <a href="login.html" class="hover:text-yellow-500">LOGIN</a>
+        </nav>
+
+        <!-- Language Selector -->
+        <div class="hidden xl:block">
+          <select
+            class="bg-[#2c2c2c] border border-gray-600 text-white text-sm px-2 py-1 rounded"
+          >
+            <option value="en">EN</option>
+            <option value="mn">MN</option>
+          </select>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <div class="xl:hidden">
+          <button
+            id="menu-toggle"
+            class="text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden xl:hidden px-4 pb-4 space-y-2">
+        <a href="index.html" class="block hover:text-yellow-500">HOME</a>
+        <a href="about.html" class="block hover:text-yellow-500">ABOUT</a>
+        <a href="learn_detail.html" class="block hover:text-yellow-500"
+          >FOSSILS & DISCOVERIES</a
+        >
+        <a href="status.html" class="block hover:text-yellow-500"
+          >LIVE STATS FROM VISITORS</a
+        >
+        <a href="#" class="block hover:text-yellow-500">PRESERVATION</a>
+        <a href="photo_gallery.html" class="block hover:text-yellow-500"
+          >GALLERY</a
+        >
+        <a href="#contact" class="block hover:text-yellow-500">CONTACT</a>
+        <a href="login.html" class="block hover:text-yellow-500">LOGIN</a>
+        <select
+          class="bg-[#2c2c2c] border border-gray-600 text-white text-sm px-2 py-1 rounded w-full mt-2"
+        >
+          <option value="en">EN</option>
+          <option value="mn">MN</option>
+        </select>
+      </div>
+    </header>
+
+    <div id="home" class="w-full">
+      <!-- Background Image -->
+      <div class="relative">
+        <img
+          src="img/photo & video gallery top desktop.jpg"
+          alt="Flaming Cliffs"
+          class="object-cover z-0 w-full h-64 md:h-auto"
+        />
+        <img
+          src="img/divider.png"
+          alt="Upper Divider"
+          class="absolute left-0 bottom-0 w-full pointer-events-none z-10 opacity-50"
+        />
+
+        <div
+          class="absolute z-20 left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-center"
+        >
+          <h1
+            class="text-xl md:text-6xl font-semibold uppercase tracking-widest"
+          >
+            PHOTO & VIDEO <br />GALLERY
+          </h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-0">
+      <div class="max-w-6xl mx-auto px-4 py-6 text-center">
+        <!-- Photos Section -->
+        <div class="text-left mb-6">
+          <h2
+            class="text-2xl md:text-3xl font-semibold text-white text-left capitalize mb-4"
+          >
+            Bayanzag
+          </h2>
+
+          <div
+            id="lightgallery"
+            class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"
+          >
+            <!-- Images -->
+            <a href="img/Zag/Zag-1.jpg" class="relative aspect-video">
+              <img
+                loading="lazy"
+                src="img/Zag/Zag-1.jpg"
+                alt="Bayanzag image 1"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a href="img/Zag/Zag-2.jpg" class="relative aspect-video">
+              <img
+                loading="lazy"
+                src="img/Zag/Zag-2.jpg"
+                alt="Bayanzag image 2"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a href="img/Zag/Zag-3.jpg" class="relative aspect-video">
+              <img
+                loading="lazy"
+                src="img/Zag/Zag-3.jpg"
+                alt="Bayanzag image 3"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a href="img/Zag/Zag-4.jpg" class="relative aspect-video">
+              <img
+                loading="lazy"
+                src="img/Zag/Zag-4.jpg"
+                alt="Bayanzag image 4"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a href="img/Zag/Zag-5.jpg" class="relative aspect-video">
+              <img
+                loading="lazy"
+                src="img/Zag/Zag-5.jpg"
+                alt="Bayanzag image 5"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a href="img/Zag/Zag-6.jpg" class="relative aspect-video">
+              <img
+                loading="lazy"
+                src="img/Zag/Zag-6.jpg"
+                alt="Bayanzag image 6"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a href="img/Zag/Zag-7.jpg" class="relative aspect-video">
+              <img
+                loading="lazy"
+                src="img/Zag/Zag-7.jpg"
+                alt="Bayanzag image 7"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a href="img/Zag/Zag-8.jpg" class="relative aspect-video">
+              <img
+                loading="lazy"
+                src="img/Zag/Zag-8.jpg"
+                alt="Bayanzag image 8"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a href="img/Zag/Zag-9.jpg" class="relative aspect-video">
+              <img
+                loading="lazy"
+                src="img/Zag/Zag-9.jpg"
+                alt="Bayanzag image 9"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a href="img/Zag/Zag-10.jpg" class="relative aspect-video">
+              <img
+                loading="lazy"
+                src="img/Zag/Zag-10.jpg"
+                alt="Bayanzag image 10"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a href="img/Zag/Zag-11.jpg" class="relative aspect-video">
+              <img
+                loading="lazy"
+                src="img/Zag/Zag-11.jpg"
+                alt="Bayanzag image 11"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a href="img/Zag/Zag-12.jpg" class="relative aspect-video">
+              <img
+                loading="lazy"
+                src="img/Zag/Zag-12.jpg"
+                alt="Bayanzag image 12"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a href="img/Zag/Zag-13.jpg" class="relative aspect-video">
+              <img
+                loading="lazy"
+                src="img/Zag/Zag-13.jpg"
+                alt="Bayanzag image 13"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a href="img/Zag/Zag-14.jpg" class="relative aspect-video">
+              <img
+                loading="lazy"
+                src="img/Zag/Zag-14.jpg"
+                alt="Bayanzag image 14"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a href="img/Zag/Zag-15.jpg" class="relative aspect-video">
+              <img
+                loading="lazy"
+                src="img/Zag/Zag-15.jpg"
+                alt="Bayanzag image 15"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a href="img/Zag/Zag-16.jpg" class="relative aspect-video">
+              <img
+                loading="lazy"
+                src="img/Zag/Zag-16.jpg"
+                alt="Bayanzag image 16"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a href="img/Zag/Zag-17.jpg" class="relative aspect-video">
+              <img
+                loading="lazy"
+                src="img/Zag/Zag-17.jpg"
+                alt="Bayanzag image 17"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-0">
+      <div class="max-w-6xl mx-auto px-4 py-6 text-center">
+        <!-- Photos Section -->
+        <div class="text-left mb-6">
+          <h2
+            class="text-2xl md:text-3xl font-semibold text-white text-left capitalize mb-4"
+          >
+            Camel Caravan
+          </h2>
+
+          <div
+            id="lightgallery1"
+            class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6"
+          >
+            <!-- Images -->
+            <a href="img/Camel Caravan-2.jpg" class="relative aspect-video">
+              <img
+                loading="lazy"
+                src="img/Camel Caravan-2.jpg"
+                alt="Camel Caravan image 1"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a href="img/Zag/Zag-2.jpg" class="relative aspect-video">
+              <img
+                loading="lazy"
+                src="img/Zag/Zag-2.jpg"
+                alt="Camel Caravan image 2"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a href="img/Camel Caravan-16.jpg" class="relative aspect-video">
+              <img
+                loading="lazy"
+                src="img/Camel Caravan-16.jpg"
+                alt="Camel Caravan image 3"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a href="img/Zag/Zag-14.jpg" class="relative aspect-video">
+              <img
+                loading="lazy"
+                src="img/Zag/Zag-4.jpg"
+                alt="Camel Caravan image 4"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a href="img/Camel Caravan-1.jpg" class="relative aspect-video">
+              <img
+                loading="lazy"
+                src="img/Camel Caravan-1.jpg"
+                alt="Camel Caravan image 5"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a href="img/Zag/Zag-16.jpg" class="relative aspect-video">
+              <img
+                loading="lazy"
+                src="img/Zag/Zag-6.jpg"
+                alt="Camel Caravan image 6"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a href="img/Zag/Zag-7.jpg" class="relative aspect-video">
+              <img
+                loading="lazy"
+                src="img/Zag/Zag-7.jpg"
+                alt="Camel Caravan image 7"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a href="img/Zag/Zag-8.jpg" class="relative aspect-video">
+              <img
+                loading="lazy"
+                src="img/Zag/Zag-8.jpg"
+                alt="Camel Caravan image 8"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a href="img/Camel Caravan-19.jpg" class="relative aspect-video">
+              <img
+                loading="lazy"
+                src="img/Camel Caravan-19.jpg"
+                alt="Camel Caravan image 9"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a href="img/Camel Caravan-4.jpg" class="relative aspect-video">
+              <img
+                loading="lazy"
+                src="img/Camel Caravan-4.jpg"
+                alt="Camel Caravan image 10"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-0">
+      <div class="max-w-6xl mx-auto px-4 py-6 text-center">
+        <!-- Photos Section -->
+        <div class="text-left mb-6">
+          <h2
+            class="text-2xl md:text-3xl font-semibold text-white text-left capitalize mb-4"
+          >
+            Souvenir Shop
+          </h2>
+
+          <div
+            id="lightgallery2"
+            class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6"
+          >
+            <!-- Images -->
+            <a
+              href="img/Souviner shop/SouvinerShop-14.jpg"
+              class="relative aspect-video"
+            >
+              <img
+                loading="lazy"
+                src="img/Souviner shop/SouvinerShop-14.jpg"
+                alt="Souvenir Shop image 1"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a
+              href="img/Souviner shop/SouvinerShop-10.jpg"
+              class="relative aspect-video"
+            >
+              <img
+                loading="lazy"
+                src="img/Souviner shop/SouvinerShop-10.jpg"
+                alt="Souvenir Shop image 2"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a
+              href="img/Souviner shop/SouvinerShop-11.jpg"
+              class="relative aspect-video"
+            >
+              <img
+                loading="lazy"
+                src="img/Souviner shop/SouvinerShop-11.jpg"
+                alt="Souvenir Shop image 3"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a
+              href="img/Souviner shop/SouvinerShop-12.jpg"
+              class="relative aspect-video"
+            >
+              <img
+                loading="lazy"
+                src="img/Souviner shop/SouvinerShop-12.jpg"
+                alt="Souvenir Shop image 4"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a
+              href="img/Souviner shop/SouvinerShop-13.jpg"
+              class="relative aspect-video"
+            >
+              <img
+                loading="lazy"
+                src="img/Souviner shop/SouvinerShop-13.jpg"
+                alt="Souvenir Shop image 5"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a
+              href="img/Souviner shop/SouvinerShop-9.jpg"
+              class="relative aspect-video"
+            >
+              <img
+                loading="lazy"
+                src="img/Souviner shop/SouvinerShop-9.jpg"
+                alt="Souvenir Shop image 6"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a
+              href="img/Souviner shop/SouvinerShop-8.jpg"
+              class="relative aspect-video"
+            >
+              <img
+                loading="lazy"
+                src="img/Souviner shop/SouvinerShop-8.jpg"
+                alt="Souvenir Shop image 7"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a
+              href="img/Souviner shop/SouvinerShop-7.jpg"
+              class="relative aspect-video"
+            >
+              <img
+                loading="lazy"
+                src="img/Souviner shop/SouvinerShop-7.jpg"
+                alt="Souvenir Shop image 8"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a
+              href="img/Souviner shop/SouvinerShop-6.jpg"
+              class="relative aspect-video"
+            >
+              <img
+                loading="lazy"
+                src="img/Souviner shop/SouvinerShop-6.jpg"
+                alt="Souvenir Shop image 9"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+            <a
+              href="img/Souviner shop/SouvinerShop-5.jpg"
+              class="relative aspect-video"
+            >
+              <img
+                loading="lazy"
+                src="img/Souviner shop/SouvinerShop-5.jpg"
+                alt="Souvenir Shop image 10"
+                class="rounded-md object-cover w-full h-full"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-center bg-[#1a130f] py-4">
+      <div class="w-full max-w-4xl flex items-center px-4">
+        <div class="flex-grow h-1 bg-white"></div>
+        <span
+          class="mx-4 text-white text-3xl md:text-4xl font-bold capitalize text-center"
+          >Videos</span
+        >
+        <div class="flex-grow h-1 bg-white"></div>
+      </div>
+    </div>
+
+    <div class="mt-0">
+      <div class="max-w-6xl mx-auto px-4 py-6 text-center">
+        <!-- Videos Section -->
+        <div class="text-left mb-6">
+          <h2
+            class="text-2xl md:text-3xl font-semibold text-white text-left capitalize mb-4"
+          >
+            Flaming Cliffs
+          </h2>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <!-- Videos -->
+            <div class="relative aspect-video">
+              <iframe
+                class="w-full h-full"
+                src="https://www.youtube.com/embed/ZptQeVJ5qZM?si=0Zmj7nqP4PEzcDM_"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="relative aspect-video">
+              <iframe
+                class="w-full h-full"
+                src="https://www.youtube.com/embed/LQ9jJ-l_ryE?si=QNf_V2vdaFS5NVGN"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="relative aspect-video">
+              <iframe
+                class="w-full h-full"
+                src="https://www.youtube.com/embed/LWYDZuAbYGk?si=c1agOLf72Ms7EIoH"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="relative aspect-video">
+              <iframe
+                class="w-full h-full"
+                src="https://www.youtube.com/embed/ZptQeVJ5qZM?si=0Zmj7nqP4PEzcDM_"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="relative aspect-video">
+              <iframe
+                class="w-full h-full"
+                src="https://www.youtube.com/embed/LQ9jJ-l_ryE?si=QNf_V2vdaFS5NVGN"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="relative aspect-video">
+              <iframe
+                class="w-full h-full"
+                src="https://www.youtube.com/embed/LWYDZuAbYGk?si=c1agOLf72Ms7EIoH"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-[#1a130f] py-4">
+      <div class="flex items-center gap-4 max-w-6xl mx-auto py-6 px-4">
+        <!-- Icon -->
+        <img
+          src="img/baynzag logo.png"
+          alt="Flaming Cliffs Icon"
+          class="w-24 h-24 object-cover"
+        />
+
+        <!-- Text -->
+        <div>
+          <h1 class="text-white text-xl md:text-2xl">
+            Flaming Cliffs ( Bayanzag )
+          </h1>
+          <p class="text-white text-lg md:text-xl mt-2">
+            Discover Mongolia's Legendary Dinosaur Site
+          </p>
+        </div>
+      </div>
+
+      <!-- Divider line -->
+      <div class="border-t border-[#3f3932] mt-2 max-w-6xl mx-auto"></div>
+    </div>
+
+
+    <!-- LightGallery JS -->
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/fullscreen/lg-fullscreen.min.js"></script>
+
+    <!-- Initialize LightGallery -->
+    <script>
+      lightGallery(document.getElementById("lightgallery"), {
+        plugins: [lgZoom],
+        speed: 400,
+        download: false,
+        controls: true, // ⬅️ Enables arrows
+        mode: "lg-slide", // ⬅️ Smooth transition
+      });
+    </script>
+    <script>
+      lightGallery(document.getElementById("lightgallery1"), {
+        plugins: [lgZoom],
+        speed: 400,
+        download: false,
+        controls: true, // ⬅️ Enables arrows
+        mode: "lg-slide", // ⬅️ Smooth transition
+      });
+    </script>
+
+    <script>
+      lightGallery(document.getElementById("lightgallery2"), {
+        plugins: [lgZoom],
+        speed: 400,
+        download: false,
+        controls: true, // ⬅️ Enables arrows
+        mode: "lg-slide", // ⬅️ Smooth transition
+      });
+
+      // Toggle mobile menu
+      document.getElementById("menu-toggle").addEventListener("click", () => {
+        const menu = document.getElementById("mobile-menu");
+        menu.classList.toggle("hidden");
+      });
+    </script>
+    
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+    
+    <!-- Footer Loader Script -->
+    <script src="footer-loader.js"></script>
+  </body>
+</html>

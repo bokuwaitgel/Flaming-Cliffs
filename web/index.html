@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Flaming Cliffs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <!-- Custom Fonts (Optional) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      html,
+      body {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+      }
+      .rotate-180 {
+        transform: rotate(180deg);
+      }
+
+      /* Fade эффект */
+      #mainImage.fade {
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+      #mainImage.show {
+        opacity: 1;
+        transition: opacity 0.4s ease;
+      }
+      #mainImage2.fade {
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+      #mainImage2.show {
+        opacity: 1;
+        transition: opacity 0.4s ease;
+      }
+    </style>
+  </head>
+
+  <body class="bg-white min-h-screen w-full">
+    <header
+      class="bg-gradient-to-b from-[#2c1c12] to-[#000000] text-white shadow-md border-b border-black"
+    >
+      <div
+        class="flex items-center justify-between px-4 sm:px-10 md:px-20 lg:px-40 py-4"
+      >
+        <!-- Logo & Title -->
+        <a href="index.html" class="flex flex-row items-center gap-2">
+          <img
+            src="img/baynzag logo.png"
+            alt="Flaming Cliffs Logo"
+            class="h-10 w-auto"
+          />
+          <span class="text-lg font-bold text-white">Flaming Cliffs</span>
+        </a>
+
+        <!-- Desktop/Tablet Navigation -->
+        <nav
+          class="hidden xl:flex gap-4 lg:gap-8 text-sm font-semibold text-white"
+        >
+          <a href="index.html" class="hover:text-yellow-500">HOME</a>
+          <a href="about.html" class="hover:text-yellow-500">ABOUT</a>
+          <a href="learn_detail.html" class="hover:text-yellow-500"
+            >FOSSILS & DISCOVERIES</a
+          >
+          <a href="status.html" class="hover:text-yellow-500"
+            >LIVE STATS FROM VISITORS</a
+          >
+          <a href="#entry" class="hover:text-yellow-500">PRESERVATION</a>
+          <a href="photo_gallery.html" class="hover:text-yellow-500">GALLERY</a>
+          <a href="#contact" class="hover:text-yellow-500">CONTACT</a>
+          <a href="login.html" class="hover:text-yellow-500">LOGIN</a>
+        </nav>
+
+        <!-- Language Selector -->
+        <div class="hidden xl:block">
+          <select
+            class="bg-[#2c2c2c] border border-gray-600 text-white text-sm px-2 py-1 rounded"
+          >
+            <option value="en">EN</option>
+            <option value="mn">MN</option>
+          </select>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <div class="xl:hidden">
+          <button
+            id="menu-toggle"
+            class="text-white focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden xl:hidden px-4 space-y-2 text-left">
+        <a href="index.html" class="block hover:text-yellow-500">HOME</a>
+        <a href="about.html" class="block hover:text-yellow-500">ABOUT</a>
+        <a href="learn_detail.html" class="block hover:text-yellow-500"
+          >FOSSILS & DISCOVERIES</a
+        >
+        <a href="status.html" class="block hover:text-yellow-500"
+          >LIVE STATS FROM VISITORS</a
+        >
+        <a href="#entry" class="block hover:text-yellow-500">PRESERVATION</a>
+        <a href="photo_gallery.html" class="block hover:text-yellow-500"
+          >GALLERY</a
+        >
+        <a href="#contact" class="block hover:text-yellow-500">CONTACT</a>
+        <a href="login.html" class="block hover:text-yellow-500">LOGIN</a>
+        <select
+          class="bg-[#2c2c2c] border border-gray-600 text-white text-sm px-2 py-1 rounded w-full mt-2"
+        >
+          <option value="en">EN</option>
+          <option value="mn">MN</option>
+        </select>
+      </div>
+    </header>
+
+    <div id="home" class="w-full">
+      <!-- Background Image -->
+      <div class="relative">
+        <img
+          src="img/DJI_20240813193714_0038_D.00_01_28_21.Still044 1 (1).png"
+          alt="Flaming Cliffs"
+          class="object-cover z-0 w-full h-64 md:h-auto"
+        />
+        <img
+          src="img/divider.png"
+          alt="Upper Divider"
+          class="absolute left-0 bottom-0 w-full pointer-events-none z-10"
+        />
+        <!-- <div
+          class="absolute top-[55%] left-[2%] transform -translate-y-1/2 md:left-[15%] md:top-1/2 text-white text-center md:text-left px-4 md:-translate-x-0"
+        >
+          <h1
+            class="text-4xl leading-[1.2] md:text-6xl font-semibold tracking-tight"
+          >
+            <span class="block">Explore</span>
+            <span class="block">the Flaming Cliffs</span>
+          </h1>
+          <a href="learn_detail.html" class="mt-2 inline-block">
+            <button
+              class="w-full md:w-auto bg-gradient-to-b text-white font-medium rounded-lg shadow-md px-6 py-2 border border-[#FFE1E1]"
+            >
+              Learn About History
+            </button>
+          </a>
+        </div> -->
+        <div
+          class="absolute top-[23%] left-[23%] transform -translate-x-1/2 -translate-y-1/2 text-white text-center px-4 md:top-1/2 md:left-[15%] md:text-left md:-translate-x-0"
+        >
+          <h1
+            class="text-2xl leading-tight font-semibold tracking-tight md:text-6xl"
+          >
+            <span class="block">Explore</span>
+            <span class="block">the Flaming Cliffs</span>
+          </h1>
+          <a href="learn_detail.html" class="mt-0 inline-block">
+            <button
+              class="bg-transparent text-white border border-white rounded-xl shadow-md px-4 py-1 text-sm md:px-6 md:py-2 md:text-base hover:bg-white hover:text-black transition duration-300"
+            >
+              Learn About History
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <section
+      class="max-w-6xl mx-auto py-6 px-4 grid md:grid-cols-2 gap-10 items-center"
+    >
+      <div class="top-[100%]">
+        <div
+          class="flex items-center gap-4 mb-4 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-1 after:bg-[#6F3F18]"
+        >
+          <div
+            class="bg-[#6C3B1F] w-20 h-20 text-3xl text-white flex items-center justify-center"
+          >
+            01
+          </div>
+
+          <h2 class="text-2xl md:text-3xl font-bold text-[#6F3F18]">
+            The Flaming Cliffs Experience
+          </h2>
+        </div>
+
+        <p class="text-black mb-4 text-lg leading-relaxed text-justify">
+          Nestled in the heart of Mongolia's Gobi Desert, the Flaming Cliffs
+          beckon adventurers from around the globe. Their fiery red hues, carved
+          by time and wind, are a stunning testament to the power of nature.
+          Famous as the cradle of dinosaur discoveries, this breathtaking
+          landscape whispers stories of ancient worlds and invites you to create
+          unforgettable memories.
+        </p>
+        <p class="text-black text-lg leading-relaxed text-justify">
+          From sunrise to sunset, the Flaming Cliffs radiate an otherworldly
+          beauty that captures the imagination. Step into a land of discovery,
+          where history and natural splendor converge in an awe-inspiring
+          experience.
+        </p>
+      </div>
+      <div class="relative w-full h-full">
+        <iframe
+          class="w-full h-64 md:h-96"
+          src="https://www.youtube.com/embed/nw8pJFkGXsk?si=DFW8-aoZbWABPAb1"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </section>
+
+    <!-- Section 02 -->
+    <div class="mt-0 md:mt-32">
+      <section
+        id="gateway"
+        class="max-w-6xl mx-auto py-6 px-4 grid md:grid-cols-2 gap-10 items-center"
+      >
+        <div class="relative w-full h-64 md:h-auto">
+          <!-- Main Image -->
+          <img
+            id="mainImage"
+            src="img/image.jpg"
+            alt="Explorer Vintage"
+            class="w-full h-auto max-h-[300px] sm:max-h-[400px] md:max-h-[500px] rounded shadow-md object-cover"
+          />
+
+          <div
+            class="hidden md:grid grid-cols-5 gap-5 mt-32 w-[210%] h-50 opacity-100 rotate-0"
+          >
+            <img
+              src="img/image.jpg"
+              class="thumb rounded object-cover w-full h-32 cursor-pointer"
+              alt=""
+            />
+            <img
+              src="img/image-1.jpg"
+              class="thumb rounded object-cover w-full h-32 cursor-pointer"
+              alt=""
+            />
+            <img
+              src="img/image-2.jpg"
+              class="thumb rounded object-cover w-full h-32 cursor-pointer"
+              alt=""
+            />
+            <img
+              src="img/image-3.jpg"
+              class="thumb rounded object-cover w-full h-32 cursor-pointer"
+              alt=""
+            />
+            <img
+              src="img/image-4.jpg"
+              class="thumb rounded object-cover w-full h-32 cursor-pointer"
+              alt=""
+            />
+          </div>
+        </div>
+
+        <div class="relative flex flex-col -top-[20%]">
+          <!-- Title section -->
+          <div
+            class="flex items-center justify-end gap-4 mb-4 relative after:content-[''] after:absolute after:bottom-0 after:right-0 after:w-full after:h-1 after:bg-[#6F3F18]"
+          >
+            <h2 class="text-xl md:text-3xl font-bold text-[#6F3F18] text-right">
+              Gateway to Prehistory
+            </h2>
+            <div
+              class="bg-[#6C3B1F] w-20 h-20 text-2xl text-white flex items-center justify-center"
+            >
+              02
+            </div>
+          </div>
+
+          <!-- Paragraphs -->
+          <p class="text-black mb-4 text-lg leading-relaxed text-justify">
+            The Flaming Cliffs gained global fame in the 1920s when
+            paleontologist Roy Chapman Andrews unearthed the first dinosaur eggs
+            here. This discovery redefined our understanding of prehistoric life
+            and placed the Flaming Cliffs firmly on the map of world heritage.
+          </p>
+
+          <p class="text-black mb-4 text-lg leading-relaxed text-justify">
+            Every visitor who steps foot here walks in the footsteps of history,
+            experiencing the thrill of standing where groundbreaking discoveries
+            were made. As you explore the cliffs, you’ll uncover layers of
+            geological and cultural significance that make this place truly
+            unique.
+          </p>
+
+          <!-- Button -->
+          <div class="text-right">
+            <a
+              href="learn_detail.html"
+              class="bg-[#ff7e2c] text-white px-6 py-2 rounded hover:bg-[#e96b15] transition"
+            >
+              Learn more →
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="mt-0 relative">
+      <img
+        src="img/divider-wt.png"
+        alt="Upper Divider"
+        class="absolute left-0 w-full rotate-180 pointer-events-none z-10 filter brightness-0 invert"
+      />
+
+      <section
+        class="w-full h-[20vh] md:h-[70vh] bg-cover bg-center flex items-center justify-center"
+        style="
+          background-image: url('img/0376c438741a5942d64ec757961cf1908f8bd2af.jpg');
+        "
+      >
+        <h1
+          class="absolute top-[15%] left-1/2 transform -translate-x-1/2 text-white font-bold text-xl md:text-6xl leading-tight text-center uppercase tracking-widest"
+        >
+          INFORMATION CENTER
+        </h1>
+      </section>
+      <img
+        src="img/divider.png"
+        alt="Upper Divider"
+        class="absolute left-0 bottom-0 w-full pointer-events-none z-10 brightness-200"
+      />
+    </div>
+
+    <div class="mt-0 md:mt-32">
+      <section class="bg-white py-6 max-w-6xl mx-auto px-4">
+        <!-- Header -->
+        <div
+          class="flex items-center gap-4 mb-4 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-1 after:bg-[#6F3F18]"
+        >
+          <div
+            class="bg-[#6C3B1F] w-20 h-20 text-3xl text-white flex items-center justify-center"
+          >
+            04
+          </div>
+
+          <h2 class="text-2xl md:text-3xl font-bold text-[#6F3F18]">
+            The Flaming Cliffs Information Center
+          </h2>
+        </div>
+
+        <!-- Description -->
+        <p class="text-justify text-black mb-6 text-lg leading-relaxed">
+          The Flaming Cliffs Information Center serves as the gateway to your
+          journey. Here, you'll find everything you need to deepen your
+          understanding of this remarkable destination:
+        </p>
+
+        <!-- Bullet List & Main Image -->
+        <div class="grid md:grid-cols-2 gap-10 mb-10 items-center">
+          <!-- Bullet points -->
+          <ul
+            class="list-disc list-inside text-black text-lg leading-relaxed space-y-2"
+          >
+            <li>
+              <strong>Documentary:</strong> Start with an
+              immersive film that brings the story of the Flaming Cliffs to
+              life.
+            </li>
+
+            <li>
+              <strong>Coffee Shop:</strong> Relax and
+              refresh with a variety of local and international beverages.
+            </li>
+            <li>
+              <strong>Dining Area:</strong> Savor
+              delicious meals prepared with care, offering a taste of Mongolia.
+            </li>
+            <li>
+              <strong >Souvenir Shop:</strong> Take a piece
+              of the Flaming Cliffs home with beautifully crafted local goods.
+            </li>
+
+            <li>
+              <strong>Exhibition Hall:</strong> Explore a wealth of information
+              through engaging displays, showcasing the region’s history,
+              ecology, and preservation efforts.
+            </li>
+          </ul>
+
+          <!-- Main image -->
+          <div class="relative w-full h-64 md:h-auto">
+            <img
+              id="mainImage2"
+              src="img/we/information center 1.jpg"
+              alt="Flaming Cliffs Info Center"
+              class="w-full h-full rounded shadow-md object-cover"
+            />
+          </div>
+
+          
+        </div>
+
+        <!-- Bottom image grid -->
+        <div class=" grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 hidden">
+          <img
+            src="img/we/information center 1.jpg"
+            class="thumb2 rounded object-cover w-full h-32 cursor-pointer"
+            alt="Image 1"
+          />
+          <img
+            src="img/we/information center 2.jpg"
+            class="thumb2 rounded object-cover w-full h-32 cursor-pointer"
+            alt="Image 2"
+          />
+          <img
+            src="img/we/information center 3.jpg"
+            class="thumb2 rounded object-cover w-full h-32 cursor-pointer"
+            alt="Image 3"
+          />
+          <img
+            src="img/we/information center 4.jpg"
+            class="thumb2 rounded object-cover w-full h-32 cursor-pointer"
+            alt="Image 4"
+          />
+          <img
+            src="img/we/information center 5.jpg"
+            class="thumb2 rounded object-cover w-full h-32 cursor-pointer"
+            alt="Image 5"
+          />
+        </div>
+
+       
+      </section>
+    </div>
+
+    <div class="mt-0">
+      <section id="entry" class="bg-white py-6 max-w-6xl mx-auto px-4">
+        <!-- Header -->
+        <div class="flex items-center mb-4">
+          <h2 class="text-2xl md:text-3xl font-bold text-[#6C3B1F] mr-4">
+            Entry Fees & Preservation
+          </h2>
+
+          <div class="flex-grow h-1 bg-[#6C3B1F]"></div>
+        </div>
+
+        <!-- Description -->
+        <p class="text-justify text-black mb-6 text-lg leading-relaxed">
+          Visitors to the Flaming Cliffs contribute directly to preserving this
+          historic site. Entry fees ensure ongoing research, conservation
+          efforts, and public education:
+        </p>
+
+        <!-- Bullet List & Main Image -->
+        <div class="grid md:grid-cols-2 gap-10 mb-5 items-center">
+          <!-- Bullet points -->
+          <ul
+            class="list-disc list-inside text-black text-lg leading-relaxed space-y-2"
+          >
+            <li>
+              <strong class="font-semibold">Domestic Visitors:</strong> 3,000
+              MNT
+            </li>
+
+            <li><strong class="font-semibold">Tourists:</strong> 10,000 MNT</li>
+            <p class="text-justify text-black my-4 text-lg leading-relaxed">
+              Your visit also directly contributes to the preservation and
+              enhancement of this iconic site. Every ticket sold supports
+              essential projects such as:
+            </p>
+            <li>
+              <strong class="font-semibold" >Stair and pathway renovations</strong>
+            </li>
+            <li>
+              <strong class="font-semibold">Regular cleaning and maintenance</strong>
+            </li>
+            <li>
+              <strong class="font-semibold"
+                >Eco-friendly fencing that accommodates herders and
+                livestock</strong
+              >
+            </li>
+            <li>
+              <strong class="font-semibold">Planting trees to combat desertification</strong>
+            </li>
+
+            <p class="text-justify text-black mt-1 text-lg leading-relaxed">
+              Meet the dedicated team working tirelessly to protect and promote
+              the Flaming Cliffs. Their commitment ensures this destination
+              remains pristine and accessible for generations to come.
+            </p>
+          </ul>
+
+          <div class="grid grid-cols-2 gap-4">
+            <img
+              src="img/Entry Fees & Preservation (1).jpg"
+              alt="Viewing platform"
+              class="object-cover w-full aspect-[16/9]"
+            />
+            <img
+              src="img/Entry Fees & Preservation (4).jpg"
+              alt="Dinosaur statue"
+              class="object-cover w-full aspect-[16/9]"
+            />
+            <img
+              src="img/Entry Fees & Preservation (2).jpg"
+              alt="Fencing and livestock"
+              class="object-cover w-full aspect-[16/9]"
+            />
+            <img
+              src="img/Entry Fees & Preservation (3).jpg"
+              alt="Flaming cliffs terrain"
+              class="object-cover w-full aspect-[16/9]"
+            />
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="mt-0">
+      <div class="py-6 px-4">
+        <div class="max-w-6xl mx-auto relative">
+          <!-- Orange Circle -->
+          <div
+            class="absolute inset-0 flex justify-center items-center pointer-events-none"
+          >
+            <div
+              class="hidden md:block w-[250px] h-[250px] md:w-[400px] md:h-[400px] border-[6px] border-orange-400 rounded-full"
+            ></div>
+
+          </div>
+
+          <!-- Visitor Cards -->
+          <div
+            class="relative grid grid-cols-1 sm:grid-cols-2 gap-4 justify-items-center"
+          >
+            <!-- Visitors Today -->
+            <div
+              class="bg-white rounded-lg shadow-lg flex items-center gap-4 p-4 max-w-sm w-full"
+            >
+              <img
+                src="img/coming soon.png"
+                alt="Visitors Today"
+                class="w-[20%] h-auto object-contain"
+              />
+              <div class="flex flex-col items-start text-left">
+                <p class="text-black font-semibold text-3xl">Visitors Today</p>
+                <p class="text-black font-semibold text-4xl">50</p>
+              </div>
+            </div>
+
+            <!-- Visitors This Week -->
+            <div
+              class="bg-white rounded-lg shadow-lg flex items-center gap-4 p-4 max-w-sm w-full"
+            >
+              <img
+                src="img/Frame 1686561334.png"
+                alt="Visitors This Week"
+                class="w-[20%] h-auto object-contain"
+              />
+              <div class="flex flex-col items-start text-left">
+                <p class="text-black font-semibold text-3xl">
+                  Visitors This Week
+                </p>
+                <p class="text-black font-semibold text-4xl">800</p>
+              </div>
+            </div>
+
+            <!-- Visitors This Month -->
+            <div
+              class="bg-white rounded-lg shadow-lg flex items-center gap-4 p-4 max-w-sm w-full"
+            >
+              <img
+                src="img/Component_66-removebg-preview.png"
+                alt="Visitors This Month"
+                class="w-[20%] h-auto object-contain"
+              />
+              <div class="flex flex-col items-start text-left">
+                <p class="text-black font-semibold text-3xl">
+                  Visitors This Month
+                </p>
+                <p class="text-black font-semibold text-4xl">5000</p>
+              </div>
+            </div>
+
+            <!-- Visitors This Year -->
+            <div
+              class="bg-white rounded-lg shadow-lg flex items-center gap-4 p-4 max-w-sm w-full"
+            >
+              <img
+                src="img/Frame 1686561334 (1).png"
+                alt="Visitors This Year"
+                class="w-[20%] h-auto object-contain"
+              />
+
+              <div class="flex flex-col items-start text-left">
+                <p class="text-black font-semibold text-3xl">
+                  Visitors This Year
+                </p>
+                <p class="text-black font-semibold text-4xl">11500</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Button -->
+      <div class="mt-0 text-center z-10 relative">
+        <a href="status.html">
+          <button
+            class="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg shadow"
+          >
+            SEE MORE LIVE STATS
+          </button>
+        </a>
+      </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto py-6 mt-0 md:mt-32 px-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
+        <!-- Left: Image -->
+        <div class="flex justify-center">
+          <img
+            src="img/dino map.png"
+            alt="Dino holding map"
+            class="w-full opacity-100"
+          />
+        </div>
+
+        <!-- Right: Info Sections -->
+        <div class="space-y-12">
+          <!-- Getting There -->
+          <div>
+            <div class="flex items-center space-x-4">
+              <h2 class="text-2xl md:text-3xl font-bold text-[#5D3A1A]">
+                Getting There
+              </h2>
+
+              <div class="flex-1 border-t-4 border-[#5D3A1A]"></div>
+            </div>
+
+            <p class="text-justify text-black mt-4 text-lg leading-relaxed">
+              Located in the Gobi Desert, the Flaming Cliffs are about 120
+              kilometers from Dalanzadgad. Options to reach the site include:
+            </p>
+
+            <ul
+              class="text-black list-disc list-inside space-y-2 mt-4 text-lg leading-relaxed"
+            >
+              <li>
+                <strong>Self-Drive:</strong> A 4×4 vehicle is recommended, but
+                locals often use standard vehicles depending on rainfall.
+              </li>
+              <li>
+                <strong>Guided Tours:</strong> Day trips or multi-day
+                expeditions.
+              </li>
+              <li>
+                <strong>Flights:</strong> Domestic flights to Dalanzadgad,
+                followed by a drive to the site.
+              </li>
+            </ul>
+          </div>
+
+          <!-- Best Time To Visit -->
+          <div>
+            <div class="flex items-center w-full gap-4">
+              <div class="flex-1 border-t-4 border-[#5D3A1A]"></div>
+              <h2
+                class="text-2xl md:text-3xl font-bold text-[#5D3A1A] text-right"
+              >
+                Best Time To Visit
+              </h2>
+            </div>
+
+            <p class="text-justify text-black mt-4 text-lg leading-relaxed">
+              The ideal months for visiting are May through October, with mild
+              weather and accessible roads.
+            </p>
+          </div>
+
+          <!-- Visitor Guidelines -->
+          <div>
+            <div class="flex items-center space-x-4">
+              <h2 class="text-2xl md:text-3xl font-bold text-[#5D3A1A]">
+                Visitor Guidelines
+              </h2>
+
+              <div class="flex-1 border-t-4 border-[#5D3A1A]"></div>
+            </div>
+            <ul
+              class="mt-4 text-black list-disc list-inside space-y-2 text-lg leading-relaxed"
+            >
+              <li>
+                <strong
+                  >Stay on designated paths to avoid disturbing fossils.</strong
+                >
+              </li>
+              <li>
+                <strong>Fossil collection is strictly prohibited.</strong>
+              </li>
+              <li>
+                <strong
+                  >Wear sturdy shoes, sun protection, and carry water.</strong
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-0 relative">
+      <img
+        src="img/divider-wt.png"
+        alt="Upper Divider"
+        class="absolute left-0 w-full rotate-180 pointer-events-none z-10 filter brightness-0 invert"
+      />
+
+      <section
+        class="w-full h-[20vh] md:h-[70vh] bg-cover bg-center flex items-center justify-center"
+        style="
+          background-image: url('img/uncover legendary stories desktop.jpg');
+        "
+      >
+        <h1
+          class="text-white text-xl md:text-6xl leading-tight font-bold text-center uppercase tracking-widest"
+        >
+          UNCOVER LEGENDARY STORIES
+        </h1>
+      </section>
+      <img
+        src="img/divider.png"
+        alt="Upper Divider"
+        class="absolute left-0 bottom-0 w-full pointer-events-none z-10 brightness-200"
+      />
+    </div>
+
+    <div class="max-w-6xl mx-auto py-6 mt-2">
+      <div class="flex items-center justify-center my-8">
+        <div class="flex-grow border-t-4 border-[#6C3B1F] mx-4"></div>
+        <h2
+          class="text-[#6C3B1F] font-bold text-[24px] leading-[28px] sm:text-[32px] sm:leading-[32px] md:text-[40px] md:leading-[40px] capitalize text-left whitespace-normal font-[Inter]"
+        >
+          Nearby Destinations
+        </h2>
+
+        <div class="flex-grow border-t-4 border-[#6C3B1F] mx-4"></div>
+      </div>
+      <div class="max-w-6xl mx-auto py-6">
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+        >
+          <!-- Cards 1-12 -->
+          <!-- Та энд зураг болон текстийг өөрчилж болно -->
+
+          <!-- Card 1 -->
+          <div
+            class="relative overflow-hidden rounded-[17.27px] shadow-[0px_4.32px_17.27px_#9E9E9E40] p-[9.75px] w-full max-w-[347.05px] h-[203.75px] mx-auto"
+          >
+            <img
+              src="img/Moltsog els.jpg"
+              alt="Moltsog Els"
+              class="w-full h-full object-cover rounded-[13px]"
+            />
+            <div
+              class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent px-3 py-2"
+            >
+              <p
+                class="relative -top-[12px] left-[10px] text-white text-[18px] font-semibold leading-[100%] font-['SF_Pro_Display']"
+              >
+                Moltog Els
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div
+            class="relative overflow-hidden rounded-[17.27px] shadow-[0px_4.32px_17.27px_#9E9E9E40] p-[9.75px] w-full max-w-[347.05px] h-[203.75px] mx-auto"
+          >
+            <img
+              src="img/tugrugiin shiree.jpg"
+              alt="Moltsog Els"
+              class="w-full h-full object-cover rounded-[13px]"
+            />
+            <div
+              class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent px-3 py-2"
+            >
+              <p
+                class="relative -top-[12px] left-[10px] text-white text-[18px] font-semibold leading-[100%] font-['SF_Pro_Display']"
+              >
+                Tugrugiin Shiree
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div
+            class="relative overflow-hidden rounded-[17.27px] shadow-[0px_4.32px_17.27px_#9E9E9E40] p-[9.75px] w-full max-w-[347.05px] h-[203.75px] mx-auto"
+          >
+            <img
+              src="img/KhongoriinEls.jpg"
+              alt="Moltsog Els"
+              class="w-full h-full object-cover rounded-[13px]"
+            />
+            <div
+              class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent px-3 py-2"
+            >
+              <p
+                class="relative -top-[12px] left-[10px] text-white text-[18px] font-semibold leading-[100%] font-['SF_Pro_Display']"
+              >
+                Khongoryn Els
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 4 -->
+          <div
+            class="relative overflow-hidden rounded-[17.27px] shadow-[0px_4.32px_17.27px_#9E9E9E40] p-[9.75px] w-full max-w-[347.05px] h-[203.75px] mx-auto"
+          >
+            <img
+              src="img/YolynAm.jpg"
+              alt="Moltsog Els"
+              class="w-full h-full object-cover rounded-[13px]"
+            />
+            <div
+              class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent px-3 py-2"
+            >
+              <p
+                class="relative -top-[12px] left-[10px] text-white text-[18px] font-semibold leading-[100%] font-['SF_Pro_Display']"
+              >
+                Yolyn Am
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div
+            class="relative overflow-hidden rounded-[17.27px] shadow-[0px_4.32px_17.27px_#9E9E9E40] p-[9.75px] w-full max-w-[347.05px] h-[203.75px] mx-auto"
+          >
+            <img
+              src="img/PetroglyphsofKhavtsgait.jpg"
+              alt="Moltsog Els"
+              class="w-full h-full object-cover rounded-[13px]"
+            />
+            <div
+              class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent px-3 py-2"
+            >
+              <p
+                class="relative -top-[12px] left-[8px] text-white text-[18px] font-semibold leading-[100%] font-['SF_Pro_Display']"
+              >
+                Petroglyphs of Khavtsgait
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 6 -->
+          <div
+            class="relative overflow-hidden rounded-[17.27px] shadow-[0px_4.32px_17.27px_#9E9E9E40] p-[9.75px] w-full max-w-[347.05px] h-[203.75px] mx-auto"
+          >
+            <img
+              src="img/TsagaanSuvarga.jpg"
+              alt="Moltsog Els"
+              class="w-full h-full object-cover rounded-[13px]"
+            />
+            <div
+              class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent px-3 py-2"
+            >
+              <p
+                class="relative -top-[12px] left-[10px] text-white text-[18px] font-semibold leading-[100%] font-['SF_Pro_Display']"
+              >
+                Tsagaan Suvraga
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 7 -->
+          <div
+            class="relative overflow-hidden rounded-[17.27px] shadow-[0px_4.32px_17.27px_#9E9E9E40] p-[9.75px] w-full max-w-[347.05px] h-[203.75px] mx-auto"
+          >
+            <img
+              src="img/OngiMonastery-1.jpg"
+              alt="Moltsog Els"
+              class="w-full h-full object-cover rounded-[13px]"
+            />
+            <div
+              class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent px-3 py-2"
+            >
+              <p
+                class="relative -top-[12px] left-[10px] text-white text-[18px] font-semibold leading-[100%] font-['SF_Pro_Display']"
+              >
+                Ongi Monastery
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 8 -->
+          <div
+            class="relative overflow-hidden rounded-[17.27px] shadow-[0px_4.32px_17.27px_#9E9E9E40] p-[9.75px] w-full max-w-[347.05px] h-[203.75px] mx-auto"
+          >
+            <img
+              src="img/BagaGazriinChuluu.jpg"
+              alt="Moltsog Els"
+              class="w-full h-full object-cover rounded-[13px]"
+            />
+            <div
+              class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent px-3 py-2"
+            >
+              <p
+                class="relative -top-[12px] left-[10px] text-white text-[18px] font-semibold leading-[100%] font-['SF_Pro_Display']"
+              >
+                Baga Gazariin Chuluu
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 9 -->
+          <div
+            class="relative overflow-hidden rounded-[17.27px] shadow-[0px_4.32px_17.27px_#9E9E9E40] p-[9.75px] w-full max-w-[347.05px] h-[203.75px] mx-auto"
+          >
+            <img
+              src="img/MukharShivertiinAm.jpg"
+              alt="Moltsog Els"
+              class="w-full h-full object-cover rounded-[13px]"
+            />
+            <div
+              class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent px-3 py-2"
+            >
+              <p
+                class="relative -top-[12px] left-[10px] text-white text-[18px] font-semibold leading-[100%] font-['SF_Pro_Display']"
+              >
+                Mukhart Shivert's Am
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 10 -->
+          <div
+            class="relative overflow-hidden rounded-[17.27px] shadow-[0px_4.32px_17.27px_#9E9E9E40] p-[9.75px] w-full max-w-[347.05px] h-[203.75px] mx-auto"
+          >
+            <img
+              src="img/KhermenTsav.jpg"
+              alt="Moltsog Els"
+              class="w-full h-full object-cover rounded-[13px]"
+            />
+            <div
+              class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent px-3 py-2"
+            >
+              <p
+                class="relative -top-[12px] left-[10px] text-white text-[18px] font-semibold leading-[100%] font-['SF_Pro_Display']"
+              >
+                Khermen Tsaw
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 11 -->
+          <div
+            class="relative overflow-hidden rounded-[17.27px] shadow-[0px_4.32px_17.27px_#9E9E9E40] p-[9.75px] w-full max-w-[347.05px] h-[203.75px] mx-auto"
+          >
+            <img
+              src="img/KhaniinKhets.jpg"
+              alt="Moltsog Els"
+              class="w-full h-full object-cover rounded-[13px]"
+            />
+            <div
+              class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent px-3 py-2"
+            >
+              <p
+                class="relative -top-[12px] left-[10px] text-white text-[18px] font-semibold leading-[100%] font-['SF_Pro_Display']"
+              >
+                Khanan Khets
+              </p>
+            </div>
+          </div>
+
+          <!-- Card 12 -->
+          <div
+            class="relative overflow-hidden rounded-[17.27px] shadow-[0px_4.32px_17.27px_#9E9E9E40] p-[9.75px] w-full max-w-[347.05px] h-[203.75px] mx-auto"
+          >
+            <img
+              src="img/Monastery of Bulgan.jpg"
+              alt="Moltsog Els"
+              class="w-full h-full object-cover rounded-[13px]"
+            />
+            <div
+              class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black/70 to-transparent px-3 py-2"
+            >
+              <p
+                class="relative -top-[12px] left-[10px] text-white text-[18px] font-semibold leading-[100%] font-['SF_Pro_Display']"
+              >
+                Monastery
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto py-6">
+      <div class="flex items-center justify-center my-8">
+        <div class="flex-grow border-b-4 border-[#6C3B1F] mx-4"></div>
+        <h2
+          class="text-[#6C3B1F] font-bold text-[24px] leading-[28px] sm:text-[32px] sm:leading-[32px] md:text-[40px] md:leading-[40px] capitalize text-left whitespace-normal font-[Inter]"
+        >
+          Nearby Accommodation
+        </h2>
+
+        <div class="flex-grow border-b-4 border-[#6C3B1F] mx-4"></div>
+      </div>
+
+      <section class="max-w-6xl mx-auto py-6 px-4">
+        <h2
+          class="text-[20px] leading-[26px] font-semibold text-left text-[#000000] mb-6 font-['SF_Pro_Display']"
+        >
+          Local Ger Camps
+        </h2>
+
+        <!-- Swiper Container -->
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            <!-- Slide 1 -->
+            <div class="swiper-slide flex justify-center">
+              <div
+                class="w-[280px] h-[240px] p-[10px] rounded-[17.71px] shadow-[0px_4.43px_17.71px_0px_rgba(158,158,158,0.25)] bg-white"
+              >
+                <img
+                  src="img/Dino's tourist camp.jpg"
+                  alt="Dino’s Guest House"
+                  class="w-full h-[186.64px] rounded-[8.86px] object-cover"
+                />
+                <p class="text-[18px] mt-2 font-['SF_Pro_Display']">
+                  Dino’s Guest House
+                </p>
+              </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="swiper-slide flex justify-center">
+              <div
+                class="w-[280px] h-[240px] p-[10px] rounded-[17.71px] shadow-[0px_4.43px_17.71px_0px_rgba(158,158,158,0.25)] bg-white"
+              >
+                <img
+                  src="img/GobiTour.jpg"
+                  alt="Gobi Tour"
+                  class="w-full h-[186.64px] rounded-[8.86px] object-cover"
+                />
+                <p class="text-[18px] mt-2 font-['SF_Pro_Display']">
+                  Gobi Tour Tourist Camp
+                </p>
+              </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="swiper-slide flex justify-center">
+              <div
+                class="w-[280px] h-[240px] p-[10px] rounded-[17.71px] shadow-[0px_4.43px_17.71px_0px_rgba(158,158,158,0.25)] bg-white"
+              >
+                <img
+                  src="img/GobiOasis.jpg"
+                  alt="Gobi Oasis"
+                  class="w-full h-[186.64px] rounded-[8.86px] object-cover"
+                />
+                <p class="text-[18px] mt-2 font-['SF_Pro_Display']">
+                  Gobi Oasis 2 Tourist Camp
+                </p>
+              </div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="swiper-slide flex justify-center">
+              <div
+                class="w-[280px] h-[240px] p-[10px] rounded-[17.71px] shadow-[0px_4.43px_17.71px_0px_rgba(158,158,158,0.25)] bg-white"
+              >
+                <img
+                  src="img/Mongol Gobi tourist camp.jpg"
+                  alt="Mongol Gobi"
+                  class="w-full h-[186.64px] rounded-[8.86px] object-cover"
+                />
+                <p class="text-[18px] mt-2 font-['SF_Pro_Display']">
+                  Mongol Gobi Tourist Camp
+                </p>
+              </div>
+            </div>
+
+            <div class="swiper-slide flex justify-center">
+              <div
+                class="w-[280px] h-[240px] p-[10px] rounded-[17.71px] shadow-[0px_4.43px_17.71px_0px_rgba(158,158,158,0.25)] bg-white"
+              >
+                <img
+                  src="img/NomadicFamily.jpg"
+                  alt="Mongol Gobi"
+                  class="w-full h-[186.64px] rounded-[8.86px] object-cover"
+                />
+                <p class="text-[18px] mt-2 font-['SF_Pro_Display']">
+                  Nomadic Family
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Navigation Arrows -->
+          <div class="swiper-button-next text-white"></div>
+        </div>
+      </section>
+
+      <section class="max-w-6xl mx-auto py-6 px-4">
+        <h2
+          class="text-[20px] leading-[26px] font-semibold text-left text-[#000000] mb-6 font-['SF_Pro_Display']"
+        >
+          Dalanzadgad
+        </h2>
+
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+        >
+          <!-- Card -->
+          <div
+            class="w-[280px] h-[240.64px] p-[10px] rounded-[17.71px] shadow-[0px_4.43px_17.71px_0px_rgba(158,158,158,0.25)] bg-white mx-auto"
+          >
+            <div class="rounded-xl shadow-md overflow-hidden bg-white">
+              <img
+                src="img/Dalanzadgad/GobiOasis.jpg"
+                alt="Dino’s Guest House"
+                class="w-[330.73px] h-[186.64px] rounded-[8.86px] object-cover"
+              />
+              <div class="p-2">
+                <p
+                  class="text-[18px] leading-[100%] text-left font-['SF_Pro_Display']"
+                >
+                  Gobi Oasis 1 Tourist Camp
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="w-[280px] h-[240.64px] p-[10px] rounded-[17.71px] shadow-[0px_4.43px_17.71px_0px_rgba(158,158,158,0.25)] bg-white mx-auto"
+          >
+            <div class="rounded-xl shadow-md overflow-hidden bg-white">
+              <img
+                src="img/Dalanzadgad/Saikhanhotel.jpg"
+                alt="Dino’s Guest House"
+                class="w-[330.73px] h-[186.64px] rounded-[8.86px] object-cover"
+              />
+              <div class="p-2">
+                <p
+                  class="text-[18px] leading-[100%] text-left font-['SF_Pro_Display']"
+                >
+                  Saikhan Hotel
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="w-[280px] h-[240.64px] p-[10px] rounded-[17.71px] shadow-[0px_4.43px_17.71px_0px_rgba(158,158,158,0.25)] bg-white mx-auto"
+          >
+            <div class="rounded-xl shadow-md overflow-hidden bg-white">
+              <img
+                src="img/Dalanzadgad/CozyDZ.jpg"
+                alt="Dino’s Guest House"
+                class="w-[330.73px] h-[186.64px] rounded-[8.86px] object-cover"
+              />
+              <div class="p-2">
+                <p
+                  class="text-[18px] leading-[100%] text-left font-['SF_Pro_Display']"
+                >
+                  Cozy DZ Tourist Camp
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="max-w-6xl mx-auto py-6 px-4">
+        <h2
+          class="text-[20px] leading-[26px] font-semibold text-left text-[#000000] mb-6 font-['SF_Pro_Display']"
+        >
+          Khongor Sand Dunes
+        </h2>
+
+        <!-- Swiper Container -->
+        <div class="swiper mySwiper2">
+          <div class="swiper-wrapper">
+            <!-- Slide 1 -->
+            <div class="swiper-slide flex justify-center">
+              <div
+                class="w-[280px] h-[240px] p-[10px] rounded-[17.71px] shadow-[0px_4.43px_17.71px_0px_rgba(158,158,158,0.25)] bg-white"
+              >
+                <img
+                  src="img/Khongor sand dunes/GobiErdene.jpg"
+                  alt="Dino’s Guest House"
+                  class="w-full h-[186.64px] rounded-[8.86px] object-cover"
+                />
+                <p class="text-[18px] mt-2 font-['SF_Pro_Display']">
+                  Gobi Erdene Tourist Camp
+                </p>
+              </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="swiper-slide flex justify-center">
+              <div
+                class="w-[280px] h-[240px] p-[10px] rounded-[17.71px] shadow-[0px_4.43px_17.71px_0px_rgba(158,158,158,0.25)] bg-white"
+              >
+                <img
+                  src="img/Khongor sand dunes/GobiDiscovery.jpg"
+                  alt="Gobi Tour"
+                  class="w-full h-[186.64px] rounded-[8.86px] object-cover"
+                />
+                <p class="text-[18px] mt-2 font-['SF_Pro_Display']">
+                  Gobi Discovery Tourist Camp
+                </p>
+              </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="swiper-slide flex justify-center">
+              <div
+                class="w-[280px] h-[240px] p-[10px] rounded-[17.71px] shadow-[0px_4.43px_17.71px_0px_rgba(158,158,158,0.25)] bg-white"
+              >
+                <img
+                  src="img/Khongor sand dunes/Gobiin anar.jpg"
+                  alt="Gobi Oasis"
+                  class="w-full h-[186.64px] rounded-[8.86px] object-cover"
+                />
+                <p class="text-[18px] mt-2 font-['SF_Pro_Display']">
+                  Gobiin Anar Tourist Camp
+                </p>
+              </div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="swiper-slide flex justify-center">
+              <div
+                class="w-[280px] h-[240px] p-[10px] rounded-[17.71px] shadow-[0px_4.43px_17.71px_0px_rgba(158,158,158,0.25)] bg-white"
+              >
+                <img
+                  src="img/Khongor sand dunes/Buren Erdene.jpg"
+                  alt="Mongol Gobi"
+                  class="w-full h-[186.64px] rounded-[8.86px] object-cover"
+                />
+                <p class="text-[18px] mt-2 font-['SF_Pro_Display']">
+                  Buren Tourist Camp
+                </p>
+              </div>
+            </div>
+
+            <div class="swiper-slide flex justify-center">
+              <div
+                class="w-[280px] h-[240px] p-[10px] rounded-[17.71px] shadow-[0px_4.43px_17.71px_0px_rgba(158,158,158,0.25)] bg-white"
+              >
+                <img
+                  src="img/Khongor sand dunes/GobiDiscovery.jpg"
+                  alt="Gobi Tour"
+                  class="w-full h-[186.64px] rounded-[8.86px] object-cover"
+                />
+                <p class="text-[18px] mt-2 font-['SF_Pro_Display']">
+                  Gobi Discovery Tourist Camp
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Navigation Arrows -->
+          <div class="swiper-button-next text-white"></div>
+        </div>
+      </section>
+
+      <section class="max-w-6xl mx-auto py-6 px-4">
+        <h2
+          class="text-[20px] leading-[26px] font-semibold text-left text-[#000000] mb-6 font-['SF_Pro_Display']"
+        >
+          Yolyn Am
+        </h2>
+
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+        >
+          <!-- Card -->
+          <div
+            class="w-[280px] h-[240.64px] p-[10px] rounded-[17.71px] shadow-[0px_4.43px_17.71px_0px_rgba(158,158,158,0.25)] bg-white mx-auto"
+          >
+            <div class="rounded-xl shadow-md overflow-hidden bg-white">
+              <img
+                src="img/yolyn am/Dungenee tourist camp.jpg"
+                alt="Dino’s Guest House"
+                class="w-[330.73px] h-[186.64px] rounded-[8.86px] object-cover"
+              />
+              <div class="p-2">
+                <p
+                  class="text-[18px] leading-[100%] text-left font-['SF_Pro_Display']"
+                >
+                  Dungenee Tourist Camp
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="w-[280px] h-[240.64px] p-[10px] rounded-[17.71px] shadow-[0px_4.43px_17.71px_0px_rgba(158,158,158,0.25)] bg-white mx-auto"
+          >
+            <div class="rounded-xl shadow-md overflow-hidden bg-white">
+              <img
+                src="img/yolyn am/Khanbogd.jpg"
+                alt="Dino’s Guest House"
+                class="w-[330.73px] h-[186.64px] rounded-[8.86px] object-cover"
+              />
+              <div class="p-2">
+                <p
+                  class="text-[18px] leading-[100%] text-left font-['SF_Pro_Display']"
+                >
+                  Khanbogd Tourist Camp
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="w-[280px] h-[240.64px] p-[10px] rounded-[17.71px] shadow-[0px_4.43px_17.71px_0px_rgba(158,158,158,0.25)] bg-white mx-auto"
+          >
+            <div class="rounded-xl shadow-md overflow-hidden bg-white">
+              <img
+                src="img/yolyn am/Jinjig Noamdic family.jpg"
+                alt="Dino’s Guest House"
+                class="w-[330.73px] h-[186.64px] rounded-[8.86px] object-cover"
+              />
+              <div class="p-2">
+                <p
+                  class="text-[18px] leading-[100%] text-left font-['SF_Pro_Display']"
+                >
+                  Jinjig Nomadic Family
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="mt-0 relative">
+      <img
+        src="img/divider-wt.png"
+        alt="Upper Divider"
+        class="absolute left-0 w-full rotate-180 pointer-events-none z-10 filter brightness-0 invert"
+      />
+
+      <section
+        class="w-full h-[20vh] md:h-[70vh] bg-cover bg-center flex items-center justify-center"
+        style="
+          background-image: url('img/photo & video gallery top desktop.jpg');
+        "
+      >
+        <h1
+          class="text-white text-xl md:text-6xl leading-tight font-semibold text-center uppercase tracking-widest"
+        >
+          PHOTO & VIDEO <br />GALLERY
+        </h1>
+      </section>
+      <img
+        src="img/divider.png"
+        alt="Upper Divider"
+        class="absolute left-0 bottom-0 w-full pointer-events-none z-10 brightness-200"
+      />
+    </div>
+
+    <div class="mt-0">
+      <div id="gallery" class="max-w-6xl mx-auto py-6 text-center px-4">
+        <!-- Intro Text -->
+        <p class="text-lg leading-relaxed text-center text-black mb-10">
+          The Flaming Cliffs are more than just a historical site—they're a
+          visual wonder. Explore our gallery to uncover the unique aspects of
+          this iconic location. From breathtaking drone footage and serene
+          sunsets to snapshots of the camel caravan and souvenir shop, there's
+          something for everyone to discover. Click below to dive into the full
+          gallery and immerse yourself in the beauty of the Flaming Cliffs.
+        </p>
+
+        <!-- Photos Section -->
+        <div class="text-left mb-6">
+          <h2
+            class="text-2xl font-semibold text-black text-left capitalize mb-4"
+          >
+            Photos
+          </h2>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <!-- Flaming Cliffs -->
+            <a href="photo_gallery.html">
+              <div class="relative aspect-video">
+                <img
+                  src="img/Photo & video gallery/Flaming Cliffs Thumb.jpg"
+                  alt="Flaming Cliffs"
+                  class="rounded-md object-cover w-full h-full"
+                />
+                <div
+                  class="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white text-lg font-semibold px-4 py-2"
+                >
+                  Flaming Cliffs
+                </div>
+              </div>
+            </a>
+            <!-- Camel Caravan -->
+            <a href="photo_gallery.html">
+              <div class="relative aspect-video">
+                <img
+                  src="img/Photo & video gallery/Camel Caravan Thumb.jpg"
+                  alt="Camel Caravan"
+                  class="rounded-md object-cover w-full h-full"
+                />
+                <div
+                  class="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white text-lg font-semibold px-4 py-2"
+                >
+                  Camel Caravan
+                </div>
+              </div>
+            </a>
+            <!-- Souvenir Shop -->
+            <a href="photo_gallery.html">
+              <div class="relative aspect-video">
+                <img
+                  src="img/Photo & video gallery/Souviner shop thumb.jpg"
+                  alt="Souvenir shop"
+                  class="rounded-md object-cover w-full h-full"
+                />
+                <div
+                  class="absolute bottom-0 left-0 w-full bg-black bg-opacity-60 text-white text-lg font-semibold px-4 py-2"
+                >
+                  Souvenir shop
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Videos Section -->
+        <div class="text-left mt-0">
+          <h2
+            class="text-2xl font-semibold text-black text-left capitalize mb-4"
+          >
+            Videos
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <!-- Video 1 -->
+            <div class="relative aspect-video">
+              <iframe
+                class="w-full h-full"
+                src="https://www.youtube.com/embed/ZptQeVJ5qZM?si=0Zmj7nqP4PEzcDM_"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+
+            <!-- Video 2 -->
+            <div class="relative aspect-video">
+              <iframe
+                class="w-full h-full"
+                src="https://www.youtube.com/embed/LQ9jJ-l_ryE?si=QNf_V2vdaFS5NVGN"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <!-- Video 3 -->
+            <div class="relative aspect-video">
+              <iframe
+                class="w-full h-full"
+                src="https://www.youtube.com/embed/LWYDZuAbYGk?si=c1agOLf72Ms7EIoH"
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section id="contact" class="max-w-6xl mx-auto py-6 px-4">
+      <!-- Header -->
+      <div class="flex items-center mb-4">
+        <h2 class="text-3xl md:text-4xl font-bold text-[#5D3A1A] mr-4">
+          Contact Us & FAQs
+        </h2>
+
+        <div class="flex-grow h-1 bg-[#6C3B1F]"></div>
+      </div>
+
+      <!-- Paragraph -->
+      <p class="text-lg leading-relaxed text-black">
+        The Flaming Cliffs administration team is here to assist you in every
+        way possible. Whether you have questions about your visit or require
+        further guidance, don’t hesitate to reach out. Our dedicated nature
+        rangers are passionate about preserving the beauty and history of this
+        iconic site. Feel free to contact us at:
+      </p>
+    </section>
+
+    <div
+      class="flex flex-wrap justify-center items-center gap-8 w-full mx-auto py-6 px-4"
+    >
+      <!-- Phone -->
+      <div class="flex flex-col items-center text-center">
+        <img src="img/phone number icon.png" class="w-16 h-16 mb-2" />
+        <p class="text-lg font-semibold text-black">Phone Number</p>
+        <p class="text-lg font-medium text-black mt-1">+976 8944 1212</p>
+      </div>
+
+      <!-- Email -->
+      <div class="flex flex-col items-center text-center">
+        <img src="img/Email icon.png" class="w-16 h-16 mb-2" />
+        <p class="text-lg font-semibold text-black">Email Address</p>
+        <p class="text-lg font-medium text-black mt-1">info@flamingcliffs.mn</p>
+      </div>
+
+      <!-- Facebook -->
+      <div class="flex flex-col items-center text-center">
+        <img src="img/facebook icon.png" class="w-16 h-16 mb-2" />
+        <p class="text-lg font-semibold text-black">Facebook</p>
+        <p class="text-lg font-medium text-black mt-1">
+          Баянзагийн Хамгаалалтын Захиргаа <br />
+          Flaming Cliffs Administration
+        </p>
+      </div>
+
+      <!-- Instagram -->
+      <div class="flex flex-col items-center text-center">
+        <img src="img/Insta icon.png" class="w-16 h-16 mb-2" />
+        <p class="text-lg font-semibold text-black">Instagram</p>
+
+        <p class="text-lg font-medium text-black mt-1">Flaming_Cliffs</p>
+      </div>
+    </div>
+
+    <div class="max-w-6xl mx-auto my-10 px-4">
+      <h2 class="text-2xl font-semibold mb-6 border-b-2 border-black pb-2 font-['SF_Pro_Display']">
+        Frequently asked questions
+      </h2>
+
+     <div class="space-y-4" id="faqContainer">
+        <!-- Example Question -->
+        <div class="pb-3">
+          <button
+            class="faq-question w-full text-left flex items-center justify-between text-black  font-semibold text-xl"
+          >
+            1. When is the best time to visit?
+            <img
+              src="img/down-arrow.png"
+              class="w-4 h-4 transition-transform duration-200"
+            />
+          </button>
+          <p class="faq-answer text-gray-900 mt-2 pl-4 text-lg hidden font-['SF_Pro_Display']">
+            May to October, during mild weather and accessible road conditions.
+          </p>
+        </div>
+
+        <div class="pb-3">
+          <button
+            class="faq-question w-full text-left flex items-center justify-between text-black  font-semibold text-xl"
+          >
+            2. Can I collect fossils?
+            <img
+              src="img/down-arrow.png"
+              class="w-4 h-4 transition-transform duration-200"
+            />
+          </button>
+          <p class="faq-answer text-gray-900 mt-2 pl-4 text-lg hidden font-['SF_Pro_Display']">
+            No, fossil collection is prohibited to ensure preservation for
+            future generations.
+          </p>
+        </div>
+
+        <div class="pb-3">
+          <button
+            class="faq-question w-full text-left flex items-center justify-between text-black font-semibold text-xl"
+          >
+            3. Are there nearby accommodations?
+            <img
+              src="img/down-arrow.png"
+              class="w-4 h-4 transition-transform duration-200"
+            />
+          </button>
+          <p class="faq-answer text-gray-900 mt-2 pl-4 text-lg hidden font-['SF_Pro_Display']">
+            Yes, options include traditional ger camps and modern hotels in
+            Dalanzadgad.
+          </p>
+        </div>
+
+        <div class="pb-3">
+          <button
+            class="faq-question w-full text-left flex items-center justify-between text-black font-semibold text-xl"
+          >
+            4. What transportation options are available?
+            <img
+              src="img/down-arrow.png"
+              class="w-4 h-4 transition-transform duration-200"
+            />
+          </button>
+          <p class="faq-answer text-gray-900 mt-2 pl-4 text-lg hidden font-['SF_Pro_Display']">
+            Self-drive, guided tours, and flights to Dalanzadgad followed by a
+            drive.
+          </p>
+        </div>
+
+        <div class="pb-3">
+          <button
+            class="faq-question w-full text-left flex items-center justify-between text-black text-xl font-semibold "
+          >
+            5. What should I bring for my visit?
+            <img
+              src="img/down-arrow.png"
+              class="w-4 h-4 transition-transform duration-200"
+            />
+          </button>
+          <p class="faq-answer text-gray mt-2 pl-4 text-lg hidden font-['SF_Pro_Display']">
+            Sturdy shoes, sun protection, plenty of water, and a sense of
+            adventure.
+          </p>
+        </div>
+
+        <div class="pb-3">
+          <button
+            class="faq-question w-full text-left flex items-center justify-between text-black font-semibold text-xl"
+          >
+            6. Is there food available at the Flaming Cliffs?
+            <img
+              src="img/down-arrow.png"
+              class="w-4 h-4 transition-transform duration-200"
+            />
+          </button>
+          <p class="faq-answer text-gray-900 mt-2 pl-4 text-lg hidden font-['SF_Pro_Display']">
+            Yes, the Information Center offers a dining area with local and
+            international cuisine.
+          </p>
+        </div>
+
+        <div class="pb-3">
+          <button
+            class="faq-question w-full text-left flex items-center justify-between text-black font-semibold text-xl"
+          >
+            7. How does my visit support the site?
+            <img
+              src="img/down-arrow.png"
+              class="w-4 h-4 transition-transform duration-200"
+            />
+          </button>
+
+          <p class="faq-answer text-gray-900 mt-2 pl-4 text-lg hidden font-['SF_Pro_Display']">
+            Entry fees fund conservation, research, and local community
+            initiatives. [Links to Facebook and Instagram].
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-[#1a130f] py-4">
+      <div class="flex items-center gap-4 max-w-6xl mx-auto py-6 px-4">
+        <!-- Icon -->
+        <img
+          src="img/baynzag logo.png"
+          alt="Flaming Cliffs Icon"
+          class="w-24 h-24 object-cover"
+        />
+
+        <!-- Text -->
+        <div>
+          <h1 class="text-white text-xl md:text-2xl">
+            Flaming Cliffs ( Bayanzag )
+          </h1>
+          <p class="text-white text-lg md:text-xl mt-2">
+            Discover Mongolia's Legendary Dinosaur Site
+          </p>
+        </div>
+      </div>
+
+      <!-- Divider line -->
+      <div class="border-t border-[#3f3932] mt-2 max-w-6xl mx-auto"></div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Swiper Initialization -->
+    <script>
+      // Initialize Swipers
+      function initSwiper(selector) {
+        return new Swiper(selector, {
+          slidesPerView: 1,
+          spaceBetween: 20,
+          loop: true,
+          navigation: {
+            nextEl: ".swiper-button-next",
+          },
+          breakpoints: {
+            640: {
+              slidesPerView: 2,
+            },
+            768: {
+              slidesPerView: 3,
+            },
+            1024: {
+              slidesPerView: 4,
+            },
+          },
+        });
+      }
+
+      initSwiper(".mySwiper");
+      initSwiper(".mySwiper2");
+
+      // FAQ Accordion
+      const faqButtons = document.querySelectorAll(".faq-question");
+
+      faqButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const currentlyOpen = document.querySelector(
+            ".faq-answer:not(.hidden)"
+          );
+          const currentArrow = document.querySelector(".rotate-180");
+
+          const content = button.nextElementSibling;
+          const arrowIcon = button.querySelector("img");
+
+          if (currentlyOpen && currentlyOpen !== content) {
+            currentlyOpen.classList.add("hidden");
+            currentArrow?.classList.remove("rotate-180");
+          }
+
+          content.classList.toggle("hidden");
+          arrowIcon.classList.toggle("rotate-180");
+        });
+      });
+
+      // Toggle mobile menu
+      document.getElementById("menu-toggle").addEventListener("click", () => {
+        const menu = document.getElementById("mobile-menu");
+        menu.classList.toggle("hidden");
+      });
+
+      const mainImage = document.getElementById("mainImage");
+      const thumbs = document.querySelectorAll(".thumb");
+
+      thumbs.forEach((img) => {
+        img.addEventListener("click", () => {
+          // Fade out
+          mainImage.classList.remove("show");
+          mainImage.classList.add("fade");
+
+          // 0.4s дараа зургыг сольж fade-in хийх
+          setTimeout(() => {
+            mainImage.src = img.src;
+            mainImage.classList.remove("fade");
+            mainImage.classList.add("show");
+          }, 400);
+        });
+      });
+
+      const mainImage2 = document.getElementById("mainImage2");
+      const thumbs2 = document.querySelectorAll(".thumb2");
+
+      thumbs2.forEach((img) => {
+        img.addEventListener("click", () => {
+          // Fade out
+          mainImage2.classList.remove("show");
+          mainImage2.classList.add("fade");
+
+          // 0.4s дараа зургыг сольж fade-in хийх
+          setTimeout(() => {
+            mainImage2.src = img.src;
+            mainImage2.classList.remove("fade");
+            mainImage2.classList.add("show");
+          }, 400);
+        });
+      });
+    </script>
+    
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+    
+    <!-- Footer Loader Script -->
+    <script src="footer-loader.js"></script>
+  </body>
+</html>

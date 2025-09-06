@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="mn">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Bvrtgel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body
+    class="bg-cover bg-center min-h-screen"
+    style="background-image: url('img/Baynzag\ ariin\ zurag.jpg')"
+  >
+    <div class="max-w-6xl mx-auto py-6 space-y-6">
+      <div class="px-6 py-10 text-white">
+        <!-- Header -->
+        <div class="text-center mb-8">
+          <h1 class="text-3xl md:text-4xl font-bold drop-shadow">
+            Аялагчдын Бүртгэлийн Систем
+          </h1>
+          <p class="text-lg drop-shadow">
+            Үндэсний болон олон улсын аялагчдыг хянабар бүртгэнэ.
+          </p>
+        </div>
+
+        <span style="display: flex; align-items: center; font-family: 'Inter'">
+          <img
+            src="img/sr-target-arrow.png"
+            class="w-8 h-8 object-cover"
+            style="margin-right: 10px"
+          />
+          <span class="font-normal text-[25px] leading-[77.03px] align-middle"
+            >Хөтөч, Жолооч, Машин
+          </span>
+        </span>
+        <!-- Form Section -->
+        <div class="text-black rounded-xl p-6 space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <input
+              id="driverInput"
+              type="number"
+              placeholder="Жолооч"
+              min="0"
+              class="border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+            <input
+              id="guideInput"
+              type="number"
+              placeholder="Хөтөч"
+              min="0"
+              class="border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+            <input
+              id="guideNameInput"
+              type="text"
+              placeholder="Хөтчийн нэр"
+              class="border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+            <input
+              id="vehicleNumberInput"
+              type="text"
+              placeholder="Машины дугаар"
+              class="border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+            <select id="tourOperatorSelect" class="border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+              <option value="">Тур Оператор Компани</option>
+              <option value="Монгол Тур">Монгол Тур</option>
+              <option value="Говь Тур">Говь Тур</option>
+              <option value="Алтай Тур">Алтай Тур</option>
+            </select>
+            <select id="vehicleTypeSelect" class="border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+              <option value="">Тээврийн хэрэгсэл</option>
+              <option value="Mid size Crossover">Mid size Crossover</option>
+              <option value="Motorcycle">Motorcycle</option>
+              <option value="Bus">Bus</option>
+              <option value="Van">Van</option>
+              <option value="SUV">SUV</option>
+            </select>
+          </div>
+
+          <!-- Улс сонгох -->
+
+          <!-- Жуулчны тоо, төлбөр -->
+          <div class="flex justify-between items-center w-full font-['Inter']">
+            <!-- Улс сонгох -->
+            <span class="flex items-center">
+              <img src="img/sr-globe.png" class="w-8 h-8 object-cover mr-2" />
+              <span
+                class="font-normal text-[25px] text-white leading-[77.03px] align-middle"
+              >
+                Улс сонгох
+              </span>
+            </span>
+
+            <!-- Clear All -->
+            <span id="clear-all" class="flex items-center cursor-pointer">
+              <img
+                src="img/sr-close-4x.png"
+                class="w-8 h-8 object-cover mr-2"
+              />
+              <span
+                class="font-normal text-[25px] text-white leading-[77.03px] align-middle"
+              >
+                Clear All
+              </span>
+            </span>
+          </div>
+
+          <div class="max-w-6xl mx-auto flex gap-6">
+            <!-- Зүүн талын хэсэг -->
+            <div class="flex-1 p-4">
+              <div class="flex gap-6">
+                <!-- Жуулчдын тоо нэмэх блок -->
+                <div class="bg-white rounded-xl shadow-md p-6 w-40 text-center">
+                  <h1 class="text-lg font-semibold mb-4 leading-tight">
+                    Жуулчдын тоо<br />Нэмэх
+                  </h1>
+                  <div id="count" class="text-3xl font-bold mb-4">1</div>
+                  <button
+                    id="resetBtn"
+                    class="w-full py-2 bg-gray-100 rounded-md hover:bg-gray-200"
+                  >
+                    Reset
+                  </button>
+                </div>
+
+                <!-- Улс сонгох хэсэг -->
+                <div class="flex-1 rounded-xl shadow-md bg-white p-4">
+                  <div class="flex items-center gap-2 mb-4">
+                    <select id="countrySelect" class="w-full p-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                      <option value="">Бусад улс сонгох</option>
+                      <option value="Хятад">Хятад</option>
+                      <option value="Орос">Орос</option>
+                      <option value="Япон">Япон</option>
+                      <option value="Франц">Франц</option>
+                      <option value="Солонгос">Солонгос</option>
+                      <option value="АНУ">АНУ</option>
+                      <option value="Герман">Герман</option>
+                    </select>
+                    <button id="addCountryBtn" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-lg text-sm font-semibold transition-colors">
+                      Нэмэх
+                    </button>
+                  </div>
+
+                  <div class="grid grid-cols-4 md:grid-cols-6 gap-3">
+                    <div class="flex flex-col items-center text-xs cursor-pointer hover:bg-gray-100 p-2 rounded-lg transition-colors country-flag" data-country="Хятад">
+                      <img
+                        src="https://flagcdn.com/w40/cn.png"
+                        class="w-8 h-6 rounded shadow-sm"
+                        alt="Хятад"
+                      />
+                      <span class="mt-1 font-medium">Хятад</span>
+                    </div>
+                    <div class="flex flex-col items-center text-xs cursor-pointer hover:bg-gray-100 p-2 rounded-lg transition-colors country-flag" data-country="Орос">
+                      <img
+                        src="https://flagcdn.com/w40/ru.png"
+                        class="w-8 h-6 rounded shadow-sm"
+                        alt="Орос"
+                      />
+                      <span class="mt-1 font-medium">Орос</span>
+                    </div>
+                    <div class="flex flex-col items-center text-xs cursor-pointer hover:bg-gray-100 p-2 rounded-lg transition-colors country-flag" data-country="Япон">
+                      <img
+                        src="https://flagcdn.com/w40/jp.png"
+                        class="w-8 h-6 rounded shadow-sm"
+                        alt="Япон"
+                      />
+                      <span class="mt-1 font-medium">Япон</span>
+                    </div>
+                    <div class="flex flex-col items-center text-xs cursor-pointer hover:bg-gray-100 p-2 rounded-lg transition-colors country-flag" data-country="Франц">
+                      <img
+                        src="https://flagcdn.com/w40/fr.png"
+                        class="w-8 h-6 rounded shadow-sm"
+                        alt="Франц"
+                      />
+                      <span class="mt-1 font-medium">Франц</span>
+                    </div>
+                    <div class="flex flex-col items-center text-xs cursor-pointer hover:bg-gray-100 p-2 rounded-lg transition-colors country-flag" data-country="Солонгос">
+                      <img
+                        src="https://flagcdn.com/w40/kr.png"
+                        class="w-8 h-6 rounded shadow-sm"
+                        alt="Солонгос"
+                      />
+                      <span class="mt-1 font-medium">Солонгос</span>
+                    </div>
+                    <div class="flex flex-col items-center text-xs cursor-pointer hover:bg-gray-100 p-2 rounded-lg transition-colors country-flag" data-country="АНУ">
+                      <img
+                        src="https://flagcdn.com/w40/us.png"
+                        class="w-8 h-6 rounded shadow-sm"
+                        alt="АНУ"
+                      />
+                      <span class="mt-1 font-medium">АНУ</span>
+                    </div>
+                    <div class="flex flex-col items-center text-xs cursor-pointer hover:bg-gray-100 p-2 rounded-lg transition-colors country-flag" data-country="Казахстан">
+                      <img
+                        src="https://flagcdn.com/w40/kz.png"
+                        class="w-8 h-6 rounded shadow-sm"
+                        alt="Казахстан"
+                      />
+                      <span class="mt-1 font-medium">Казахстан</span>
+                    </div>
+                    <div class="flex flex-col items-center text-xs cursor-pointer hover:bg-gray-100 p-2 rounded-lg transition-colors country-flag" data-country="Украйн">
+                      <img
+                        src="https://flagcdn.com/w40/ua.png"
+                        class="w-8 h-6 rounded shadow-sm"
+                        alt="Украйн"
+                      />
+                      <span class="mt-1 font-medium">Украйн</span>
+                    </div>
+                    <div class="flex flex-col items-center text-xs cursor-pointer hover:bg-gray-100 p-2 rounded-lg transition-colors country-flag" data-country="Итали">
+                      <img
+                        src="https://flagcdn.com/w40/it.png"
+                        class="w-8 h-6 rounded shadow-sm"
+                        alt="Итали"
+                      />
+                      <span class="mt-1 font-medium">Итали</span>
+                    </div>
+                    <div class="flex flex-col items-center text-xs cursor-pointer hover:bg-gray-100 p-2 rounded-lg transition-colors country-flag" data-country="Герман">
+                      <img
+                        src="https://flagcdn.com/w40/de.png"
+                        class="w-8 h-6 rounded shadow-sm"
+                        alt="Герман"
+                      />
+                      <span class="mt-1 font-medium">Герман</span>
+                    </div>
+                  </div>
+
+                  <hr class="border-t-2 border-black opacity-70 mt-4" />
+
+                  <div class="mt-2 text-xs text-gray-600 italic">
+                    Хятад (6), Орос (10)
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Баруун талын төлбөрийн хэсэг -->
+            <div class="bg-white rounded-xl shadow p-6 w-72 h-fit">
+              <p class="text-gray-700">
+                Жуулчдын тоо: <span class="font-bold" id="countRight">16</span>
+              </p>
+              <p class="text-gray-700 mt-2">
+                Төлөх дүн: <span class="font-bold" id="total">160,000₮</span>
+              </p>
+              <p class="text-gray-400 text-sm mt-2">10,000₮*(10+6)</p>
+              <div class="flex flex-col sm:flex-row gap-2">
+                <button
+                  id="saveBtn"
+                  class="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg flex-1 py-3 mt-4 transition-colors shadow-md hover:shadow-lg"
+                >
+                  💾 Хадгалах
+                </button>
+                <button
+                  id="paymentBtn"
+                  class="bg-orange-400 hover:bg-orange-500 text-white font-semibold rounded-lg flex-1 py-3 mt-4 transition-colors shadow-md hover:shadow-lg"
+                >
+                  💳 Төлбөр хийх
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="bg-white/90 text-black rounded-xl p-6 mt-8 overflow-x-auto">
+          <div class="flex justify-between mb-4">
+            <button id="todayBtn" class="bg-orange-400 text-white px-4 py-1 rounded period-btn" data-period="today">
+              Өнөөдөр
+            </button>
+            <button id="weekBtn" class="text-black px-4 py-1 rounded period-btn" data-period="week">
+              Сүүлийн 7 хоног
+            </button>
+            <button id="monthBtn" class="text-black px-4 py-1 rounded period-btn" data-period="month">Сүүлийн 1 сар</button>
+          </div>
+          <table class="w-full text-left text-sm">
+            <thead>
+              <tr class="bg-gray-200">
+                <th class="p-2">Огноо</th>
+                <th class="p-2">Машины дугаар</th>
+                <th class="p-2">Машины марк</th>
+                <th class="p-2">Хөтөч</th>
+                <th class="p-2">Жолооч</th>
+                <th class="p-2">Тур Оператор</th>
+                <th class="p-2">Жуулчид</th>
+                <th class="p-2">Улс</th>
+                <th class="p-2">Төлбөр</th>
+                <th class="p-2">Төлөв</th>
+              </tr>
+            </thead>
+            <tbody id="registrationTableBody">
+              <!-- Dynamic content will be loaded here -->
+              <tr>
+                <td class="p-2 text-center" colspan="9">Мэдээлэл ачааллаж байна...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-right text-white mt-8">
+          <a href="bvrtgel.html">
+            <button class="hidden:underline text-sm mr-4">
+              <span
+                class="font-normal text-[25px] text-white leading-[77.03px] align-middle"
+              >
+                Бүртгэл сэлгэх
+              </span>
+            </button>
+          </a>
+          | &nbsp;
+          <button class="hidden:underline text-sm">
+            <span
+              class="font-normal text-[25px] text-white leading-[77.03px] align-middle"
+            >
+              Статистик харах
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Placeholder -->
+    <div id="footer-placeholder"></div>
+
+    <script src="api.js"></script>
+    <script>
+      // Debug script to check if table element exists
+      document.addEventListener('DOMContentLoaded', function() {
+        console.log('Page loaded, checking for table...');
+        const tableBody = document.getElementById('registrationTableBody');
+        console.log('registrationTableBody found:', tableBody);
+        if (tableBody) {
+          console.log('Table body innerHTML:', tableBody.innerHTML);
+        }
+      });
+    </script>
+    <script src="juulchid.js"></script>
+    <script src="footer-loader.js"></script>
+  </body>
+</html>

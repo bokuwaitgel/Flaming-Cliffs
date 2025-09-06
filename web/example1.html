@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bayanzag Gallery</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- LightGallery CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/css/lightgallery-bundle.min.css"
+    />
+  </head>
+
+  <body class="bg-black text-white">
+    <div class="max-w-6xl mx-auto px-4 py-6">
+      <h2 class="text-2xl md:text-3xl font-semibold capitalize mb-4">
+        Bayanzag
+      </h2>
+
+      <!-- LightGallery wrapper -->
+      <div id="lightgallery" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <!-- Image 1 -->
+        <a href="img/Zag/Zag-1.jpg">
+          <img
+            loading="lazy"
+            src="img/Zag/Zag-1.jpg"
+            alt="Bayanzag image 1"
+            class="rounded-md object-cover w-full h-48"
+          />
+        </a>
+
+        <!-- Image 2 -->
+        <a href="img/Zag/Zag-2.jpg">
+          <img
+            loading="lazy"
+            src="img/Zag/Zag-2.jpg"
+            alt="Bayanzag image 2"
+            class="rounded-md object-cover w-full h-48"
+          />
+        </a>
+
+        <!-- Image 3 -->
+        <a href="img/Zag/Zag-3.jpg">
+          <img
+            loading="lazy"
+            src="img/Zag/Zag-3.jpg"
+            alt="Bayanzag image 3"
+            class="rounded-md object-cover w-full h-48"
+          />
+        </a>
+
+        <!-- Image 4 -->
+        <a href="img/Zag/Zag-4.jpg">
+          <img
+            loading="lazy"
+            src="img/Zag/Zag-4.jpg"
+            alt="Bayanzag image 4"
+            class="rounded-md object-cover w-full h-48"
+          />
+        </a>
+
+        <!-- Image 5 -->
+        <a href="img/Zag/Zag-5.jpg">
+          <img
+            loading="lazy"
+            src="img/Zag/Zag-5.jpg"
+            alt="Bayanzag image 5"
+            class="rounded-md object-cover w-full h-48"
+          />
+        </a>
+      </div>
+    </div>
+
+    <!-- LightGallery JS -->
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/lightgallery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/zoom/lg-zoom.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@2.7.1/plugins/fullscreen/lg-fullscreen.min.js"></script>
+
+    <!-- Initialize LightGallery -->
+    <script>
+      lightGallery(document.getElementById("lightgallery"), {
+        plugins: [lgZoom],
+        speed: 400,
+        download: false,
+        controls: true, // ⬅️ Enables arrows
+        mode: "lg-slide", // ⬅️ Smooth transition
+      });
+    </script>
+  </body>
+</html>

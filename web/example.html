@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="mn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Gallery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Fade эффект */
+      #mainImage.fade {
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+      #mainImage.show {
+        opacity: 1;
+        transition: opacity 0.4s ease;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100">
+    <div class="relative w-full max-w-4xl mx-auto p-6">
+      <!-- Main Image -->
+      <img
+        id="mainImage"
+        src="img/image.jpg"
+        alt="Explorer Vintage"
+        class="w-full h-auto max-h-[300px] sm:max-h-[400px] md:max-h-[500px] rounded shadow-md object-cover show"
+      />
+
+      <!-- Thumbnail images -->
+      <div class="hidden md:grid grid-cols-5 gap-5 mt-8 opacity-100">
+        <img
+          src="img/image.jpg"
+          class="thumb rounded object-cover w-full h-32 cursor-pointer"
+          alt=""
+        />
+        <img
+          src="img/image-1.jpg"
+          class="thumb rounded object-cover w-full h-32 cursor-pointer"
+          alt=""
+        />
+        <img
+          src="img/image-2.jpg"
+          class="thumb rounded object-cover w-full h-32 cursor-pointer"
+          alt=""
+        />
+        <img
+          src="img/image-3.jpg"
+          class="thumb rounded object-cover w-full h-32 cursor-pointer"
+          alt=""
+        />
+        <img
+          src="img/image-4.jpg"
+          class="thumb rounded object-cover w-full h-32 cursor-pointer"
+          alt=""
+        />
+      </div>
+    </div>
+
+    <script>
+      const mainImage = document.getElementById("mainImage");
+      const thumbs = document.querySelectorAll(".thumb");
+
+      thumbs.forEach((img) => {
+        img.addEventListener("click", () => {
+          // Fade out
+          mainImage.classList.remove("show");
+          mainImage.classList.add("fade");
+
+          // 0.4s дараа зургыг сольж fade-in хийх
+          setTimeout(() => {
+            mainImage.src = img.src;
+            mainImage.classList.remove("fade");
+            mainImage.classList.add("show");
+          }, 400);
+        });
+      });
+    </script>
+  </body>
+</html>

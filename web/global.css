@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'CustomFont';
+    src:url('font/SF-Pro-Display-Black.otf') format('otf'),
+        url('font/SF-Pro-Display-BlackItalic.otf') format('otf'),
+        url('font/SF-Pro-Display-Bold.otf') format('otf'),
+        url('font/SF-Pro-Display-BoldItalic.otf') format('otf'),
+        url('font/SF-Pro-Display-Heavy.otf') format('otf'),
+        url('font/SF-Pro-Display-HeavyItalic.otf') format('otf'),
+        url('font/SF-Pro-Display-Light.otf') format('otf'),
+        url('font/SF-Pro-Display-LightItalic.otf') format('otf'),
+        url('font/SF-Pro-Display-Medium.otf') format('otf'),
+        url('font/SF-Pro-Display-MediumItalic.otf') format('otf'),
+        url('font/SF-Pro-Display-Regular.otf') format('otf'),
+        url('font/SF-Pro-Display-RegularItalic.otf') format('otf'),
+        url('font/SF-Pro-Display-Semibold.otf') format('otf'),
+        url('font/SF-Pro-Display-SemiboldItalic.otf') format('otf'),
+        url('font/SF-Pro-Display-Thin.otf') format('otf'),
+        url('font/SF-Pro-Display-ThinItalic.otf') format('otf'),
+        url('font/SF-Pro-Display-Ultralight.otf') format('otf'),
+        url('font/SF-Pro-Display-UltralightItalic.otf') format('otf')
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="mn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flaming Cliffs - Баянзаг</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body
+    class="relative h-screen bg-cover bg-center"
+    style="background-image: url('img/baynzag-1.png')"
+  >
+    <!-- Top buttons -->
+    <div class="absolute top-4 left-4 flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+      <button
+        id="backBtn"
+        class="bg-white/80 text-gray-800 px-3 py-1 rounded shadow flex items-center"
+      >
+        <img
+          src="img/line.png"
+          class="w-5 h-5 object-cover mr-2"
+        />
+        <span>Back</span>
+      </button>
+      <button
+        id="homeBtn"
+        class="bg-white/80 text-gray-800 px-3 py-1 rounded shadow flex items-center"
+      >
+        <img
+          src="img/sr-home-4x.png"
+          class="w-5 h-5 object-cover mr-2"
+        />
+        <span>Home</span>
+      </button>
+    </div>
+
+    <!-- Center content -->
+    <div
+      class="flex flex-col items-center justify-center h-full text-white text-center px-4"
+    >
+      <img src="img/baynzag logo.png" alt="" class="w-32 h-auto mb-4" />
+      <!-- Replace with actual logo -->
+
+      <div class="text-center text-white py-8">
+        <h1
+          class="text-2xl md:text-4xl font-semibold drop-shadow"
+        >
+          Flaming Cliffs - Баянзаг Улалзах Цонж
+        </h1>
+
+        <p
+          class="text-xl md:text-2xl font-semibold drop-shadow mt-2"
+        >
+          Аялагчдын бүртгэлийн систем
+        </p>
+        <hr class="border-t-2 border-white opacity-70 w-full max-w-lg mx-auto mt-4" />
+      </div>
+
+      <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+        <button
+          id="inspectorBtn"
+          class="bg-white text-gray-800 px-6 py-3 rounded-lg shadow-lg flex items-center space-x-2 hover:bg-gray-100"
+        >
+          <img
+            src="img/sr-shield-check-4x.png"
+            class="w-8 h-8 object-cover"
+          />
+          <span class="font-normal text-xl">Хянан Шалгагч</span>
+        </button>
+        <button
+          id="touristBtn"
+          class="bg-white text-gray-800 px-6 py-3 rounded-lg shadow-lg flex items-center space-x-2 hover:bg-gray-100"
+        >
+          <img
+            src="img/sr-document-add-4x.png"
+            class="w-8 h-8 object-cover"
+          />
+          <span class="font-normal text-xl">Жуулчин бүртгэгч</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- JS Functionality -->
+    <script>
+      document.getElementById("backBtn").addEventListener("click", () => {
+        window.history.back();
+      });
+
+      document.getElementById("homeBtn").addEventListener("click", () => {
+        window.location.href = "index.html";
+      });
+
+      document.getElementById("inspectorBtn").addEventListener("click", () => {
+        window.location.href = "/inspector"; // Replace with real path
+      });
+
+      document.getElementById("touristBtn").addEventListener("click", () => {
+        window.location.href = "juulchid bvrtgel.html"; // Replace with real path
+      });
+    </script>
+  </body>
+</html>
