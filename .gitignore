@@ -43,5 +43,5 @@ coverage/
 backend/test-mongodb.js
 
 # Ignore web font and image cache
-web/font/
-web/img/
+# web/font/
+# web/img/
