@@ -237,7 +237,9 @@ router.post('/registrations', async (req, res) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    let dailyStats = await prisma.visitorStats.findUnique({
+
+    // date may not be a unique field in the schema; use findFirst and update by id
+    let dailyStats = await prisma.visitorStats.findFirst({
       where: { date: today }
     });
 
@@ -264,8 +266,9 @@ router.post('/registrations', async (req, res) => {
       updateData.internationalRevenue = { increment: registration.totalAmount };
     }
 
+    // Update by primary id to avoid using non-unique fields in the where clause
     await prisma.visitorStats.update({
-      where: { date: today },
+      where: { id: dailyStats.id },
       data: updateData
     });
 
@@ -632,6 +635,73 @@ router.get('/tour-operator-stats', async (req, res) => {
 
 /**
  * @swagger
+ * /tour-guides-and-drivers:
+ *   get:
+ *     summary: Get tour guides and drivers statistics
+ *     parameters:
+ *       - in: query
+ *         name: period
+ *         schema:
+ *           type: string
+ *           enum: [all, today, week, month, year]
+ *           default: all
+ *     responses:
+ *       200:
+ *         description: Tour guides and drivers statistics
+ */
+router.get('/tour-guides-and-drivers', async (req, res) => {
+  try {
+    const { period = 'all' } = req.query;
+
+    let where = { status: 'active' };
+
+    if (period !== 'all') {
+      const now = moment.tz(MONGOLIA_TZ);
+      let startDate;
+
+      switch (period) {
+        case 'today':
+          startDate = now.clone().startOf('day');
+          break;
+        case 'week':
+          startDate = now.clone().subtract(7, 'days');
+          break;
+        case 'month':
+          startDate = now.clone().subtract(1, 'month');
+          break;
+        case 'year':
+          startDate = now.clone().subtract(1, 'year');
+          break;
+      }
+
+      if (startDate) {
+        where.registrationDate = { gte: startDate.toDate() };
+      }
+    }
+
+    const stats = await prisma.registration.aggregate({
+      where,
+      _sum: {
+        driverCount: true,
+        guideCount: true
+      }
+    });
+
+    const result = {
+      drivers: stats._sum.driverCount || 0,
+      guides: stats._sum.guideCount || 0,
+      total: (stats._sum.driverCount || 0) + (stats._sum.guideCount || 0)
+    };
+
+    res.json(result);
+  } catch (error) {
+    console.error('Error fetching driver/guide statistics:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+/**
+ * @swagger
  * /visitor-stats:
  *   get:
  *     summary: Get visitor statistics
@@ -675,39 +745,185 @@ router.get('/visitor-stats', async (req, res) => {
         startDate.setDate(now.getDate() - 7);
     }
 
-    const stats = await prisma.visitorStats.aggregate({
+    //get stats from registration
+    const registrations = await prisma.registration.findMany({
       where: {
-        date: { gte: startDate }
+        createdAt: { gte: startDate }
       },
-      _sum: {
-        totalVisitors: true,
-        domesticVisitors: true,
-        internationalVisitors: true,
-        totalRevenue: true,
-        domesticRevenue: true,
-        internationalRevenue: true
+    });
+
+    // compute totals first to avoid referencing 'stats' before initialization
+    const totalTouristCount = registrations.reduce((sum, reg) => sum + (reg.touristCount || 0), 0);
+    const totalDomesticCount = registrations.reduce((sum, reg) => sum + (reg.countries.includes("Domestic") ? reg.touristCount || 0 : 0), 0);
+    const totalInternationalCount = registrations.reduce((sum, reg) => sum + (reg.countries.includes("International") ? reg.touristCount || 0 : 0), 0);
+    const totalRevenue = registrations.reduce((sum, reg) => sum + (reg.totalAmount || 0), 0);
+    const totalDomesticRevenue = registrations.reduce((sum, reg) => sum + (reg.countries.includes("Domestic") ? reg.totalAmount || 0 : 0), 0);
+    const totalInternationalRevenue = registrations.reduce((sum, reg) => sum + (reg.countries.includes("International") ? reg.totalAmount || 0 : 0), 0);
+    const maxDaily = registrations.length > 0 ? Math.max(...registrations.map(reg => reg.touristCount || 0)) : 0;
+    const minDaily = registrations.length > 0 ? Math.min(...registrations.map(reg => reg.touristCount || 0)) : 0;
+    const avgDaily = registrations.length > 0 ? Math.round(totalTouristCount / registrations.length) : 0;
+
+    const stats = {
+      touristCount: totalTouristCount,
+      domesticCount: totalDomesticCount,
+      internationalCount: totalInternationalCount,
+      totalRevenue: totalRevenue,
+      domesticRevenue: totalDomesticRevenue,
+      internationalRevenue: totalInternationalRevenue,
+      avgDailyVisitors: avgDaily,
+      maxDailyVisitors: maxDaily,
+      minDailyVisitors: minDaily
+    };
+
+    const result = {
+      totalVisitors: stats.touristCount || 0,
+      domesticVisitors: stats.domesticCount || 0,
+      internationalVisitors: stats.internationalCount || 0,
+      totalRevenue: stats.totalRevenue || 0,
+      domesticRevenue: stats.domesticRevenue || 0,
+      internationalRevenue: stats.internationalRevenue || 0,
+      avgDailyVisitors: stats.avgDailyVisitors || 0,
+      maxDailyVisitors: stats.maxDailyVisitors || 0,
+      minDailyVisitors: stats.minDailyVisitors || 0
+    };
+
+    res.json(result);
+  } catch (error) {
+    console.error('Error fetching visitor statistics:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+/**
+ * @swagger
+ * /daily-visitor-stats:
+ *  get:
+ *    summary: Get daily visitor statistics /last 7 days
+ *
+ *    responses:
+ *      200:
+ *        description: Daily visitor statistics
+ */
+router.get('/daily-visitor-stats', async (req, res) => {
+  try {
+
+    const now = new Date();
+    let startDate = new Date(now);
+    startDate.setDate(now.getDate() - 6);
+    startDate.setHours(0, 0, 0, 0);
+
+    // Aggregate registrations by day using a raw query to avoid groupBy limitations.
+    // We sum touristCount and totalAmount and also compute domestic/international totals
+    const rows = await prisma.$queryRawUnsafe(
+      `SELECT
+         date_trunc('day', "registrationDate")::date as day,
+         SUM("touristCount") as total_visitors,
+         SUM(CASE WHEN 'Domestic' = ANY(countries) THEN "touristCount" ELSE 0 END) as domestic_visitors,
+         SUM(CASE WHEN 'International' = ANY(countries) THEN "touristCount" ELSE 0 END) as international_visitors,
+         SUM("totalAmount") as revenue
+       FROM registrations
+       WHERE "registrationDate" >= $1 AND "registrationDate" < $2 AND status = 'active'
+       GROUP BY day
+       ORDER BY day ASC`,
+      startDate,
+      now
+    );
+
+    // Build continuous daily series from startDate to today, filling missing days with 0s
+    const dayMs = 24 * 60 * 60 * 1000;
+    const endDate = new Date(now);
+    endDate.setHours(0,0,0,0);
+
+    const series = [];
+    for (let d = new Date(startDate); d <= endDate; d = new Date(d.getTime() + dayMs)) {
+      const iso = d.toISOString().split('T')[0];
+      const row = rows.find(r => (r.day instanceof Date ? r.day.toISOString().split('T')[0] : r.day) === iso);
+      series.push({
+        date: d.toISOString(),
+        totalVisitors: row ? Number(row.total_visitors || 0) : 0,
+        domesticVisitors: row ? Number(row.domestic_visitors || 0) : 0,
+        internationalVisitors: row ? Number(row.international_visitors || 0) : 0,
+        revenue: row ? Number(row.revenue || 0) : 0
+      });
+    }
+
+    res.json(series);
+  } catch (error) {
+    console.error('Error fetching daily visitor statistics:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+/**
+ * @swagger
+ * /visitor-by-country-and-vehicle:
+ *   get:
+ *     summary: Get visitor statistics
+ *     parameters:
+ *       - in: query
+ *         name: period
+ *         schema:
+ *           type: string
+ *           enum: [today, week, month, year]
+ *           default: week
+ *     responses:
+ *       200:
+ *         description: Visitor statistics
+ */
+
+router.get('/visitor-by-country-and-vehicle', async (req, res) => {
+  try {
+    const { period = 'week' } = req.query;
+
+    const now = new Date();
+    let startDate;
+
+    switch (period) {
+      case 'today':
+        startDate = new Date(now);
+        startDate.setHours(0, 0, 0, 0);
+        break;
+      case 'week':
+        startDate = new Date(now);
+        startDate.setDate(now.getDate() - 7);
+        break;
+      case 'month':
+        startDate = new Date(now);
+        startDate.setMonth(now.getMonth() - 1);
+        break;
+      case 'year':
+        startDate = new Date(now);
+        startDate.setFullYear(now.getFullYear() - 1);
+        break;
+      default:
+        startDate = new Date(now);
+        startDate.setDate(now.getDate() - 7);
+    }
+
+    //get stats from registration
+    const registrations = await prisma.registration.findMany({
+      where: {
+        createdAt: { gte: startDate }
       },
-      _avg: {
-        totalVisitors: true
-      },
-      _max: {
-        totalVisitors: true
-      },
-      _min: {
-        totalVisitors: true
-      }
+    });
+
+    // Get tourists from registrations
+    const countryCounts = {};
+    const vehicleTypeCounts = {};
+
+    registrations.forEach(reg => {
+      // Count tourists by country
+      (reg.countries || []).forEach(country => {
+        countryCounts[country] = (countryCounts[country] || 0) + (reg.touristCount || 0);
+      });
+
+      // Count registrations by vehicle type
+      vehicleTypeCounts[reg.vehicleType || 'unknown'] = (vehicleTypeCounts[reg.vehicleType || 'unknown'] || 0) + 1;
     });
 
     const result = {
-      totalVisitors: stats._sum.totalVisitors || 0,
-      domesticVisitors: stats._sum.domesticVisitors || 0,
-      internationalVisitors: stats._sum.internationalVisitors || 0,
-      totalRevenue: stats._sum.totalRevenue || 0,
-      domesticRevenue: stats._sum.domesticRevenue || 0,
-      internationalRevenue: stats._sum.internationalRevenue || 0,
-      avgDailyVisitors: stats._avg.totalVisitors ? Math.round(stats._avg.totalVisitors) : 0,
-      maxDailyVisitors: stats._max.totalVisitors || 0,
-      minDailyVisitors: stats._min.totalVisitors || 0
+      tourists: countryCounts,
+      vehicleTypes: vehicleTypeCounts
     };
 
     res.json(result);

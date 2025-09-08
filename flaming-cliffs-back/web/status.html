@@ -31,6 +31,21 @@
         font-weight: bold;
         margin: auto;
       }
+      /* Small inline spinner used for live loading states in visitor cards */
+      .loader {
+        width: 22px;
+        height: 22px;
+        border: 3px solid rgba(0,0,0,0.08);
+        border-top-color: rgba(0,0,0,0.45);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
     </style>
   </head>
   <body class="bg-white text-black font-sans min-h-screen">
@@ -233,6 +248,9 @@
             <!-- Visitors Today -->
             <div
               class="bg-white rounded-lg shadow-lg flex items-center gap-4 p-4 max-w-sm w-full"
+              data-period="today"
+              role="button"
+              tabindex="0"
             >
               <img
                 src="img/live stats/Property 1=coming soon.png"
@@ -241,13 +259,16 @@
               />
               <div>
                 <p class="text-black font-semibold text-lg">Visitors Today</p>
-                <p class="text-black font-semibold text-4xl">50</p>
+                  <p class="text-black font-semibold text-4xl"><span id="visitorsToday">0</span></p>
               </div>
             </div>
 
             <!-- Visitors This Week -->
             <div
               class="bg-white rounded-lg shadow-lg flex items-center gap-4 p-4 max-w-sm w-full"
+              data-period="week"
+              role="button"
+              tabindex="0"
             >
               <img
                 src="img/live stats/Property 1=medeelel-1.png"
@@ -258,13 +279,16 @@
                 <p class="text-black font-semibold text-lg">
                   Visitors This Week
                 </p>
-                <p class="text-black font-semibold text-4xl">800</p>
+                <p class="text-black font-semibold text-4xl"><span id="visitorsWeek">0</span></p>
               </div>
             </div>
 
             <!-- Visitors This Month -->
             <div
               class="bg-white rounded-lg shadow-lg flex items-center gap-4 p-4 max-w-sm w-full"
+              data-period="month"
+              role="button"
+              tabindex="0"
             >
               <img
                 src="img/Component_66-removebg-preview.png"
@@ -275,13 +299,16 @@
                 <p class="text-black font-semibold text-lg">
                   Visitors This Month
                 </p>
-                <p class="text-black font-semibold text-4xl">5000</p>
+                <p class="text-black font-semibold text-4xl"><span id="visitorsMonth">0</span></p>
               </div>
             </div>
 
             <!-- Visitors This Year -->
             <div
               class="bg-white rounded-lg shadow-lg flex items-center gap-4 p-4 max-w-sm w-full"
+              data-period="year"
+              role="button"
+              tabindex="0"
             >
               <img
                 src="img/live stats/Property 1=medeelel.png"
@@ -292,7 +319,7 @@
                 <p class="text-black font-semibold text-lg">
                   Visitors This Year
                 </p>
-                <p class="text-black font-semibold text-4xl">11500</p>
+                <p class="text-black font-semibold text-4xl"><span id="visitorsYear">0</span></p>
               </div>
             </div>
           </div>
@@ -345,38 +372,15 @@
                 <div
                   class="absolute inset-0 flex flex-col items-center justify-center"
                 >
-                  <span class="text-xl font-semibold">800</span>
+                  <span id="driverGuideTotal" class="text-xl font-semibold">800</span>
                   <div class="flex gap-2 text-xs mt-1">
                     <div class="flex items-center space-x-1 text-orange-500">
                       <span class="w-2 h-2 rounded-full bg-orange-500"></span>
-                      <span class="text-sm font-semibold">600</span>
+                      <span id="driverCountValue" class="text-sm font-semibold">600</span>
                     </div>
                     <div class="flex items-center space-x-1 text-blue-600">
                       <span class="w-2 h-2 rounded-full bg-blue-600"></span>
-                      <span class="text-sm font-semibold">200</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Year 2025 -->
-            <div class="flex flex-col items-center">
-              <p class="text-xl font-normal mb-2">2025</p>
-              <div class="relative w-40 h-40 sm:w-48 sm:h-48">
-                <canvas id="chart2"></canvas>
-                <div
-                  class="absolute inset-0 flex flex-col items-center justify-center"
-                >
-                  <span class="text-xl font-semibold">6300</span>
-                  <div class="flex gap-4 text-xs mt-1">
-                    <div class="flex items-center space-x-1 text-orange-500">
-                      <span class="w-2 h-2 rounded-full bg-orange-500"></span>
-                      <span class="text-sm font-semibold">4725</span>
-                    </div>
-                    <div class="flex items-center space-x-1 text-blue-600">
-                      <span class="w-2 h-2 rounded-full bg-blue-600"></span>
-                      <span class="text-sm font-semibold">1575</span>
+                      <span id="guideCountValue" class="text-sm font-semibold">200</span>
                     </div>
                   </div>
                 </div>
@@ -419,7 +423,7 @@
       </div>
     </div>
 
-    <div class="mt-3 md:mt-32">
+    <!-- <div class="mt-3 md:mt-32">
       <div class="max-w-6xl mx-auto bg-white rounded-2xl shadow-lg p-8 px-4">
         <h2 class="text-2xl md:text-3xl font-semibold text-gray-800 mb-6">
           Peak Visitor Hours
@@ -436,7 +440,7 @@
 
         <canvas id="moonChart" class="w-full h-96"></canvas>
       </div>
-    </div>
+    </div> -->
 
     <div class="bg-[#1a130f] py-4 mt-3 md:mt-32">
       <div class="flex items-center gap-4 max-w-6xl mx-auto py-6 px-4">
@@ -545,6 +549,69 @@
         });
       }
 
+      // Function to fetch general statistics and populate visitor cards
+      async function fetchAndPopulateStatistics(period = 'all') {
+        try {
+          // show loading state on visitor cards
+          setVisitorCardsLoading(true);
+
+          const resp = await fetch(`${API_BASE_URL}/statistics?period=${period}`);
+          if (!resp.ok) throw new Error('Statistics fetch failed');
+          const stats = await resp.json();
+
+          // statistics endpoint returns totals - map them to card values
+          // For 'today' we expect totals for the period; for 'all' we use 'today' fallback
+          const totalTourists = stats.totalTourists || 0;
+          const totalRevenue = stats.totalRevenue || 0;
+          const totalGuides = stats.totalGuides || 0;
+          const totalDrivers = stats.totalDrivers || 0;
+
+          // Populate visitor cards (today/week/month/year) by calling visitor-stats for different ranges
+          const [todayStats, weekStats, monthStats, yearStats] = await Promise.all([
+            fetch(`${API_BASE_URL}/visitor-stats?period=today`).then(r => r.ok ? r.json() : {}),
+            fetch(`${API_BASE_URL}/visitor-stats?period=week`).then(r => r.ok ? r.json() : {}),
+            fetch(`${API_BASE_URL}/visitor-stats?period=month`).then(r => r.ok ? r.json() : {}),
+            fetch(`${API_BASE_URL}/visitor-stats?period=year`).then(r => r.ok ? r.json() : {})
+          ]);
+        
+          document.getElementById('visitorsToday').textContent = todayStats.totalVisitors || 0;
+          document.getElementById('visitorsWeek').textContent = weekStats.totalVisitors || 0;
+          document.getElementById('visitorsMonth').textContent = monthStats.totalVisitors || 0;
+          document.getElementById('visitorsYear').textContent = yearStats.totalVisitors || 0;
+
+          return stats;
+        } catch (error) {
+          console.error('Error fetching and populating statistics:', error);
+          return null;
+        } finally {
+          // hide loading state
+          setVisitorCardsLoading(false);
+        }
+      }
+
+      // Utility to toggle loading state on visitor cards
+      function setVisitorCardsLoading(isLoading) {
+        const cardEls = document.querySelectorAll('[data-period]');
+        cardEls.forEach((card) => {
+          const valueSpan = card.querySelector('span[id^="visitors"]');
+          // create or remove loader
+          let loader = card.querySelector('.loader');
+          if (isLoading) {
+            if (!loader) {
+              loader = document.createElement('span');
+              loader.className = 'loader ml-2';
+              if (valueSpan && valueSpan.parentNode) {
+                valueSpan.parentNode.appendChild(loader);
+                valueSpan.style.opacity = '0.25';
+              }
+            }
+          } else {
+            if (loader) loader.remove();
+            if (valueSpan) valueSpan.style.opacity = '';
+          }
+        });
+      }
+
       // Function to load data for selected period
       async function loadDataForPeriod(period) {
         try {
@@ -552,24 +619,245 @@
           const data = await fetchCountryStats(period);
           currentData = data;
           renderChart(data);
-          
-          // Update donut charts
-          await updateDonutCharts(period);
-          
+
+          // Load combined visitor-by-country-and-vehicle data and render charts
+          const visitorByCountryAndVehicle = await fetchVisitorByCountryAndVehicle(period);
+          updateCountryAndVehicleCharts(visitorByCountryAndVehicle);
+
+          // Update daily visitor time series
+          await updateVisitorChart(period);
+
+          // Populate visitor cards and general statistics
+          await fetchAndPopulateStatistics(period);
+
+          // If visitor-by-country-and-vehicle includes driver/guide counts, use it to update the monthly donuts
+          let skipDonutUpdate = false;
+          if (visitorByCountryAndVehicle && (visitorByCountryAndVehicle.drivers != null || visitorByCountryAndVehicle.guides != null || visitorByCountryAndVehicle.driverGuide)) {
+            const dg = visitorByCountryAndVehicle.driverGuide || { drivers: visitorByCountryAndVehicle.drivers, guides: visitorByCountryAndVehicle.guides };
+            const drivers = dg.drivers || 0;
+            const guides = dg.guides || 0;
+
+            // update donut charts directly using existing helper
+            chart1Instance = createChart('chart1', [drivers, guides], chart1Instance);
+            const scaleFactor = 7.5;
+            chart2Instance = createChart('chart2', [Math.round(drivers * scaleFactor), Math.round(guides * scaleFactor)], chart2Instance);
+
+            // update small numeric placeholders inside the donuts if they exist
+            const driversEl = document.getElementById('driverCountValue');
+            const guidesEl = document.getElementById('guideCountValue');
+            if (driversEl) driversEl.textContent = String(drivers);
+            if (guidesEl) guidesEl.textContent = String(guides);
+
+            // update scaled placeholders
+            const driversElScaled = document.getElementById('driverCountValueScaled');
+            const guidesElScaled = document.getElementById('guideCountValueScaled');
+            if (driversElScaled) driversElScaled.textContent = String(Math.round(drivers * scaleFactor));
+            if (guidesElScaled) guidesElScaled.textContent = String(Math.round(guides * scaleFactor));
+
+            // update totals
+            const totalEl = document.getElementById('driverGuideTotal');
+            const totalScaledEl = document.getElementById('driverGuideTotalScaled');
+            if (totalEl) totalEl.textContent = String(drivers + guides);
+            if (totalScaledEl) totalScaledEl.textContent = String(Math.round((drivers + guides) * scaleFactor));
+
+            skipDonutUpdate = true;
+          }
+
+          // Update donut charts (unless we already updated them from the visitor-by-country-and-vehicle payload)
+          if (!skipDonutUpdate) {
+            // prefer monthly aggregation for the donut visuals when user requests month
+            if (period === 'month') await updateDonutCharts('month');
+            else await updateDonutCharts(period);
+          }
+
           // Update bar chart
           await updateBarChart(period);
-          
+
           // Update peak visitor chart
           await updatePeakVisitorChart(period);
-          
+
         } catch (error) {
           console.error('Error loading data:', error);
         }
       }
 
-      // Initialize all charts with default data
+      // Fetch visitor-by-country-and-vehicle endpoint
+      async function fetchVisitorByCountryAndVehicle(period = 'week') {
+        try {
+          const resp = await fetch(`${API_BASE_URL}/visitor-by-country-and-vehicle?period=${period}`);
+          if (!resp.ok) throw new Error('visitor-by-country-and-vehicle fetch failed');
+          return await resp.json();
+        } catch (error) {
+          console.error('Error fetching visitor-by-country-and-vehicle:', error);
+          // fallback structure
+          return {
+            tourists: {
+              China: 228,
+              Russia: 243,
+              "South Korea": 321,
+              Japan: 170,
+              USA: 160
+            },
+            vehicleTypes: {
+              "4WD SUV": 25,
+              Minibus: 30,
+              Bus: 20,
+              Crossover: 15,
+              "Compact car": 5,
+              Motorcycle: 5
+            }
+          };
+        }
+      }
+
+      // Chart instances for dynamic update
+      let countryChartInstance = null;
+      let vehicleChartInstance = null;
+
+  // Update countryChart and vehicleChart using visitor-by-country-and-vehicle data
+      function updateCountryAndVehicleCharts(data) {
+        if (!data) return;
+
+        // Prepare country dataset (top 8)
+        const countryEntries = Object.entries(data.tourists || {}).sort((a,b) => b[1] - a[1]);
+        const topCountries = countryEntries.slice(0, 8);
+        const countryLabelsDynamic = topCountries.map(c => c[0]);
+        const countryValues = topCountries.map(c => c[1]);
+        const countryColors = ["#F97316","#EF4444","#FBBF24","#22D3EE","#0EA5E9","#A855F7","#EC4899","#60A5FA"];
+
+        const countryCanvas = document.getElementById('countryChart');
+        if (countryCanvas) {
+          // destroy Chart.js instance if attached directly to this canvas
+          const existingCountryChart = Chart.getChart(countryCanvas);
+          if (existingCountryChart) existingCountryChart.destroy();
+          if (countryChartInstance) countryChartInstance.destroy();
+
+          // ensure a legend container exists beneath the canvas
+          let countryLegend = countryCanvas.nextElementSibling;
+          if (!countryLegend || !countryLegend.classList || !countryLegend.classList.contains('chart-legend')) {
+            countryLegend = document.createElement('div');
+            countryLegend.className = 'chart-legend mt-4 text-sm flex flex-wrap justify-center gap-3';
+            countryCanvas.parentNode.insertBefore(countryLegend, countryCanvas.nextSibling);
+          }
+
+          countryChartInstance = new Chart(countryCanvas.getContext('2d'), {
+            type: 'doughnut',
+            data: {
+              labels: countryLabelsDynamic,
+              datasets: [{ data: countryValues, backgroundColor: countryColors.slice(0, countryLabelsDynamic.length), borderWidth: 0 }]
+            },
+            options: {
+              cutout: '75%',
+              animation: { duration: 800, easing: 'easeInOutCubic' },
+              plugins: {
+                legend: { display: false },
+                tooltip: { callbacks: { label: (ctx) => `${ctx.label}: ${ctx.parsed}` } },
+                datalabels: {
+                  color: '#000',
+                  formatter: (value, ctx) => {
+                    const sum = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0) || 1;
+                    const pct = Math.round((value / sum) * 100);
+                    return pct + '%';
+                  },
+                  anchor: 'center',
+                  align: 'center',
+                  font: { weight: 'bold', size: 12 }
+                }
+              }
+            },
+            plugins: [ChartDataLabels]
+          });
+
+          // populate legend DOM below canvas
+          countryLegend.innerHTML = '';
+          countryLabelsDynamic.forEach((lbl, idx) => {
+            const swatch = document.createElement('div');
+            swatch.className = 'flex items-center gap-2';
+            swatch.innerHTML = `<span class="w-3 h-3 rounded-full" style="background:${countryColors[idx]}"></span><span>${lbl}</span>`;
+            countryLegend.appendChild(swatch);
+          });
+        }
+
+        // Prepare vehicle dataset
+        const vehicleEntries = Object.entries(data.vehicleTypes || {}).sort((a,b) => b[1] - a[1]);
+        const vehicleLabelsDynamic = vehicleEntries.map(v => v[0]);
+        const vehicleValues = vehicleEntries.map(v => v[1]);
+        const vehicleColors = ["#F97316","#EF4444","#FBBF24","#A855F7","#38BDF8","#06B6D4"];
+
+        const vehicleCanvas = document.getElementById('vehicleChart');
+        if (vehicleCanvas) {
+          const existingVehicleChart = Chart.getChart(vehicleCanvas);
+          if (existingVehicleChart) existingVehicleChart.destroy();
+          if (vehicleChartInstance) vehicleChartInstance.destroy();
+
+          // ensure a legend container exists beneath the canvas
+          let vehicleLegend = vehicleCanvas.nextElementSibling;
+          if (!vehicleLegend || !vehicleLegend.classList || !vehicleLegend.classList.contains('chart-legend')) {
+            vehicleLegend = document.createElement('div');
+            vehicleLegend.className = 'chart-legend mt-4 text-sm flex flex-wrap justify-center gap-3';
+            vehicleCanvas.parentNode.insertBefore(vehicleLegend, vehicleCanvas.nextSibling);
+          }
+
+          vehicleChartInstance = new Chart(vehicleCanvas.getContext('2d'), {
+            type: 'doughnut',
+            data: {
+              labels: vehicleLabelsDynamic,
+              datasets: [{ data: vehicleValues, backgroundColor: vehicleColors.slice(0, vehicleLabelsDynamic.length), borderWidth: 0 }]
+            },
+            options: {
+              cutout: '75%',
+              animation: { duration: 800, easing: 'easeInOutCubic' },
+              plugins: {
+                legend: { display: false },
+                tooltip: { callbacks: { label: (ctx) => `${ctx.label}: ${ctx.parsed}` } },
+                datalabels: {
+                  color: '#000',
+                  formatter: (value, ctx) => {
+                    const sum = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0) || 1;
+                    const pct = Math.round((value / sum) * 100);
+                    return pct + '%';
+                  },
+                  anchor: 'center',
+                  align: 'center',
+                  font: { weight: 'bold', size: 12 }
+                }
+              }
+            },
+            plugins: [ChartDataLabels]
+          });
+
+          // populate legend DOM below canvas
+          vehicleLegend.innerHTML = '';
+          vehicleLabelsDynamic.forEach((lbl, idx) => {
+            const swatch = document.createElement('div');
+            swatch.className = 'flex items-center gap-2';
+            swatch.innerHTML = `<span class="w-3 h-3 rounded-full" style="background:${vehicleColors[idx]}"></span><span>${lbl}</span>`;
+            vehicleLegend.appendChild(swatch);
+          });
+        }
+      }
+
+      // Initialize all charts with default data and wire visitor card handlers
       document.addEventListener('DOMContentLoaded', async () => {
-        await loadDataForPeriod('all');
+        // wire visitor card click/keyboard handlers
+        const cardEls = document.querySelectorAll('[data-period]');
+        cardEls.forEach((card) => {
+          const period = card.getAttribute('data-period');
+          card.addEventListener('click', async () => {
+            await loadDataForPeriod(period);
+          });
+          card.addEventListener('keydown', async (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              await loadDataForPeriod(period);
+            }
+          });
+        });
+
+  // initial load — load 'all' data but ensure monthly donuts populate from tour-guides-and-drivers
+  await loadDataForPeriod('all');
+  // populate monthly guides & drivers immediately
+  try { await updateDonutCharts('month'); } catch (e) { console.warn('monthly donut prefill failed', e); }
       });
 
       const tabs = document.querySelectorAll("#tabs .tab-button");
@@ -617,17 +905,18 @@
       let chart2Instance = null;
       let barChartInstance = null;
 
-      // Function to fetch driver/guide statistics
+      // Function to fetch monthly tour guides & drivers statistics
       async function fetchDriverGuideStats(period = 'all') {
         try {
-          const response = await fetch(`${API_BASE_URL}/driver-guide-stats?period=${period}`);
+          // Use the tour-guides-and-drivers endpoint which provides aggregated guides/drivers
+          const response = await fetch(`${API_BASE_URL}/tour-guides-and-drivers?period=${period}`);
           if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
           }
           const data = await response.json();
           return data;
         } catch (error) {
-          console.error('Error fetching driver/guide statistics:', error);
+          console.error('Error fetching tour-guides-and-drivers statistics:', error);
           // Return fallback data
           return { drivers: 600, guides: 200, total: 800 };
         }
@@ -682,17 +971,32 @@
 
       // Donut Charts
       const createChart = (canvasId, data, chartInstance) => {
-        const ctx = document.getElementById(canvasId);
-        
-        // Destroy existing chart if it exists
-        if (chartInstance) {
-          chartInstance.destroy();
+        const canvasEl = document.getElementById(canvasId);
+        if (!canvasEl) return null;
+
+        // Destroy any Chart.js instance attached directly to the canvas
+        const existing = Chart.getChart(canvasEl);
+        if (existing) existing.destroy();
+
+        // Destroy provided instance handle
+        if (chartInstance) chartInstance.destroy();
+
+        // ensure legend container exists
+        let legend = canvasEl.nextElementSibling;
+        if (!legend || !legend.classList || !legend.classList.contains('chart-legend')) {
+          legend = document.createElement('div');
+          legend.className = 'chart-legend mt-4 text-sm flex flex-wrap justify-center gap-3';
+          canvasEl.parentNode.insertBefore(legend, canvasEl.nextSibling);
         }
-        
-        return new Chart(ctx, {
+
+        const labels = ["Drivers", "Guides"];
+        const sum = data.reduce((a,b) => a+b, 0) || 1;
+        const percentData = data.map(v => Math.round((v / sum) * 100));
+
+        const chart = new Chart(canvasEl.getContext('2d'), {
           type: "doughnut",
           data: {
-            labels: ["Drivers", "Guides"],
+            labels,
             datasets: [
               {
                 data,
@@ -704,12 +1008,35 @@
           options: {
             cutout: "75%",
             responsive: true,
+            animation: { duration: 800, easing: 'easeInOutCubic' },
             plugins: {
               legend: { display: false },
               tooltip: { enabled: false },
+              datalabels: {
+                color: '#000',
+                formatter: (value, ctx) => {
+                  const s = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0) || 1;
+                  return Math.round((value / s) * 100) + '%';
+                },
+                anchor: 'center',
+                align: 'center',
+                font: { weight: 'bold', size: 12 }
+              }
             },
           },
+          plugins: [ChartDataLabels]
         });
+
+        // populate legend DOM below canvas
+        legend.innerHTML = '';
+        labels.forEach((lbl, idx) => {
+          const sw = document.createElement('div');
+          sw.className = 'flex items-center gap-2';
+          sw.innerHTML = `<span class="w-3 h-3 rounded-full" style="background:${["#f97316","#3b82f6"][idx]}"></span><span>${lbl} (${percentData[idx]}%)</span>`;
+          legend.appendChild(sw);
+        });
+
+        return chart;
       };
 
       // Function to update donut charts
@@ -723,6 +1050,20 @@
           // Update chart2 (scaled up version for visual effect)
           const scaleFactor = 7.5; // To match original visual scale
           chart2Instance = createChart("chart2", [stats.drivers * scaleFactor, stats.guides * scaleFactor], chart2Instance);
+
+          // Sync numeric placeholders if present
+          const driversEl = document.getElementById('driverCountValue');
+          const guidesEl = document.getElementById('guideCountValue');
+          const driversElScaled = document.getElementById('driverCountValueScaled');
+          const guidesElScaled = document.getElementById('guideCountValueScaled');
+          const totalEl = document.getElementById('driverGuideTotal');
+          const totalScaledEl = document.getElementById('driverGuideTotalScaled');
+          if (driversEl) driversEl.textContent = String(stats.drivers || 0);
+          if (guidesEl) guidesEl.textContent = String(stats.guides || 0);
+          if (driversElScaled) driversElScaled.textContent = String(Math.round((stats.drivers || 0) * scaleFactor));
+          if (guidesElScaled) guidesElScaled.textContent = String(Math.round((stats.guides || 0) * scaleFactor));
+          if (totalEl) totalEl.textContent = String((stats.drivers || 0) + (stats.guides || 0));
+          if (totalScaledEl) totalScaledEl.textContent = String(Math.round(((stats.drivers || 0) + (stats.guides || 0)) * scaleFactor));
           
         } catch (error) {
           console.error('Error updating donut charts:', error);
@@ -787,16 +1128,27 @@
         try {
           const hourlyData = await fetchHourlyStats(period);
           
+          // If the canvas for peak visitor chart is not present, skip creating/updating it
+          const peakCanvas = document.getElementById("peakVisitorChart");
+          if (!peakCanvas) {
+            // destroy existing instance if present and then return
+            if (peakVisitorChartInstance) {
+              peakVisitorChartInstance.destroy();
+              peakVisitorChartInstance = null;
+            }
+            return;
+          }
+
           // Destroy existing chart if it exists
           if (peakVisitorChartInstance) {
             peakVisitorChartInstance.destroy();
           }
-          
+
           // Format labels (7 AM to 11 PM)
           const labels = [];
           const data = [];
-          
-          hourlyData.forEach(item => {
+
+          (hourlyData || []).forEach(item => {
             const hour = item.hour;
             if (hour === 12) {
               labels.push("12 PM");
@@ -805,11 +1157,11 @@
             } else {
               labels.push(`${hour} PM`);
             }
-            data.push(item.avgVisitors);
+            data.push(item.avgVisitors || 0);
           });
-          
-          const ctx1 = document.getElementById("peakVisitorChart").getContext("2d");
-          
+
+          const ctx1 = peakCanvas.getContext("2d");
+
           peakVisitorChartInstance = new Chart(ctx1, {
             type: "bar",
             data: {
@@ -852,54 +1204,89 @@
         }
       }
 
-      const ctx = document.getElementById("visitorChart").getContext("2d");
+      // visitorChart instance (dynamic) -------------------------------------------------
+      let visitorChartInstance = null;
 
-      new Chart(ctx, {
-        type: "line",
-        data: {
-          labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
-          datasets: [
-            {
-              label: "Visitors",
-              data: [50, 50, 100, 150, 200, 200, 250],
-              borderColor: "#f59e0b", // orange-500
-              backgroundColor: "#f59e0b",
-              tension: 0, // Шулуун шугам
-              fill: false,
-              pointBackgroundColor: "#f59e0b",
-              pointBorderColor: "#f59e0b",
-              pointRadius: 4,
+      // Fetch daily visitor stats from backend
+      async function fetchDailyStats(period = 'week') {
+        try {
+          const resp = await fetch(`${API_BASE_URL}/daily-visitor-stats?period=${period}`);
+          if (!resp.ok) throw new Error('daily-visitor-stats fetch failed');
+          return await resp.json();
+        } catch (error) {
+          console.error('Error fetching daily visitor stats:', error);
+          // fallback: synthesize 7-day mock
+          const mock = [];
+          const now = new Date();
+          for (let i = 6; i >= 0; i--) {
+            const d = new Date(now);
+            d.setDate(now.getDate() - i);
+            mock.push({ date: d.toISOString(), totalVisitors: Math.floor(Math.random() * 200) + 20 });
+          }
+          return mock;
+        }
+      }
+
+      // Update visitorChart with daily data
+      async function updateVisitorChart(period = 'week') {
+        try {
+          const data = await fetchDailyStats(period);
+          if (!data || !Array.isArray(data)) return;
+
+          // Map to labels and values. Try common field names.
+          const labels = data.map(item => {
+            const dt = item.date ? new Date(item.date) : new Date(item.day || item._date || item.createdAt);
+            return dt.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+          });
+
+          const values = data.map(item => {
+            return (item.totalVisitors != null) ? item.totalVisitors : ((item.domesticVisitors || 0) + (item.internationalVisitors || 0));
+          });
+
+          const canvas = document.getElementById('visitorChart');
+          if (!canvas) return;
+
+          // destroy existing
+          const existing = Chart.getChart(canvas);
+          if (existing) existing.destroy();
+          if (visitorChartInstance) visitorChartInstance.destroy();
+
+          visitorChartInstance = new Chart(canvas.getContext('2d'), {
+            type: 'line',
+            data: {
+              labels,
+              datasets: [{
+                label: 'Daily Visitors',
+                data: values,
+                borderColor: '#f59e0b',
+                backgroundColor: 'rgba(245,158,11,0.08)',
+                tension: 0.35,
+                fill: true,
+                pointRadius: 3,
+                pointBackgroundColor: '#f59e0b'
+              }]
             },
-          ],
-        },
-        options: {
-          responsive: true,
-          scales: {
-            y: {
-              beginAtZero: true,
-              ticks: {
-                stepSize: 50,
+            options: {
+              responsive: true,
+              animation: { duration: 800, easing: 'easeInOutCubic' },
+              scales: {
+                y: { beginAtZero: true, grid: { color: '#d1d5db' } },
+                x: { grid: { color: '#d1d5db' } }
               },
-              grid: {
-                color: "#d1d5db", // Tailwind gray-300
-              },
-            },
-            x: {
-              grid: {
-                color: "#d1d5db",
-              },
-            },
-          },
-          plugins: {
-            legend: {
-              display: false,
-            },
-          },
-        },
-      });
+              plugins: { legend: { display: false }, tooltip: { mode: 'index', intersect: false } }
+            }
+          });
+        } catch (error) {
+          console.error('Error updating visitor chart:', error);
+        }
+      }
     </script>
 
     <!-- Peak Visitor Chart - Now loaded dynamically -->
+    <script>
+     
+    </script>
+
 
     <!-- Vehicle Statistics -->
     <script>
@@ -914,10 +1301,23 @@
       ];
       const countryData = [31, 24, 22, 14, 4, 3, 2];
 
-      const countryCtx = document
-        .getElementById("countryChart")
-        .getContext("2d");
-      new Chart(countryCtx, {
+      const countryCanvas = document.getElementById("countryChart");
+      if (countryCanvas) {
+        const countryCtx = countryCanvas.getContext("2d");
+
+        // create legend container if missing
+        let countryLegend = countryCanvas.nextElementSibling;
+        if (!countryLegend || !countryLegend.classList || !countryLegend.classList.contains('chart-legend')) {
+          countryLegend = document.createElement('div');
+          countryLegend.className = 'chart-legend mt-4 text-sm flex flex-wrap justify-center gap-3';
+          countryCanvas.parentNode.insertBefore(countryLegend, countryCanvas.nextSibling);
+        }
+
+        const sum = countryData.reduce((a,b) => a+b, 0) || 1;
+        const percentData = countryData.map(v => Math.round((v / sum) * 100));
+
+        if (countryChartInstance) countryChartInstance.destroy();
+        countryChartInstance = new Chart(countryCtx, {
         type: "doughnut",
         data: {
           labels: countryLabels,
@@ -939,6 +1339,7 @@
         },
         options: {
           cutout: "80%",
+          animation: { duration: 800, easing: 'easeInOutCubic' },
           plugins: {
             legend: { display: false },
             datalabels: {
@@ -947,14 +1348,17 @@
                 size: 12,
                 weight: "bold",
               },
-              formatter: (value) => value + "%",
+              formatter: (value, ctx) => {
+                const s = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0) || 1;
+                return Math.round((value / s) * 100) + '%';
+              },
               anchor: "center",
               align: "center",
             },
             tooltip: {
               callbacks: {
                 label: (context) =>
-                  `${countryLabels[context.dataIndex]}: ${context.parsed}%`,
+                  `${countryLabels[context.dataIndex]}: ${context.parsed}`,
               },
             },
           },
@@ -983,7 +1387,17 @@
             },
           },
         ],
-      });
+        });
+
+        // populate legend DOM below canvas
+        countryLegend.innerHTML = '';
+        countryLabels.forEach((lbl, idx) => {
+          const swatch = document.createElement('div');
+          swatch.className = 'flex items-center gap-2';
+          swatch.innerHTML = `<span class="w-3 h-3 rounded-full" style="background:${["#F97316","#EF4444","#FBBF24","#22D3EE","#0EA5E9","#A855F7","#EC4899"][idx]}"></span><span>${lbl} (${percentData[idx]}%)</span>`;
+          countryLegend.appendChild(swatch);
+        });
+      }
 
       const vehicleLabels = [
         "Minibus",
@@ -1003,10 +1417,23 @@
         Motorcycle: "🏍️",
       };
 
-      const vehicleCtx = document
-        .getElementById("vehicleChart")
-        .getContext("2d");
-      new Chart(vehicleCtx, {
+      const vehicleCanvas = document.getElementById("vehicleChart");
+      if (vehicleCanvas) {
+        const vehicleCtx = vehicleCanvas.getContext("2d");
+
+        // create legend container if missing
+        let vehicleLegend = vehicleCanvas.nextElementSibling;
+        if (!vehicleLegend || !vehicleLegend.classList || !vehicleLegend.classList.contains('chart-legend')) {
+          vehicleLegend = document.createElement('div');
+          vehicleLegend.className = 'chart-legend mt-4 text-sm flex flex-wrap justify-center gap-3';
+          vehicleCanvas.parentNode.insertBefore(vehicleLegend, vehicleCanvas.nextSibling);
+        }
+
+        const sumV = vehicleData.reduce((a,b) => a+b, 0) || 1;
+        const percentV = vehicleData.map(v => Math.round((v / sumV) * 100));
+
+        if (vehicleChartInstance) vehicleChartInstance.destroy();
+        vehicleChartInstance = new Chart(vehicleCtx, {
         type: "doughnut",
         data: {
           labels: vehicleLabels,
@@ -1027,6 +1454,7 @@
         },
         options: {
           cutout: "80%",
+          animation: { duration: 800, easing: 'easeInOutCubic' },
           plugins: {
             legend: { display: false },
             datalabels: {
@@ -1035,7 +1463,10 @@
                 size: 12,
                 weight: "bold",
               },
-              formatter: (value) => value + "%",
+              formatter: (value, ctx) => {
+                const s = ctx.chart.data.datasets[0].data.reduce((a, b) => a + b, 0) || 1;
+                return Math.round((value / s) * 100) + '%';
+              },
               anchor: "center",
               align: "center",
             },
@@ -1044,7 +1475,7 @@
                 label: (context) =>
                   `${vehicleIcons[vehicleLabels[context.dataIndex]]} ${
                     vehicleLabels[context.dataIndex]
-                  }: ${context.parsed}%`,
+                  }: ${context.parsed}`,
               },
             },
           },
@@ -1094,83 +1525,18 @@
             },
           },
         ],
-      });
+        });
+
+        // populate legend DOM below canvas
+        vehicleLegend.innerHTML = '';
+        vehicleLabels.forEach((lbl, idx) => {
+          const swatch = document.createElement('div');
+          swatch.className = 'flex items-center gap-2';
+          swatch.innerHTML = `<span class="w-3 h-3 rounded-full" style="background:${["#F97316","#EF4444","#FBBF24","#A855F7","#38BDF8","#06B6D4"][idx]}"></span><span>${lbl} (${percentV[idx]}%)</span>`;
+          vehicleLegend.appendChild(swatch);
+        });
+      }
     </script>
-
-    <!-- Moon Phase Chart -->
-    <script>
-      const ctxMoon = document.getElementById("moonChart").getContext("2d");
-
-      const moonChart = new Chart(ctxMoon, {
-        type: "bar",
-        data: {
-          labels: ["New Moon", "First Quarter", "Full Moon", "Last Quarter"],
-          datasets: [
-            {
-              label: "Visitors",
-              data: [280, 460, 160, 370],
-              backgroundColor: ["#1a1a1a", "#e4bc75", "#fceec7", "#a46f4d"],
-              borderRadius: 12,
-              borderSkipped: false,
-            },
-          ],
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: { display: false },
-            tooltip: {
-              callbacks: {
-                label: function (context) {
-                  return `Visitors: ${context.parsed.y}`;
-                },
-              },
-            },
-          },
-          scales: {
-            y: {
-              beginAtZero: true,
-              grid: {
-                color: "#ccc",
-                borderDash: [4, 4],
-              },
-            },
-            x: {
-              grid: { display: false },
-            },
-          },
-        },
-        plugins: [
-          {
-            id: "customMoonIcons",
-            afterDatasetsDraw(chart) {
-              const {
-                ctx,
-                data,
-                scales: { x, y },
-              } = chart;
-              const icons = ["🌑", "🌓", "🌕", "🌗"];
-              ctx.font = "24px Arial";
-              ctx.textAlign = "center";
-              ctx.textBaseline = "middle";
-              data.datasets[0].data.forEach((value, i) => {
-                const xCenter = x.getPixelForValue(i);
-                const yTop = y.getPixelForValue(value) + 20;
-                ctx.fillText(icons[i], xCenter, yTop);
-              });
-            },
-          },
-        ],
-      });
-
-      // Toggle mobile menu
-      document.getElementById("menu-toggle").addEventListener("click", () => {
-        const menu = document.getElementById("mobile-menu");
-        menu.classList.toggle("hidden");
-      });
-    </script>
-    
-    <!-- Footer Loader Script -->
     <script src="footer-loader.js"></script>
   </body>
 </html>
