@@ -149,6 +149,33 @@ class TouristRegistrationAPI {
     }
   }
 
+  // Export data to PDF (falls back to server-side PDF export if available)
+  static async exportToPDF(filters = {}) {
+    try {
+      const queryParams = new URLSearchParams(filters);
+      const response = await fetch(`${API_BASE_URL}/export/pdf?${queryParams}`);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `tourist_registrations_${new Date().toISOString().split('T')[0]}.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+
+      return { success: true };
+    } catch (error) {
+      console.error('Error exporting to PDF:', error);
+      return { success: false, error: error.message };
+    }
+  }
+
   // Get country statistics
   static async getCountryStats(period = 'all') {
     try {
