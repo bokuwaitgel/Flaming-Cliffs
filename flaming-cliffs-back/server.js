@@ -28,7 +28,7 @@ const swaggerDefinition = {
   info: {
     title: 'Flaming Cliffs Tourist Registration API',
     version: '1.0.0',
-    description: 'Comprehensive API for Flaming Cliffs Tourist Registration System',
+    description: 'Comprehensive API for Flaming Cliffs Tourist Registration System with JWT Authentication',
   },
   servers: [
     {
@@ -38,6 +38,20 @@ const swaggerDefinition = {
     {
       url: '/api',
       description: 'Production server',
+    },
+  ],
+  components: {
+    securitySchemes: {
+      bearerAuth: {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+      },
+    },
+  },
+  security: [
+    {
+      bearerAuth: [],
     },
   ],
 };
