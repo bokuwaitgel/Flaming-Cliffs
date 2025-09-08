@@ -467,4 +467,15 @@ router.post('/users', authenticateAdmin, async (req, res) => {
   }
 });
 
+// check token validity
+router.get('/auth/check', authenticateToken, async (req, res) => {
+    try {
+        token = req.headers['authorization'].split(' ')[1];
+        res.json({ valid: true });
+    } catch (error) {
+        console.error('Token validation error:', error);
+        res.json({ valid: false });
+    }
+});
+
 module.exports = router;

@@ -111,6 +111,32 @@ app.get('/gallery', (req, res) => {
   res.sendFile(path.join(__dirname, 'web', 'photo_gallery.html'));
 });
 
+//Authentication pages
+app.get('/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'web', 'login.html'));
+});
+
+app.get('/register', (req, res) => {
+  res.sendFile(path.join(__dirname, 'web', 'register.html'));
+});
+
+app.get('/auth-login.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'web', 'login.html'));
+});
+
+app.get('/register.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'web', 'register.html'));
+});
+
+// Role selection page (original login.html functionality)
+app.get('/login.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'web', 'role-selection.html'));
+});
+
+app.get('/role-selection', (req, res) => {
+  res.sendFile(path.join(__dirname, 'web', 'role-selection.html'));
+});
+
 // Health check
 app.get('/health', (req, res) => {
   res.json({ status: 'OK', timestamp: new Date().toISOString() });

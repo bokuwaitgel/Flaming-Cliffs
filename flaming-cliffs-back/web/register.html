@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Flaming Cliffs Tourist Registration</title>
+    <title>Register - Flaming Cliffs Tourist Registration</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="global.css">
     <style>
@@ -35,10 +35,10 @@
                 </div>
                 <div class="flex items-center space-x-4">
                     <a href="/" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Home</a>
-                    <!-- <a href="/registration" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Registration</a>
+                    <a href="/auth-login.html" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">Login</a>
                     <button id="logoutBtn" class="hidden text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium border border-gray-300 rounded-md hover:bg-gray-50" data-logout>
                         Logout
-                    </button> -->
+                    </button>
                 </div>
             </div>
         </div>
@@ -50,23 +50,32 @@
             <!-- Logo and Title -->
             <div class="text-center">
                 <img class="mx-auto h-20 w-auto" src="img/baynzag logo.png" alt="Flaming Cliffs">
-                <h2 class="mt-6 text-3xl font-extrabold text-gray-900" id="loginTitle">
-                    Sign in to your account
+                <h2 class="mt-6 text-3xl font-extrabold text-gray-900">
+                    Create your account
                 </h2>
-                <p class="mt-2 text-sm text-gray-600" id="loginSubtitle">
-                    Access the tourist registration system
+                <p class="mt-2 text-sm text-gray-600">
+                    Join the tourist registration system
                 </p>
-                <!-- User Type Indicator -->
-                <div id="userTypeIndicator" class="mt-3 hidden">
-                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium" id="userTypeBadge">
-                        <!-- Dynamic content based on user type -->
-                    </span>
-                </div>
             </div>
 
-            <!-- Login Form -->
+            <!-- Registration Form -->
             <div class="bg-white p-8 rounded-lg shadow-lg">
-                <form class="space-y-6" id="loginForm">
+                <form class="space-y-6" id="registerForm">
+                    <!-- Name Field -->
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
+                            Full Name
+                        </label>
+                        <input 
+                            id="name" 
+                            name="name" 
+                            type="text" 
+                            required 
+                            class="form-input block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                            placeholder="Enter your full name"
+                        >
+                    </div>
+
                     <!-- Email Field -->
                     <div>
                         <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
@@ -93,8 +102,9 @@
                                 name="password" 
                                 type="password" 
                                 required 
+                                minlength="6"
                                 class="form-input block w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                                placeholder="Enter your password"
+                                placeholder="Enter your password (min 6 characters)"
                             >
                             <button 
                                 type="button" 
@@ -107,66 +117,100 @@
                                 </svg>
                             </button>
                         </div>
+                        <p class="mt-1 text-xs text-gray-500">Password must be at least 6 characters long</p>
                     </div>
 
-                    <!-- Remember Me -->
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center">
+                    <!-- Confirm Password Field -->
+                    <div>
+                        <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-2">
+                            Confirm Password
+                        </label>
+                        <div class="relative">
                             <input 
-                                id="remember-me" 
-                                name="remember-me" 
-                                type="checkbox" 
-                                class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                                id="confirmPassword" 
+                                name="confirmPassword" 
+                                type="password" 
+                                required 
+                                minlength="6"
+                                class="form-input block w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                                placeholder="Confirm your password"
                             >
-                            <label for="remember-me" class="ml-2 block text-sm text-gray-900">
-                                Remember me
-                            </label>
+                            <button 
+                                type="button" 
+                                id="toggleConfirmPassword" 
+                                class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                            >
+                                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                </svg>
+                            </button>
                         </div>
-                        <!-- <div class="text-sm">
-                            <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500" id="forgotPassword">
-                                Forgot your password?
-                            </a>
-                        </div> -->
+                    </div>
+
+                    <!-- Role Field (Optional for admin) -->
+                    <div id="roleField" class="hidden">
+                        <label for="role" class="block text-sm font-medium text-gray-700 mb-2">
+                            Role
+                        </label>
+                        <select 
+                            id="role" 
+                            name="role" 
+                            class="form-input block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                        >
+                            <option value="USER">User</option>
+                            <option value="ADMIN">Admin</option>
+                        </select>
+                    </div>
+
+                    <!-- Terms and Conditions -->
+                    <div class="flex items-center">
+                        <input 
+                            id="terms" 
+                            name="terms" 
+                            type="checkbox" 
+                            required
+                            class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                        >
+                        <label for="terms" class="ml-2 block text-sm text-gray-900">
+                            I agree to the 
+                            <a href="#" class="text-indigo-600 hover:text-indigo-500">Terms and Conditions</a>
+                            and 
+                            <a href="#" class="text-indigo-600 hover:text-indigo-500">Privacy Policy</a>
+                        </label>
                     </div>
 
                     <!-- Submit Button -->
                     <div>
                         <button 
                             type="submit" 
-                            id="loginBtn"
+                            id="registerBtn"
                             class="btn-primary group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             <span class="absolute left-0 inset-y-0 flex items-center pl-3">
                                 <svg class="h-5 w-5 text-white group-hover:text-indigo-100" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                                    <path d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z" />
                                 </svg>
                             </span>
-                            <span id="loginText">Sign in</span>
+                            <span id="registerText">Create Account</span>
                             <span id="loadingSpinner" class="hidden">
                                 <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                                 </svg>
-                                Signing in...
+                                Creating account...
                             </span>
                         </button>
                     </div>
 
-                    <!-- Register Link -->
-                    <div class="text-center space-y-2">
-                        <!-- Back to Role Selection (shown only when user came from role selection) -->
-                        <div id="backToRoleSelection" class="hidden">
-                            <a href="/role-selection" class="text-sm text-gray-500 hover:text-gray-700">
-                                ← Back to role selection
+                    <!-- Login Link -->
+                    <div class="text-center">
+                        <p class="text-sm text-gray-600">
+                            Already have an account? 
+                            <a href="/auth-login.html" class="font-medium text-indigo-600 hover:text-indigo-500" id="loginLink">
+                                Sign in here
                             </a>
-                        </div>
-                        
-                        <!-- <p class="text-sm text-gray-600">
-                            Don't have an account? 
-                            <a href="/register" class="font-medium text-indigo-600 hover:text-indigo-500" id="registerLink">
-                                Sign up here
-                            </a>
-                        </p> -->
+                        </p>
                     </div>
                 </form>
             </div>
@@ -203,123 +247,92 @@
     </div>
 
     <!-- JavaScript -->
+    <script src="logout-component.js"></script>
     <script>
-        class AuthManager {
+        class RegisterManager {
             constructor() {
                 this.baseURL = '/api';
                 this.init();
             }
 
             init() {
-                // Check for user type preference from previous page
-                this.setupUserTypeUI();
-                
                 // Check if user is already logged in
                 this.checkAuthStatus();
                 
                 // Bind event listeners
                 this.bindEvents();
-                
-                // Show logout button if user is logged in
-                this.updateNavigation();
-            }
-
-            updateNavigation() {
-                const token = localStorage.getItem('accessToken');
-                const logoutBtn = document.getElementById('logoutBtn');
-                
-                if (token) {
-                    logoutBtn.classList.remove('hidden');
-                } else {
-                    logoutBtn.classList.add('hidden');
-                }
-            }
-
-            setupUserTypeUI() {
-                const preferredRole = sessionStorage.getItem('preferredRole');
-                const titleElement = document.getElementById('loginTitle');
-                const subtitleElement = document.getElementById('loginSubtitle');
-                const indicatorElement = document.getElementById('userTypeIndicator');
-                const badgeElement = document.getElementById('userTypeBadge');
-                const backLinkElement = document.getElementById('backToRoleSelection');
-
-                if (preferredRole) {
-                    indicatorElement.classList.remove('hidden');
-                    backLinkElement.classList.remove('hidden');
-                    
-                    if (preferredRole === 'ADMIN') {
-                        titleElement.textContent = 'Inspector Login';
-                        subtitleElement.textContent = 'Access the inspection dashboard';
-                        badgeElement.innerHTML = `
-                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" clip-rule="evenodd" />
-                            </svg>
-                            Inspector / Admin Login
-                        `;
-                        badgeElement.classList.add('bg-blue-100', 'text-blue-800');
-                    } else if (preferredRole === 'USER') {
-                        titleElement.textContent = 'Tourist Operator Login';
-                        subtitleElement.textContent = 'Access the tourist registration system';
-                        badgeElement.innerHTML = `
-                            <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd" />
-                            </svg>
-                            Tourist Operator Login
-                        `;
-                        badgeElement.classList.add('bg-green-100', 'text-green-800');
-                    }
-                }
             }
 
             bindEvents() {
-                // Login form submission
-                document.getElementById('loginForm').addEventListener('submit', (e) => {
+                // Register form submission
+                document.getElementById('registerForm').addEventListener('submit', (e) => {
                     e.preventDefault();
-                    this.handleLogin();
+                    this.handleRegister();
                 });
 
                 // Password toggle
                 document.getElementById('togglePassword').addEventListener('click', () => {
-                    this.togglePasswordVisibility();
+                    this.togglePasswordVisibility('password', 'togglePassword');
                 });
 
-                // Register link
-                document.getElementById('registerLink').addEventListener('click', (e) => {
-                    e.preventDefault();
-                    this.redirectToRegister();
+                document.getElementById('toggleConfirmPassword').addEventListener('click', () => {
+                    this.togglePasswordVisibility('confirmPassword', 'toggleConfirmPassword');
                 });
 
-                // Forgot password
-                document.getElementById('forgotPassword').addEventListener('click', (e) => {
-                    e.preventDefault();
-                    this.handleForgotPassword();
+                // Password match validation
+                document.getElementById('confirmPassword').addEventListener('input', () => {
+                    this.validatePasswordMatch();
                 });
 
-                // Logout button
-                document.getElementById('logoutBtn').addEventListener('click', (e) => {
+                document.getElementById('password').addEventListener('input', () => {
+                    this.validatePasswordMatch();
+                });
+
+                // Login link
+                document.getElementById('loginLink').addEventListener('click', (e) => {
                     e.preventDefault();
-                    this.handleLogout();
+                    this.redirectToLogin();
                 });
             }
 
-            async handleLogin() {
+            async handleRegister() {
+                const name = document.getElementById('name').value.trim();
                 const email = document.getElementById('email').value.trim();
                 const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                const role = document.getElementById('role').value || 'USER';
+                const terms = document.getElementById('terms').checked;
 
-                if (!email || !password) {
-                    this.showError('Please enter both email and password');
+                // Validation
+                if (!name || !email || !password || !confirmPassword) {
+                    this.showError('Please fill in all required fields');
+                    return;
+                }
+
+                if (password.length < 6) {
+                    this.showError('Password must be at least 6 characters long');
+                    return;
+                }
+
+                if (password !== confirmPassword) {
+                    this.showError('Passwords do not match');
+                    return;
+                }
+
+                if (!terms) {
+                    this.showError('Please accept the Terms and Conditions');
                     return;
                 }
 
                 this.setLoading(true);
 
                 try {
-                    const response = await fetch(`${this.baseURL}/auth/login`, {
+                    const response = await fetch(`${this.baseURL}/auth/register`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify({ email, password })
+                        body: JSON.stringify({ name, email, password, role })
                     });
 
                     const data = await response.json();
@@ -330,7 +343,7 @@
                         localStorage.setItem('refreshToken', data.tokens.refreshToken);
                         localStorage.setItem('user', JSON.stringify(data.user));
 
-                        this.showSuccess('Login successful! Redirecting...');
+                        this.showSuccess('Account created successfully! Redirecting...');
                         
                         // Redirect based on user role
                         setTimeout(() => {
@@ -341,13 +354,29 @@
                             }
                         }, 1500);
                     } else {
-                        this.showError(data.error || 'Login failed');
+                        this.showError(data.error || 'Registration failed');
                     }
                 } catch (error) {
-                    console.error('Login error:', error);
+                    console.error('Registration error:', error);
                     this.showError('Network error. Please try again.');
                 } finally {
                     this.setLoading(false);
+                }
+            }
+
+            validatePasswordMatch() {
+                const password = document.getElementById('password').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                const confirmPasswordField = document.getElementById('confirmPassword');
+
+                if (confirmPassword && password !== confirmPassword) {
+                    confirmPasswordField.setCustomValidity('Passwords do not match');
+                    confirmPasswordField.classList.add('border-red-500');
+                    confirmPasswordField.classList.remove('border-gray-300');
+                } else {
+                    confirmPasswordField.setCustomValidity('');
+                    confirmPasswordField.classList.remove('border-red-500');
+                    confirmPasswordField.classList.add('border-gray-300');
                 }
             }
 
@@ -366,9 +395,9 @@
                 }
             }
 
-            togglePasswordVisibility() {
-                const passwordInput = document.getElementById('password');
-                const toggleButton = document.getElementById('togglePassword');
+            togglePasswordVisibility(fieldId, buttonId) {
+                const passwordInput = document.getElementById(fieldId);
+                const toggleButton = document.getElementById(buttonId);
                 
                 if (passwordInput.type === 'password') {
                     passwordInput.type = 'text';
@@ -388,60 +417,22 @@
                 }
             }
 
-            redirectToRegister() {
-                window.location.href = '/register.html';
-            }
-
-            handleForgotPassword() {
-                alert('Password reset functionality will be implemented soon. Please contact the administrator.');
-            }
-
-            async handleLogout() {
-                const token = localStorage.getItem('accessToken');
-                
-                if (token) {
-                    try {
-                        // Call logout API
-                        await fetch(`${this.baseURL}/auth/logout`, {
-                            method: 'POST',
-                            headers: {
-                                'Authorization': `Bearer ${token}`
-                            }
-                        });
-                    } catch (error) {
-                        console.error('Logout API call failed:', error);
-                    }
-                }
-
-                // Clear local storage
-                localStorage.removeItem('accessToken');
-                localStorage.removeItem('refreshToken');
-                localStorage.removeItem('user');
-                sessionStorage.removeItem('preferredRole');
-
-                this.showSuccess('Logged out successfully!');
-                
-                // Update navigation
-                this.updateNavigation();
-                
-                // Redirect to home after a short delay
-                setTimeout(() => {
-                    window.location.href = '/';
-                }, 1000);
+            redirectToLogin() {
+                window.location.href = '/auth-login.html';
             }
 
             setLoading(isLoading) {
-                const loginBtn = document.getElementById('loginBtn');
-                const loginText = document.getElementById('loginText');
+                const registerBtn = document.getElementById('registerBtn');
+                const registerText = document.getElementById('registerText');
                 const loadingSpinner = document.getElementById('loadingSpinner');
 
                 if (isLoading) {
-                    loginBtn.disabled = true;
-                    loginText.classList.add('hidden');
+                    registerBtn.disabled = true;
+                    registerText.classList.add('hidden');
                     loadingSpinner.classList.remove('hidden');
                 } else {
-                    loginBtn.disabled = false;
-                    loginText.classList.remove('hidden');
+                    registerBtn.disabled = false;
+                    registerText.classList.remove('hidden');
                     loadingSpinner.classList.add('hidden');
                 }
             }
@@ -486,9 +477,9 @@
             }
         }
 
-        // Initialize AuthManager when DOM is loaded
+        // Initialize RegisterManager when DOM is loaded
         document.addEventListener('DOMContentLoaded', () => {
-            new AuthManager();
+            new RegisterManager();
         });
     </script>
 </body>

@@ -381,7 +381,8 @@ router.get('/country-stats', async (req, res) => {
   try {
     const { period = 'all' } = req.query;
 
-    let where = { status: 'active' };
+    let whereConditions = [`status = 'active'`];
+    let queryParams = [];
 
     if (period !== 'all') {
       const now = moment();
@@ -403,20 +404,23 @@ router.get('/country-stats', async (req, res) => {
       }
 
       if (startDate) {
-        where.registrationDate = { gte: startDate.toDate() };
+        whereConditions.push(`"registrationDate" >= $${queryParams.length + 1}`);
+        queryParams.push(startDate.toDate());
       }
     }
 
-    const countryStats = await prisma.$queryRaw`
-      SELECT
+    const whereClause = whereConditions.join(' AND ');
+
+    const countryStats = await prisma.$queryRawUnsafe(
+      `SELECT
         unnest(countries) as country,
         SUM("touristCount") as value
       FROM registrations
-      WHERE ${where.status ? prisma.registration.fields.status.equals(where.status) : true}
-      ${where.registrationDate ? `AND "registrationDate" >= ${where.registrationDate.gte}` : ''}
+      WHERE ${whereClause}
       GROUP BY unnest(countries)
-      ORDER BY value DESC
-    `;
+      ORDER BY value DESC`,
+      ...queryParams
+    );
 
     const countryArray = countryStats.map(stat => ({
       country: stat.country,
