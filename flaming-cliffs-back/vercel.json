@@ -5,7 +5,7 @@
       "src": "server.js",
       "use": "@vercel/node",
       "config": {
-        "includeFiles": ["prisma/schema.prisma"]
+        "includeFiles": ["prisma/**"]
       }
     }
   ],
@@ -15,7 +15,7 @@
       "dest": "server.js"
     }
   ],
-  "buildCommand": "npm run build",
+  "buildCommand": "npx prisma generate && npm run build",
   "installCommand": "npm install",
   "env": {
     "NODE_ENV": "production"

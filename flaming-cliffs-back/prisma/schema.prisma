@@ -18,8 +18,8 @@ model User {
   role      Role     @default(USER)
   accessToken String?  @unique
   refreshToken String?  @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(dbgenerated("now() + interval '12 hour'"))
+  updatedAt DateTime @default(dbgenerated("now() + interval '12 hour'"))
 }
 
 enum Role {
@@ -33,6 +33,7 @@ model Registration {
   registrationDate  DateTime @default(now())
   touristCount      Int
   countries         String[]
+  tourists          Json[]   // Structure: [{country: string, count: number}]
   guideCount        Int?     @default(0)
   driverCount       Int?     @default(0)
   totalAmount       Float
@@ -43,8 +44,8 @@ model Registration {
   vehicleNumber     String?
   vehicleType       String?
   guideName         String?
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  createdAt         DateTime @default(dbgenerated("now() + interval '12 hour'"))
+  updatedAt         DateTime @default(dbgenerated("now() + interval '12 hour'"))
 
   @@map("registrations")
 }
@@ -63,9 +64,9 @@ model VisitorStats {
   weather              Json?
   hourlyBreakdown      Json[]
   events               Json[]
-  lastUpdated          DateTime @default(now())
-  createdAt            DateTime @default(now())
-  updatedAt            DateTime @updatedAt
+  lastUpdated DateTime @default(dbgenerated("now() + interval '12 hour'"))
+  createdAt            DateTime @default(dbgenerated("now() + interval '12 hour'"))
+  updatedAt            DateTime @default(dbgenerated("now() + interval '12 hour'"))
 
   @@map("visitor_stats")
 }

@@ -1,9 +1,13 @@
 const express = require('express');
 const { PrismaClient } = require('@prisma/client');
-const moment = require('moment');
+const moment = require('moment-timezone');
 
 const router = express.Router();
 const prisma = new PrismaClient();
+
+// Set default timezone to Mongolia (Ulaanbaatar)
+const MONGOLIA_TZ = 'Asia/Ulaanbaatar';
+moment.tz.setDefault(MONGOLIA_TZ);
 
 // Helper function to get country codes
 function getCountryCode(countryName) {
@@ -72,7 +76,7 @@ router.get('/registrations', async (req, res) => {
     let where = { status: 'active' };
 
     if (period) {
-      const now = moment();
+      const now = moment.tz(MONGOLIA_TZ);
       let startDate;
 
       switch (period) {
@@ -80,10 +84,10 @@ router.get('/registrations', async (req, res) => {
           startDate = now.clone().startOf('day');
           break;
         case 'week':
-          startDate = now.clone().subtract(7, 'days');
+          startDate = now.clone().subtract(7, 'days').startOf('day');
           break;
         case 'month':
-          startDate = now.clone().subtract(1, 'month');
+          startDate = now.clone().subtract(1, 'month').startOf('day');
           break;
         default:
           startDate = now.clone().startOf('day');
@@ -157,11 +161,63 @@ router.get('/registrations/:id', async (req, res) => {
  */
 router.post('/registrations', async (req, res) => {
   try {
+    // Process tourists data - new format: [{country, count}]
+    const touristsData = req.body.tourists || [];
+    let processedTourists = [];
+    let totalTouristCount = 0;
+    let allCountries = [];
+
+    if (Array.isArray(touristsData) && touristsData.length > 0) {
+      // Check if it's the new format {country, count}
+      if (touristsData[0].hasOwnProperty('count')) {
+        processedTourists = touristsData.map(item => ({
+          country: item.country || 'Unknown',
+          count: parseInt(item.count) || 1
+        }));
+        totalTouristCount = processedTourists.reduce((sum, item) => sum + item.count, 0);
+        allCountries = processedTourists.map(item => item.country).filter(c => c && c !== 'Unknown');
+      } else {
+        // Handle old individual tourist format - convert to new format
+        const countryGroups = {};
+        touristsData.forEach(tourist => {
+          const country = tourist.country || 'Unknown';
+          countryGroups[country] = (countryGroups[country] || 0) + 1;
+        });
+        
+        processedTourists = Object.entries(countryGroups).map(([country, count]) => ({
+          country,
+          count
+        }));
+        totalTouristCount = touristsData.length;
+        allCountries = Object.keys(countryGroups).filter(c => c !== 'Unknown');
+      }
+    } else {
+      // Fallback: use touristCount and countries from old format
+      const countries = req.body.countries || [];
+      const touristCount = req.body.touristCount || 1;
+      
+      if (countries.length > 0) {
+        const countPerCountry = Math.ceil(touristCount / countries.length);
+        processedTourists = countries.map(country => ({
+          country,
+          count: countPerCountry
+        }));
+      } else {
+        processedTourists = [{ country: 'Unknown', count: touristCount }];
+      }
+      
+      totalTouristCount = touristCount;
+      allCountries = countries;
+    }
+
     const registrationData = {
       tourOperator: req.body.tourOperator || 'Unknown',
-      registrationDate: req.body.registrationDate ? new Date(req.body.registrationDate) : new Date(),
-      touristCount: req.body.touristCount || 1,
-      countries: req.body.countries || [],
+      registrationDate: req.body.registrationDate ? 
+        moment.tz(req.body.registrationDate, MONGOLIA_TZ).toDate() : 
+        moment.tz(MONGOLIA_TZ).toDate(),
+      touristCount: totalTouristCount,
+      countries: allCountries,
+      tourists: processedTourists,
       guideCount: req.body.guideCount || 0,
       driverCount: req.body.driverCount || 0,
       totalAmount: req.body.totalAmount || 0,
@@ -314,7 +370,7 @@ router.get('/statistics', async (req, res) => {
   try {
     const { period = 'today' } = req.query;
 
-    const now = moment();
+    const now = moment.tz(MONGOLIA_TZ);
     let startDate;
 
     switch (period) {
@@ -385,7 +441,7 @@ router.get('/country-stats', async (req, res) => {
     let queryParams = [];
 
     if (period !== 'all') {
-      const now = moment();
+      const now = moment.tz(MONGOLIA_TZ);
       let startDate;
 
       switch (period) {
@@ -458,7 +514,7 @@ router.get('/driver-guide-stats', async (req, res) => {
     let where = { status: 'active' };
 
     if (period !== 'all') {
-      const now = moment();
+      const now = moment.tz(MONGOLIA_TZ);
       let startDate;
 
       switch (period) {
@@ -525,7 +581,7 @@ router.get('/tour-operator-stats', async (req, res) => {
     let where = { status: 'active' };
 
     if (period !== 'all') {
-      const now = moment();
+      const now = moment.tz(MONGOLIA_TZ);
       let startDate;
 
       switch (period) {
@@ -794,7 +850,6 @@ router.get('/visitor-stats/hourly', async (req, res) => {
  *       type: object
  *       required:
  *         - tourOperator
- *         - touristCount
  *         - totalAmount
  *       properties:
  *         tourOperator:
@@ -804,8 +859,26 @@ router.get('/visitor-stats/hourly', async (req, res) => {
  *           format: date-time
  *         touristCount:
  *           type: integer
+ *           description: Optional - will be calculated from tourists array if provided
+ *         tourists:
+ *           type: array
+ *           description: Array of tourist objects with country and count
+ *           items:
+ *             type: object
+ *             required:
+ *               - country
+ *               - count
+ *             properties:
+ *               country:
+ *                 type: string
+ *                 description: Country name (required)
+ *               count:
+ *                 type: integer
+ *                 description: Number of tourists from this country (required)
+ *                 minimum: 1
  *         countries:
  *           type: array
+ *           description: Additional countries (will be merged with countries from tourists)
  *           items:
  *             type: string
  *         guideCount:

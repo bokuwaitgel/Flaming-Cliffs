@@ -211,7 +211,13 @@ const startServer = async () => {
   });
 };
 
-startServer();
+// For local development
+if (require.main === module) {
+  startServer();
+}
+
+// Export for Vercel serverless
+module.exports = app;
 
 // Graceful shutdown
 process.on('SIGINT', async () => {
