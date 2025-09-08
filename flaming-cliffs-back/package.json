@@ -5,27 +5,32 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "build": "npx prisma generate && echo 'Prisma Client generated successfully'",
+    "postinstall": "npx prisma generate",
+    "vercel-build": "npx prisma generate",
     "dev": "nodemon server.js",
-    "build": "prisma generate",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "@prisma/client": "^5.7.0",
-    "swagger-ui-express": "^5.0.0",
-    "swagger-jsdoc": "^6.2.8",
-    "cors": "^2.8.5",
+    "@prisma/client": "^6.5.0",
     "body-parser": "^1.20.2",
-    "moment": "^2.29.4",
-    "uuid": "^9.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
     "exceljs": "^4.3.0",
+    "express": "^4.18.2",
+    "moment": "^2.29.4",
     "pdfkit": "^0.13.0",
-    "dotenv": "^16.3.1"
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.2",
-    "prisma": "^5.7.0"
+    "prisma": "^6.5.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

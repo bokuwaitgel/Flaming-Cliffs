@@ -1,5 +1,7 @@
 // API Base Configuration
-const API_BASE_URL = 'http://localhost:3000/api'; // Updated to match flaming-cliffs-back server
+const API_BASE_URL = window.location.hostname === 'localhost' 
+  ? 'http://localhost:3000/api'  // Local development
+  : '/api';                      // Production (same domain)
 
 // API Helper Functions
 class TouristRegistrationAPI {

@@ -8,7 +8,18 @@ const { PrismaClient } = require('@prisma/client');
 require('dotenv').config();
 
 const app = express();
-const prisma = new PrismaClient();
+
+// Initialize Prisma Client with better error handling
+let prisma;
+try {
+  prisma = new PrismaClient();
+} catch (error) {
+  console.error('Failed to initialize Prisma Client:', error);
+  console.log('Attempting to regenerate Prisma Client...');
+  // This will fail gracefully and provide better error messaging
+  throw new Error('Prisma Client initialization failed. Please ensure Prisma Client is properly generated.');
+}
+
 const PORT = process.env.PORT || 3000;
 
 // Swagger definition
@@ -23,6 +34,10 @@ const swaggerDefinition = {
     {
       url: `http://localhost:${PORT}/api`,
       description: 'Development server',
+    },
+    {
+      url: '/api',
+      description: 'Production server',
     },
   ],
 };
@@ -49,6 +64,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Swagger UI
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+// Serve static web files
+app.use(express.static(path.join(__dirname, 'web')));
+
 // Routes
 const userRoutes = require('./routes/users');
 const registrationRoutes = require('./routes/registrations');
@@ -58,20 +76,25 @@ app.use('/api', userRoutes);
 app.use('/api', registrationRoutes);
 app.use('/api/export', exportRoutes);
 
-// Serve static files from web folder
-app.use(express.static(path.join(__dirname, '../web')));
-
-// Web routes
+// Serve HTML pages
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../web/index.html'));
-});
-
-app.get('/registration', (req, res) => {
-  res.sendFile(path.join(__dirname, '../web/juulchid bvrtgel.html'));
+  res.sendFile(path.join(__dirname, 'web', 'index.html'));
 });
 
 app.get('/dashboard', (req, res) => {
-  res.sendFile(path.join(__dirname, '../web/bvrtgel.html'));
+  res.sendFile(path.join(__dirname, 'web', 'system-status.html'));
+});
+
+app.get('/registration', (req, res) => {
+  res.sendFile(path.join(__dirname, 'web', 'bvrtgel-enhanced.html'));
+});
+
+app.get('/about', (req, res) => {
+  res.sendFile(path.join(__dirname, 'web', 'about.html'));
+});
+
+app.get('/gallery', (req, res) => {
+  res.sendFile(path.join(__dirname, 'web', 'photo_gallery.html'));
 });
 
 // Health check

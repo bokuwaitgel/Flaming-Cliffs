@@ -16,23 +16,23 @@ A complete web application for managing tourist registrations at Flaming Cliffs 
 ├── backend/                    # Node.js Backend
 │   ├── server.js              # Main Express server
 │   ├── package.json           # Backend dependencies
+│   └── web/                       # Frontend Web Application
+│      ├── index.html             # Main page
+│      ├── bvrtgel.html          # Dashboard page
+│      ├── juulchid bvrtgel.html # Registration form page
+│      ├── api.js                 # Frontend API client
+│      ├── script.js              # Dashboard JavaScript
+│      ├── juulchid.js           # Registration form JavaScript
+│      ├── global.css            # Global styles
+│      ├── img/                  # Images and assets
+│      └── font/                 # Font files
+├── data/                      # Shared data directory
 │   ├── .env                   # Environment variables
 │   ├── routes/
 │   │   └── export.js          # Export functionality routes
 │   ├── data/
 │   │   └── registrations.json # Data storage (auto-created)
 │   └── node_modules/          # Backend dependencies
-├── web/                       # Frontend Web Application
-│   ├── index.html             # Main page
-│   ├── bvrtgel.html          # Dashboard page
-│   ├── juulchid bvrtgel.html # Registration form page
-│   ├── api.js                 # Frontend API client
-│   ├── script.js              # Dashboard JavaScript
-│   ├── juulchid.js           # Registration form JavaScript
-│   ├── global.css            # Global styles
-│   ├── img/                  # Images and assets
-│   └── font/                 # Font files
-├── data/                      # Shared data directory
 └── README.md                  # This file
 ```
 
