@@ -167,24 +167,48 @@ process.on('SIGTERM', async () => {
 });
 
 // Start server
-const startServer = async () => {
-  try {
-    // Test database connection
-    await prisma.$connect();
-    console.log('🗄️  Database connected successfully');
+// Connect to the database with retry/backoff to tolerate transient network issues
+const wait = (ms) => new Promise((res) => setTimeout(res, ms));
 
-    app.listen(PORT, () => {
-      console.log(`🚀 Server running on http://localhost:${PORT}`);
-      console.log(`📊 Dashboard: http://localhost:${PORT}/dashboard`);
-      console.log(`📝 Registration: http://localhost:${PORT}/registration`);
-      console.log(`📚 API Docs: http://localhost:${PORT}/api-docs`);
-      console.log(`💾 Database: PostgreSQL with Prisma`);
-    });
-  } catch (error) {
-    console.error('Failed to start server:', error);
-    await prisma.$disconnect();
-    process.exit(1);
+async function connectWithRetry(maxRetries = 5, initialDelayMs = 500) {
+  let attempt = 0;
+  let delay = initialDelayMs;
+
+  while (attempt < maxRetries) {
+    try {
+      await prisma.$connect();
+      console.log('🗄️  Database connected successfully');
+      return true;
+    } catch (err) {
+      attempt += 1;
+      console.warn(`Prisma connect attempt ${attempt} failed: ${err.code || err.message}`);
+      if (attempt >= maxRetries) {
+        console.error('Max retries reached for Prisma connect.');
+        return false;
+      }
+      console.log(`Retrying in ${delay}ms...`);
+      await wait(delay);
+      delay *= 2; // exponential backoff
+    }
   }
+  return false;
+}
+
+const startServer = async () => {
+  const ok = await connectWithRetry(5, 500);
+  if (!ok) {
+    console.error('Failed to connect to database after retries. Keeping process alive for investigation.');
+    // Do not exit immediately; keep process running so platform logs show ongoing info.
+    return;
+  }
+
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
+    console.log(`📊 Dashboard: http://localhost:${PORT}/dashboard`);
+    console.log(`📝 Registration: http://localhost:${PORT}/registration`);
+    console.log(`📚 API Docs: http://localhost:${PORT}/api-docs`);
+    console.log(`💾 Database: PostgreSQL with Prisma`);
+  });
 };
 
 startServer();

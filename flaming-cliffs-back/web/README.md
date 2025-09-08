@@ -12,7 +12,7 @@ This directory contains the frontend web interface for the Flaming Cliffs Touris
 
 2. **Open the Web Interface**:
    - **System Status**: Open `system-status.html` in your browser
-   - **Registration Form**: Open `juulchid bvrtgel.html`
+      - **Registration Form**: Open `juulchid-bvrtgel.html`
    - **Enhanced Dashboard**: Open `bvrtgel-enhanced.html`
    - **Basic Dashboard**: Open `bvrtgel.html`
 
@@ -26,14 +26,14 @@ This directory contains the frontend web interface for the Flaming Cliffs Touris
 
 ### HTML Pages
 - `index.html` - Main landing page
-- `juulchid bvrtgel.html` - Tourist registration form
+ - `juulchid-bvrtgel.html` - Tourist registration form
 - `bvrtgel.html` - Basic dashboard
 - `bvrtgel-enhanced.html` - Advanced dashboard with analytics
 - `system-status.html` - System health check page
 
 ### Features
 
-#### 📝 Registration Form (`juulchid bvrtgel.html`)
+#### 📝 Registration Form (`juulchid-bvrtgel.html`)
 - Tourist count selection with +/- buttons
 - Driver and guide count inputs
 - Vehicle information (number, type)
@@ -138,7 +138,7 @@ web/
 ├── juulchid.js              # Registration form
 ├── dashboard-enhanced.js     # Advanced dashboard
 ├── index.html               # Landing page
-├── juulchid bvrtgel.html    # Registration form
+├── juulchid-bvrtgel.html    # Registration form
 ├── bvrtgel.html             # Basic dashboard
 ├── bvrtgel-enhanced.html    # Enhanced dashboard
 ├── system-status.html       # Status checker

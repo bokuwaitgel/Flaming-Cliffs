@@ -19,7 +19,7 @@ A complete web application for managing tourist registrations at Flaming Cliffs 
 │   └── web/                       # Frontend Web Application
 │      ├── index.html             # Main page
 │      ├── bvrtgel.html          # Dashboard page
-│      ├── juulchid bvrtgel.html # Registration form page
+│      ├── juulchid-bvrtgel.html # Registration form page
 │      ├── api.js                 # Frontend API client
 │      ├── script.js              # Dashboard JavaScript
 │      ├── juulchid.js           # Registration form JavaScript

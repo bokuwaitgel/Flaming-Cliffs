@@ -32,7 +32,7 @@
           </span>
         </span>
         <!-- Form Section -->
-        <div class="text-black rounded-xl p-6 space-y-6">
+        <div class="text-black rounded-xl p-6 space-y-6 bg-white/80">
           <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
             <input
               id="driverInput"
@@ -84,7 +84,7 @@
             <span class="flex items-center">
               <img src="img/sr-globe.png" class="w-8 h-8 object-cover mr-2" />
               <span
-                class="font-normal text-[25px] text-white leading-[77.03px] align-middle"
+                class="font-normal text-[25px] text-black leading-[77.03px] align-middle"
               >
                 Улс сонгох
               </span>
@@ -97,7 +97,7 @@
                 class="w-8 h-8 object-cover mr-2"
               />
               <span
-                class="font-normal text-[25px] text-white leading-[77.03px] align-middle"
+                class="font-normal text-[25px] text-black leading-[77.03px] align-middle"
               >
                 Clear All
               </span>
@@ -114,12 +114,11 @@
                     Жуулчдын тоо<br />Нэмэх
                   </h1>
                   <div id="count" class="text-3xl font-bold mb-4">1</div>
-                  <button
-                    id="resetBtn"
-                    class="w-full py-2 bg-gray-100 rounded-md hover:bg-gray-200"
-                  >
-                    Reset
-                  </button>
+                  <div class="flex gap-2 justify-center items-center">
+                    <button id="decreaseBtn" class="px-3 py-1 bg-gray-100 rounded-md hover:bg-gray-200">-</button>
+                    <button id="resetBtn" class="px-3 py-1 bg-gray-100 rounded-md hover:bg-gray-200">Reset</button>
+                    <button id="increaseBtn" class="px-3 py-1 bg-gray-100 rounded-md hover:bg-gray-200">+</button>
+                  </div>
                 </div>
 
                 <!-- Улс сонгох хэсэг -->
@@ -228,19 +227,21 @@
                   <div class="mt-2 text-xs text-gray-600 italic">
                     Хятад (6), Орос (10)
                   </div>
+                  <ul id="items" class="hidden"></ul>
                 </div>
               </div>
             </div>
 
             <!-- Баруун талын төлбөрийн хэсэг -->
-            <div class="bg-white rounded-xl shadow p-6 w-72 h-fit">
+              <div class="bg-white rounded-xl shadow p-6 w-72 h-fit">
               <p class="text-gray-700">
-                Жуулчдын тоо: <span class="font-bold" id="countRight">16</span>
+                Жуулчдын тоо: <span class="font-bold" id="countRight">1</span>
               </p>
               <p class="text-gray-700 mt-2">
-                Төлөх дүн: <span class="font-bold" id="total">160,000₮</span>
+                Төлөх дүн: <span class="font-bold" id="totalAmount">10,000₮</span>
               </p>
-              <p class="text-gray-400 text-sm mt-2">10,000₮*(10+6)</p>
+              <p class="text-gray-400 text-sm mt-2" id="formulaText">10,000₮ * 1</p>
+              <p class="text-gray-400 text-sm mt-2">Нийт жуулчдын тоо: <span id="totalTravelerCount">1</span></p>
               <div class="flex flex-col sm:flex-row gap-2">
                 <button
                   id="saveBtn"

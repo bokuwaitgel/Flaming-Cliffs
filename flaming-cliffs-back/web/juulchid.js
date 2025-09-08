@@ -1,26 +1,44 @@
-let count = 1;
+// Constants (centralized configuration)
+const PRICE_PER_PERSON = 10000; // ₮ per tourist
+const DEFAULT_TRAVELER_COUNT = 1;
+       // Production (same domain)
+
+let count = DEFAULT_TRAVELER_COUNT;
 const countEl = document.getElementById("count");
 const countRightEl = document.getElementById("countRight");
 const resetBtn = document.getElementById("resetBtn");
 
-document.querySelector(".flex-1").addEventListener("click", (e) => {
-  if (e.target !== resetBtn) {
-    count++;
-    countEl.textContent = count;
-    countRightEl.textContent = count;
-  }
-});
+const mainFlex = document.querySelector(".flex-1");
+if (mainFlex) {
+  mainFlex.addEventListener("click", (e) => {
+    // Don't increase count when clicking on buttons or country selection elements
+    const isButton = e.target === resetBtn || e.target === decreaseBtn || e.target === increaseBtn;
+    const isCountryElement = e.target.closest('.country-flag') || e.target === document.getElementById('countrySelect') || e.target === document.getElementById('addCountryBtn');
 
-resetBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
-  count = 1;
-  countEl.textContent = count;
-  countRightEl.textContent = count;
-});
+    if (!isButton && !isCountryElement) {
+      count++;
+      travelerCount++;
+      if (countEl) countEl.textContent = count;
+      if (countRightEl) countRightEl.textContent = count;
+      updateDisplay();
+    }
+  });
+}
+
+if (resetBtn) {
+  resetBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    count = DEFAULT_TRAVELER_COUNT;
+    travelerCount = DEFAULT_TRAVELER_COUNT;
+    if (countEl) countEl.textContent = count;
+    if (countRightEl) countRightEl.textContent = count;
+    updateDisplay();
+  });
+}
 
 // Tourist count and payment logic
-let travelerCount = 1;
-const pricePerPerson = 10000;
+let travelerCount = DEFAULT_TRAVELER_COUNT;
+const pricePerPerson = PRICE_PER_PERSON;
 
 const countDisplay = document.querySelector("#travelerCount");
 const totalCountDisplay = document.querySelector("#totalTravelerCount");
@@ -28,30 +46,46 @@ const totalAmountDisplay = document.querySelector("#totalAmount");
 const formulaDisplay = document.querySelector("#formulaText");
 
 const updateDisplay = () => {
-  countDisplay.textContent = travelerCount;
-  totalCountDisplay.textContent = travelerCount;
-  totalAmountDisplay.textContent = `${(
+  if (countDisplay) countDisplay.textContent = travelerCount;
+  if (totalCountDisplay) totalCountDisplay.textContent = travelerCount;
+  if (totalAmountDisplay) totalAmountDisplay.textContent = `${(
     travelerCount * pricePerPerson
   ).toLocaleString()}₮`;
-  formulaDisplay.textContent = `${pricePerPerson.toLocaleString()}₮ * ${travelerCount}`;
+  if (formulaDisplay) formulaDisplay.textContent = `${pricePerPerson.toLocaleString()}₮ * ${travelerCount}`;
 };
 
-document.querySelector("#resetBtn").addEventListener("click", () => {
-  travelerCount = 1;
-  updateDisplay();
-});
-
-document.querySelector("#increaseBtn").addEventListener("click", () => {
-  travelerCount++;
-  updateDisplay();
-});
-
-document.querySelector("#decreaseBtn").addEventListener("click", () => {
-  if (travelerCount > 1) {
-    travelerCount--;
+const resetBtn2 = document.querySelector("#resetBtn");
+const increaseBtn = document.querySelector("#increaseBtn");
+const decreaseBtn = document.querySelector("#decreaseBtn");
+if (resetBtn2) {
+  resetBtn2.addEventListener("click", () => {
+    travelerCount = DEFAULT_TRAVELER_COUNT;
+    count = DEFAULT_TRAVELER_COUNT;
+    if (countEl) countEl.textContent = count;
+    if (countRightEl) countRightEl.textContent = count;
     updateDisplay();
-  }
-});
+  });
+}
+if (increaseBtn) {
+  increaseBtn.addEventListener("click", () => {
+    travelerCount++;
+    count++;
+    if (countEl) countEl.textContent = count;
+    if (countRightEl) countRightEl.textContent = count;
+    updateDisplay();
+  });
+}
+if (decreaseBtn) {
+  decreaseBtn.addEventListener("click", () => {
+    if (travelerCount > 1) {
+      travelerCount--;
+      count--;
+      if (countEl) countEl.textContent = count;
+      if (countRightEl) countRightEl.textContent = count;
+      updateDisplay();
+    }
+  });
+}
 
 updateDisplay();
 
@@ -60,7 +94,8 @@ let selectedCountries = [];
 
 const clearAllBtn = document.getElementById("clear-all");
 
-clearAllBtn.addEventListener("click", () => {
+if (clearAllBtn) {
+  clearAllBtn.addEventListener("click", () => {
   // Clear all input fields
   const driverInput = document.getElementById('driverInput');
   const guideInput = document.getElementById('guideInput');
@@ -100,14 +135,15 @@ clearAllBtn.addEventListener("click", () => {
   }
 
   // Reset counts
-  count = 1;
-  travelerCount = 1;
-  countEl.textContent = count;
-  countRightEl.textContent = count;
+  count = DEFAULT_TRAVELER_COUNT;
+  travelerCount = DEFAULT_TRAVELER_COUNT;
+  if (countEl) countEl.textContent = count;
+  if (countRightEl) countRightEl.textContent = count;
   updateDisplay();
 
   console.log("All cleared!");
-});
+  });
+}
 
 // Form submission handling
 document.addEventListener('DOMContentLoaded', function() {
@@ -348,7 +384,7 @@ async function loadRegistrationData(period = 'today') {
   tableBody.innerHTML = '<tr><td class="p-2 text-center" colspan="9">Мэдээлэл ачааллаж байна...</td></tr>';
   
   try {
-    const response = await fetch(`http://localhost:3000/api/registrations?period=${period}`);
+  const response = await fetch(`${API_BASE_URL}/registrations?period=${period}`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -413,7 +449,11 @@ function addTotalsRow(registrations) {
   const totalGuides = registrations.reduce((sum, reg) => sum + (reg.guideCount || 0), 0);
   const totalDrivers = registrations.reduce((sum, reg) => sum + (reg.driverCount || 0), 0);
   const totalTourists = registrations.reduce((sum, reg) => sum + (reg.touristCount || 0), 0);
-  const totalAmount = registrations.reduce((sum, reg) => sum + (reg.totalAmount || (reg.touristCount * 10000) || 0), 0);
+  const totalAmount = registrations.reduce((sum, reg) => {
+    // Prefer explicit totalAmount, otherwise derive from touristCount and PRICE_PER_PERSON
+    const regAmount = reg.totalAmount ?? ((reg.touristCount || 0) * PRICE_PER_PERSON);
+    return sum + (regAmount || 0);
+  }, 0);
 
   const totalRow = document.createElement('tr');
   totalRow.className = 'font-bold bg-gray-100';
