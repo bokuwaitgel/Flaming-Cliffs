@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Registration {
+  id                String   @id @default(cuid())
+  tourOperator      String
+  registrationDate  DateTime @default(now())
+  touristCount      Int
+  countries         String[]
+  guideCount        Int?     @default(0)
+  driverCount       Int?     @default(0)
+  totalAmount       Float
+  currency          String?  @default("MNT")
+  notes             String?
+  contactInfo       Json?
+  status            String?  @default("active")
+  vehicleNumber     String?
+  vehicleType       String?
+  guideName         String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@map("registrations")
+}
+
+model VisitorStats {
+  id                   String   @id @default(cuid())
+  date                 DateTime @unique
+  domesticVisitors     Int?     @default(0)
+  internationalVisitors Int?    @default(0)
+  totalVisitors        Int?     @default(0)
+  domesticRevenue      Float?   @default(0)
+  internationalRevenue Float?   @default(0)
+  totalRevenue         Float?   @default(0)
+  tourOperators        Json[]
+  countryBreakdown     Json[]
+  weather              Json?
+  hourlyBreakdown      Json[]
+  events               Json[]
+  lastUpdated          DateTime @default(now())
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  @@map("visitor_stats")
+}

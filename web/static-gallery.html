@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Static Image Gallery - Flaming Cliffs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-[#2c1c12] text-white shadow-lg">
+    <div class="max-w-6xl mx-auto px-4 py-6">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <img src="img/baynzag logo.png" alt="Flaming Cliffs Logo" class="h-10 w-auto">
+          <h1 class="text-2xl font-bold">Static Image Gallery</h1>
+        </div>
+        <nav class="hidden md:flex gap-6">
+          <a href="index.html" class="hover:text-yellow-400 transition-colors">Home</a>
+          <a href="about.html" class="hover:text-yellow-400 transition-colors">About</a>
+          <a href="photo_gallery.html" class="hover:text-yellow-400 transition-colors">Full Gallery</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Gallery Section -->
+  <main class="max-w-7xl mx-auto px-4 py-8">
+
+    <!-- Hero Section -->
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-bold text-[#5D3A1A] mb-4">Flaming Cliffs Image Collection</h2>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        Explore our collection of static images served directly from the web server.
+        All images are optimized and served efficiently through npx serve.
+      </p>
+    </div>
+
+    <!-- Image Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
+
+      <!-- Image 1 -->
+      <div class="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+        <img src="img/baynzag-1.png" alt="Flaming Cliffs Main View" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div class="absolute bottom-4 left-4 text-white">
+            <h3 class="font-semibold text-lg">Flaming Cliffs</h3>
+            <p class="text-sm opacity-90">Main viewpoint</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image 2 -->
+      <div class="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+        <img src="img/Dino's tourist camp.jpg" alt="Tourist Camp" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div class="absolute bottom-4 left-4 text-white">
+            <h3 class="font-semibold text-lg">Tourist Camp</h3>
+            <p class="text-sm opacity-90">Accommodation area</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image 3 -->
+      <div class="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+        <img src="img/Camel Caravan-1.jpg" alt="Camel Caravan" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div class="absolute bottom-4 left-4 text-white">
+            <h3 class="font-semibold text-lg">Camel Caravan</h3>
+            <p class="text-sm opacity-90">Traditional transport</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image 4 -->
+      <div class="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+        <img src="img/Velociraptor mongoliensis.jpg" alt="Velociraptor Fossil" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div class="absolute bottom-4 left-4 text-white">
+            <h3 class="font-semibold text-lg">Velociraptor</h3>
+            <p class="text-sm opacity-90">Famous dinosaur fossil</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image 5 -->
+      <div class="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+        <img src="img/Protoceratops andrewsi.jpg" alt="Protoceratops Fossil" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div class="absolute bottom-4 left-4 text-white">
+            <h3 class="font-semibold text-lg">Protoceratops</h3>
+            <p class="text-sm opacity-90">Herbivorous dinosaur</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image 6 -->
+      <div class="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+        <img src="img/Roy chapman Andrews.jpg" alt="Roy Chapman Andrews" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div class="absolute bottom-4 left-4 text-white">
+            <h3 class="font-semibold text-lg">Roy Chapman Andrews</h3>
+            <p class="text-sm opacity-90">Famous explorer</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image 7 -->
+      <div class="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+        <img src="img/Oviraptor philoceratops.jpg" alt="Oviraptor Fossil" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div class="absolute bottom-4 left-4 text-white">
+            <h3 class="font-semibold text-lg">Oviraptor</h3>
+            <p class="text-sm opacity-90">Egg-stealing dinosaur</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image 8 -->
+      <div class="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300">
+        <img src="img/Baynzag ariin zurag.jpg" alt="Flaming Cliffs Red Cliffs" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div class="absolute bottom-4 left-4 text-white">
+            <h3 class="font-semibold text-lg">Red Cliffs</h3>
+            <p class="text-sm opacity-90">Iconic red formations</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Stats Section -->
+    <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+      <h3 class="text-2xl font-bold text-center text-[#5D3A1A] mb-6">Static Image Serving Stats</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+        <div class="p-4">
+          <div class="text-3xl font-bold text-[#5D3A1A] mb-2">50+</div>
+          <p class="text-gray-600">High-quality images</p>
+        </div>
+        <div class="p-4">
+          <div class="text-3xl font-bold text-[#5D3A1A] mb-2">Fast</div>
+          <p class="text-gray-600">Direct file serving</p>
+        </div>
+        <div class="p-4">
+          <div class="text-3xl font-bold text-[#5D3A1A] mb-2">Optimized</div>
+          <p class="text-gray-600">Web-ready formats</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="text-center">
+      <a href="about.html" class="inline-block bg-[#5D3A1A] text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#4A2E15] transition-colors duration-300 mr-4">
+        <i class="fas fa-arrow-left mr-2"></i> Back to About
+      </a>
+      <a href="photo_gallery.html" class="inline-block bg-[#2c1c12] text-white px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#1a0f0a] transition-colors duration-300">
+        View Full Gallery <i class="fas fa-arrow-right ml-2"></i>
+      </a>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#2c1c12] text-white py-8 mt-12">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <p class="text-lg mb-4">Experience the Flaming Cliffs through our static image collection</p>
+      <p class="text-gray-400">All images served efficiently by npx serve web server</p>
+    </div>
+  </footer>
+
+</body>
+</html>

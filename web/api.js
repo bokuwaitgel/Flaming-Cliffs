@@ -1,9 +1,9 @@
 // API Base Configuration
-const API_BASE_URL = 'http://localhost:3000/api'; // Change this to your actual API endpoint
+const API_BASE_URL = 'http://localhost:3000/api'; // Updated to match flaming-cliffs-back server
 
 // API Helper Functions
 class TouristRegistrationAPI {
-  
+
   // Create a new tourist registration
   static async createRegistration(registrationData) {
     try {
@@ -14,11 +14,11 @@ class TouristRegistrationAPI {
         },
         body: JSON.stringify(registrationData)
       });
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+
       const result = await response.json();
       return { success: true, data: result };
     } catch (error) {
@@ -32,11 +32,11 @@ class TouristRegistrationAPI {
     try {
       const queryParams = new URLSearchParams(filters);
       const response = await fetch(`${API_BASE_URL}/registrations?${queryParams}`);
-      
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+
       const result = await response.json();
       return { success: true, data: result };
     } catch (error) {
@@ -147,29 +147,121 @@ class TouristRegistrationAPI {
     }
   }
 
-  // Export data to PDF
-  static async exportToPDF(filters = {}) {
+  // Get country statistics
+  static async getCountryStats(period = 'all') {
     try {
-      const queryParams = new URLSearchParams(filters);
-      const response = await fetch(`${API_BASE_URL}/export/pdf?${queryParams}`);
-      
+      const response = await fetch(`${API_BASE_URL}/country-stats?period=${period}`);
+
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
-      const blob = await response.blob();
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `tourist_registrations_${new Date().toISOString().split('T')[0]}.pdf`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
-      
-      return { success: true };
+
+      const result = await response.json();
+      return { success: true, data: result };
     } catch (error) {
-      console.error('Error exporting to PDF:', error);
+      console.error('Error fetching country statistics:', error);
+      return { success: false, error: error.message };
+    }
+  }
+
+  // Get driver/guide statistics
+  static async getDriverGuideStats(period = 'all') {
+    try {
+      const response = await fetch(`${API_BASE_URL}/driver-guide-stats?period=${period}`);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      return { success: true, data: result };
+    } catch (error) {
+      console.error('Error fetching driver/guide statistics:', error);
+      return { success: false, error: error.message };
+    }
+  }
+
+  // Get tour operator statistics
+  static async getTourOperatorStats(period = 'all') {
+    try {
+      const response = await fetch(`${API_BASE_URL}/tour-operator-stats?period=${period}`);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      return { success: true, data: result };
+    } catch (error) {
+      console.error('Error fetching tour operator statistics:', error);
+      return { success: false, error: error.message };
+    }
+  }
+
+  // Get visitor statistics
+  static async getVisitorStats(period = 'week') {
+    try {
+      const response = await fetch(`${API_BASE_URL}/visitor-stats?period=${period}`);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      return { success: true, data: result };
+    } catch (error) {
+      console.error('Error fetching visitor statistics:', error);
+      return { success: false, error: error.message };
+    }
+  }
+
+  // Get visitor trends
+  static async getVisitorTrends(months = 12) {
+    try {
+      const response = await fetch(`${API_BASE_URL}/visitor-stats/trends?months=${months}`);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      return { success: true, data: result };
+    } catch (error) {
+      console.error('Error fetching visitor trends:', error);
+      return { success: false, error: error.message };
+    }
+  }
+
+  // Get today's visitor statistics
+  static async getTodayStats() {
+    try {
+      const response = await fetch(`${API_BASE_URL}/visitor-stats/today`);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      return { success: true, data: result };
+    } catch (error) {
+      console.error('Error fetching today\'s statistics:', error);
+      return { success: false, error: error.message };
+    }
+  }
+
+  // Get hourly visitor statistics
+  static async getHourlyStats(period = 'week') {
+    try {
+      const response = await fetch(`${API_BASE_URL}/visitor-stats/hourly?period=${period}`);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      return { success: true, data: result };
+    } catch (error) {
+      console.error('Error fetching hourly statistics:', error);
       return { success: false, error: error.message };
     }
   }
