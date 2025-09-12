@@ -239,13 +239,17 @@
                 const badgeElement = document.getElementById('userTypeBadge');
                 const backLinkElement = document.getElementById('backToRoleSelection');
 
-                if (preferredRole) {
-                    indicatorElement.classList.remove('hidden');
-                    backLinkElement.classList.remove('hidden');
-                    
-                    if (preferredRole === 'ADMIN') {
-                        titleElement.textContent = 'Inspector Login';
-                        subtitleElement.textContent = 'Access the inspection dashboard';
+                if (!preferredRole) return;
+
+                // Show indicator/back link if present
+                if (indicatorElement) indicatorElement.classList.remove('hidden');
+                if (backLinkElement) backLinkElement.classList.remove('hidden');
+
+                // Update title/subtitle safely
+                if (preferredRole === 'ADMIN') {
+                    if (titleElement) titleElement.textContent = 'Inspector Login';
+                    if (subtitleElement) subtitleElement.textContent = 'Access the inspection dashboard';
+                    if (badgeElement) {
                         badgeElement.innerHTML = `
                             <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" clip-rule="evenodd" />
@@ -253,9 +257,11 @@
                             Inspector / Admin Login
                         `;
                         badgeElement.classList.add('bg-blue-100', 'text-blue-800');
-                    } else if (preferredRole === 'USER') {
-                        titleElement.textContent = 'Tourist Operator Login';
-                        subtitleElement.textContent = 'Access the tourist registration system';
+                    }
+                } else if (preferredRole === 'USER') {
+                    if (titleElement) titleElement.textContent = 'Tourist Operator Login';
+                    if (subtitleElement) subtitleElement.textContent = 'Access the tourist registration system';
+                    if (badgeElement) {
                         badgeElement.innerHTML = `
                             <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clip-rule="evenodd" />
@@ -268,31 +274,37 @@
             }
 
             bindEvents() {
+                // Helper to safely add event listeners
+                const safeOn = (id, event, handler) => {
+                    const el = document.getElementById(id);
+                    if (el) el.addEventListener(event, handler);
+                };
+
                 // Login form submission
-                document.getElementById('loginForm').addEventListener('submit', (e) => {
+                safeOn('loginForm', 'submit', (e) => {
                     e.preventDefault();
                     this.handleLogin();
                 });
 
                 // Password toggle
-                document.getElementById('togglePassword').addEventListener('click', () => {
+                safeOn('togglePassword', 'click', () => {
                     this.togglePasswordVisibility();
                 });
 
                 // Register link
-                document.getElementById('registerLink').addEventListener('click', (e) => {
+                safeOn('registerLink', 'click', (e) => {
                     e.preventDefault();
                     this.redirectToRegister();
                 });
 
                 // Forgot password
-                document.getElementById('forgotPassword').addEventListener('click', (e) => {
+                safeOn('forgotPassword', 'click', (e) => {
                     e.preventDefault();
                     this.handleForgotPassword();
                 });
 
                 // Logout button
-                document.getElementById('logoutBtn').addEventListener('click', (e) => {
+                safeOn('logoutBtn', 'click', (e) => {
                     e.preventDefault();
                     this.handleLogout();
                 });

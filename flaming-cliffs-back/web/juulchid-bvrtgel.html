@@ -4,13 +4,35 @@
     <meta charset="UTF-8" />
     <title>Bvrtgel</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Form controls: uniform height and vertical alignment */
+      input[type="number"], input[type="text"], select {
+        height: 40px;
+      }
+
+      /* Ensure select padding doesn't clip text when icon present */
+      #vehicleTypeSelect { padding-left: 2.5rem; }
+
+      /* Flags grid tiles */
+      .flag-item { transition: transform .12s ease, box-shadow .12s ease; }
+      .flag-item:hover { transform: translateY(-4px); box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+
+      /* Selected flag highlight */
+      .flag-item.ring-2 { box-shadow: 0 0 0 4px rgba(59,130,246,0.15); }
+
+      /* Small adjustments for add operator button */
+      #addTourOperatorBtn { width: 36px; height: 36px; line-height: 1; }
+
+      /* Form card contrast */
+      .bg-white\/90 { background-color: rgba(255,255,255,0.92); }
+    </style>
   </head>
   <body
     class="bg-cover bg-center min-h-screen"
     style="background-image: url('img/Baynzag\ ariin\ zurag.jpg')"
   >
-    <div class="max-w-6xl mx-auto py-6 space-y-6">
-      <div class="px-6 py-10 text-white">
+    <div class="max-w-6xl mx-auto py-2 space-y-2">
+      <div class="px-2 py-10 text-white">
         <!-- Header -->
         <div class="text-center mb-8">
           <h1 class="text-3xl md:text-4xl font-bold drop-shadow">
@@ -32,8 +54,8 @@
           </span>
         </span>
         <!-- Form Section -->
-        <div class="text-black rounded-xl p-6 space-y-6 bg-white/80">
-          <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div class="text-black rounded-xl p-6 space-y-2 bg-white/80">
+          <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-2">
             <input
               id="driverInput"
               type="number"
@@ -60,17 +82,21 @@
               placeholder="Машины дугаар"
               class="border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
-            <select id="tourOperatorSelect" class="border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-              <option value="">Тур Оператор Компани</option>
-              <option value="Монгол Тур">Монгол Тур</option>
-              <option value="Говь Тур">Говь Тур</option>
-              <option value="Алтай Тур">Алтай Тур</option>
-            </select>
+             
+            <div class="flex items-center">
+              <select id="tourOperatorSelect" class="border border-gray-300 px-1 py-1 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent flex-1">
+                <option value="">Тур Оператор</option>
+                <option value="Монгол Тур">Монгол Тур</option>
+                <option value="Говь Тур">Говь Тур</option>
+                <option value="Алтай Тур">Алтай Тур</option>
+              </select>
+              <button id="addTourOperatorBtn" type="button" title="Нэмэх" class="ml-2 bg-green-500 hover:bg-green-600 text-white rounded  text-sm">＋</button>
+            </div>
+            
             <select id="vehicleTypeSelect" class="border border-gray-300 px-4 py-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-              <option value="">Тээврийн хэрэгсэл</option>
+              <option value="Bus">Bus</option>
               <option value="Mid size Crossover">Mid size Crossover</option>
               <option value="Motorcycle">Motorcycle</option>
-              <option value="Bus">Bus</option>
               <option value="Van">Van</option>
               <option value="SUV">SUV</option>
             </select>
@@ -99,59 +125,111 @@
             </span>
           </div>
 
-          <!-- Жуулч нэмэх хэсэг -->
-          <div class="bg-white/90 rounded-xl p-4 space-y-4">
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-3 items-end">
-              <select 
-                id="touristCountry" 
-                class="border border-gray-300 px-3 py-2 rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
-                onkeypress="if(event.key==='Enter') addTourist()"
-              >
-                <option value="">Улс сонгох</option>
-                <option value="Хятад">Хятад</option>
-                <option value="Орос">Орос</option>
-                <option value="Япон">Япон</option>
-                <option value="Франц">Франц</option>
-                <option value="Солонгос">Солонгос</option>
-                <option value="АНУ">АНУ</option>
-                <option value="Герман">Герман</option>
-                <option value="Казахстан">Казахстан</option>
-                <option value="Украйн">Украйн</option>
-                <option value="Итали">Итали</option>
-                <option value="Канад">Канад</option>
-                <option value="Австрали">Австрали</option>
-                <option value="Турк">Турк</option>
-                <option value="Швейцари">Швейцари</option>
-                <option value="Монгол">Монгол</option>
-              </select>
-              <input 
-                type="number" 
-                id="touristCount" 
-                placeholder="Жуулчдын тоо" 
-                min="1" 
-                max="120" 
-                class="border border-gray-300 px-3 py-2 rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
-                onkeypress="if(event.key==='Enter') addTourist()"
-              />
-              <button id="addTouristBtn" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-semibold transition-colors">
-                ➕ Жуулч нэмэх
-              </button>
-            </div>
+ 
 
-            <!-- Жуулчдын жагсаалт -->
-            <div id="touristsList" class="space-y-3 max-h-64 overflow-y-auto border rounded-lg p-2 bg-white">
+          <div class="flex justify-end">
+            <div class="bg-white/90 rounded-xl p-4 space-y-4">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 items-start">
+              <!-- Left: large counter card (matches screenshot) -->
+              <div class="col-span-1 flex items-center justify-center">
+                <div class="bg-white rounded-lg shadow-lg flex flex-col items-center gap-4 p-6 w-48">
+                  <p class="text-black font-semibold text-lg text-center">Жуулчдын тоо<br/>Нэмэх</p>
+                  <div id="leftCounter" class="text-black font-semibold text-5xl">0</div>
+                  <button id="leftReset" class="bg-gray-100 text-black px-6 py-2 rounded">Reset</button>
+                </div>
+              </div>
+
+              <!-- Right: selector + flags + add button -->
+              <div class="col-span-2">
+                <div class="flex items-center justify-between mb-3">
+                  <select 
+                    id="touristCountry"
+                    class="flex-1 border border-gray-300 px-3 py-2 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 mr-4"
+                  >
+                    <option value="Монгол">Монгол</option>
+                    <option value="Хятад">Хятад</option>
+                    <option value="Орос">Орос</option>
+                    <option value="Япон">Япон</option>
+                    <option value="Франц">Франц</option>
+                    <option value="Солонгос">Солонгос</option>
+                    <option value="АНУ">АНУ</option>
+                    <option value="Герман">Герман</option>
+                    <option value="Казахстан">Казахстан</option>
+                    <option value="Украйн">Украйн</option>
+                    <option value="Итали">Итали</option>
+                    <option value="Канад">Канад</option>
+                    <option value="Австрали">Австрали</option>
+                    <option value="Турк">Турк</option>
+                    <option value="Швейцари">Швейцари</option>
+                  </select>
+                  <div class="flex items-center space-x-3">
+                    <input type="number" id="touristCount" placeholder="Тоо" min="0" max="120" class="border border-gray-300 px-3 py-2 rounded-lg text-sm w-28" />
+                    <button id="addTouristBtn" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-semibold">Нэмэх</button>
+                  </div>
+                </div>
+
+                <!-- Flags grid (simple layout) -->
+                <div id="flagsGrid" class="grid grid-cols-6 gap-4 p-4 bg-white rounded">
+                  <div class="text-center flag-item" data-country="Хятад">
+                    <img src="https://flagcdn.com/w20/cn.png" class="mx-auto mb-1" onerror="this.style.display='none'" />
+                    <div class="text-sm">Хятад</div>
+                  </div>
+                  <div class="text-center flag-item" data-country="Орос">
+                    <img src="https://flagcdn.com/w20/ru.png" class="mx-auto mb-1" onerror="this.style.display='none'" />
+                    <div class="text-sm">Орос</div>
+                  </div>
+                  <div class="text-center flag-item" data-country="Япон">
+                    <img src="https://flagcdn.com/w20/jp.png" class="mx-auto mb-1" onerror="this.style.display='none'" />
+                    <div class="text-sm">Япон</div>
+                  </div>
+                  <div class="text-center flag-item" data-country="Франц">
+                    <img src="https://flagcdn.com/w20/fr.png" class="mx-auto mb-1" onerror="this.style.display='none'" />
+                    <div class="text-sm">Франц</div>
+                  </div>
+                  <div class="text-center flag-item" data-country="Солонгос">
+                    <img src="https://flagcdn.com/w20/kr.png" class="mx-auto mb-1" onerror="this.style.display='none'" />
+                    <div class="text-sm">Солонгос</div>
+                  </div>
+                  <div class="text-center flag-item" data-country="АНУ">
+                    <img src="https://flagcdn.com/w20/us.png" class="mx-auto mb-1" onerror="this.style.display='none'" />
+                    <div class="text-sm">АНУ</div>
+                  </div>
+                  <div class="text-center flag-item" data-country="Казахстан">
+                    <img src="https://flagcdn.com/w20/kz.png" class="mx-auto mb-1" onerror="this.style.display='none'" />
+                    <div class="text-sm">Казахстан</div>
+                  </div>
+                  <div class="text-center flag-item" data-country="Украйн">
+                    <img src="https://flagcdn.com/w20/ua.png" class="mx-auto mb-1" onerror="this.style.display='none'" />
+                    <div class="text-sm">Украйн</div>
+                  </div>
+                  <div class="text-center flag-item" data-country="Итали">
+                    <img src="https://flagcdn.com/w20/it.png" class="mx-auto mb-1" onerror="this.style.display='none'" />
+                    <div class="text-sm">Итали</div>
+                  </div>
+                  <div class="text-center flag-item" data-country="Герман">
+                    <img src="https://flagcdn.com/w20/de.png" class="mx-auto mb-1" onerror="this.style.display='none'" />
+                    <div class="text-sm">Герман</div>
+                  </div>
+                  <div class="text-center flag-item" data-country="Монгол">
+                    <img src="https://flagcdn.com/w20/mn.png" class="mx-auto mb-1" onerror="this.style.display='none'" />
+                    <div class="text-sm">Монгол</div>
+                  </div>
+                </div>
+
+                 <!-- Жуулчдын жагсаалт -->
+            <div id="touristsList" class="space-y-3 max-h-64 overflow-y-auto border rounded-lg p-2 bg-white mt-4">
               <div class="text-gray-500 text-sm italic text-center py-4" id="emptyTouristsMessage">
                 Жуулч нэмээгүй байна
               </div>
             </div>
+              </div>
+            </div>
+
+           
           </div>
 
-         
-
-          <div class="flex justify-end">
-
             <!-- Баруун талын төлбөрийн хэсэг -->
-              <div class="bg-white rounded-xl shadow p-6 w-72 h-fit">
+              <div class="bg-white rounded-xl shadow p-6 w-72 h-fit ml-8">
               <p class="text-gray-700">
                 Жуулчдын тоо: <span class="font-bold" id="totalTourist">0</span>
               </p>
@@ -161,18 +239,18 @@
               <p class="text-gray-400 text-sm mt-2" id="formulaText">10,000₮ * 1</p>
               <p class="text-gray-400 text-sm mt-2">Нийт жуулчдын тоо: <span id="totalTravelerCount">1</span></p>
               <div class="flex flex-col sm:flex-row gap-2">
-                <button
+                <!-- <button
                   id="saveBtn"
                   class="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg flex-1 py-3 mt-4 transition-colors shadow-md hover:shadow-lg"
                 >
                   💾 Хадгалах
-                </button>
-                <!-- <button
+                </button> -->
+                <button
                   id="paymentBtn"
                   class="bg-orange-400 hover:bg-orange-500 text-white font-semibold rounded-lg flex-1 py-3 mt-4 transition-colors shadow-md hover:shadow-lg"
                 >
                   💳 Төлбөр хийх
-                </button> -->
+                </button>
               </div>
             </div>
           </div>
@@ -240,6 +318,166 @@
     <div id="footer-placeholder"></div>
 
     <script src="api.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const addBtn = document.getElementById('addTouristBtn');
+        const countInput = document.getElementById('touristCount');
+        const countrySelect = document.getElementById('touristCountry');
+        const list = document.getElementById('touristsList');
+        const emptyMsg = document.getElementById('emptyTouristsMessage');
+        const totalTravelerEl = document.getElementById('totalTravelerCount');
+        const leftCounter = document.getElementById('leftCounter');
+  const flagsGrid = document.getElementById('flagsGrid');
+  const flagItems = flagsGrid ? flagsGrid.querySelectorAll('.flag-item') : [];
+        const addTourOperatorBtn = document.getElementById('addTourOperatorBtn');
+        const tourOperatorSelect = document.getElementById('tourOperatorSelect');
+
+        // Restore custom tour operators from sessionStorage
+        try {
+          const saved = sessionStorage.getItem('customTourOperators');
+          if (saved && tourOperatorSelect) {
+            const arr = JSON.parse(saved);
+            arr.forEach(name => {
+              if (![...tourOperatorSelect.options].some(o => o.value === name)) {
+                const opt = document.createElement('option');
+                opt.value = name; opt.textContent = name;
+                tourOperatorSelect.appendChild(opt);
+              }
+            });
+          }
+        } catch (e) {
+          console.warn('Could not restore custom tour operators', e);
+        }
+
+        function addTouristToList(country, count) {
+          if (!list) return;
+          if (emptyMsg) emptyMsg.style.display = 'none';
+
+          const item = document.createElement('div');
+          item.className = 'flex justify-between p-2 border-b text-sm items-center';
+
+          // Create left part with flag + country
+          const left = document.createElement('div');
+          left.className = 'flex items-center gap-3';
+
+          const flagImg = document.createElement('img');
+          flagImg.className = 'w-6 h-4 rounded border';
+          flagImg.alt = country || 'Unknown';
+          // Use existing helper if available, otherwise attempt to build flagcdn url from common map
+          if (typeof getCountryFlag === 'function') {
+            flagImg.src = getCountryFlag(country);
+          } else {
+            const fallback = {
+              'Хятад': 'cn', 'Орос': 'ru', 'Япон': 'jp', 'Франц': 'fr', 'Солонгос': 'kr', 'АНУ': 'us',
+              'Казахстан': 'kz', 'Украйн': 'ua', 'Итали': 'it', 'Герман': 'de', 'Монгол': 'mn', 'Канад': 'ca', 'Австрали': 'au', 'Турк':'tr', 'Швейцари':'ch'
+            };
+            const code = fallback[country] || 'un';
+            flagImg.src = `https://flagcdn.com/w40/${code}.png`;
+          }
+          flagImg.onerror = function() { this.style.display = 'none'; };
+
+          const text = document.createElement('div');
+          text.innerHTML = `<span class="font-medium">${country || 'Unknown'}</span> <span class="text-gray-600">— ${count} жуулч</span>`;
+
+          left.appendChild(flagImg);
+          left.appendChild(text);
+
+          item.appendChild(left);
+
+          // Right part could include controls later
+          list.prepend(item);
+        }
+
+        addBtn && addBtn.addEventListener('click', () => {
+          const cnt = Number(countInput && countInput.value) || 1;
+          const country = countrySelect && countrySelect.value;
+          addTouristToList(country, cnt);
+
+          // update total traveler count
+          const prev = Number(totalTravelerEl ? totalTravelerEl.textContent : 0) || 0;
+          const next = prev + cnt;
+          if (totalTravelerEl) totalTravelerEl.textContent = String(next);
+          if (leftCounter) leftCounter.textContent = String(next);
+
+          // call global computeTotals if present
+          if (window.computeTotals) window.computeTotals();
+        });
+
+        // Make flag tiles selectable: clicking a flag sets the select and focuses count
+        if (flagItems && flagItems.length) {
+          flagItems.forEach(item => {
+            item.style.cursor = 'pointer';
+            item.addEventListener('click', () => {
+              const c = item.getAttribute('data-country');
+              if (!c) return;
+
+              // Set select value if available
+              if (countrySelect) {
+                for (let i = 0; i < countrySelect.options.length; i++) {
+                  if (countrySelect.options[i].value === c) {
+                    countrySelect.selectedIndex = i;
+                    break;
+                  }
+                }
+              }
+
+              // Visual highlight: remove selected class from others
+              flagItems.forEach(f => f.classList.remove('ring-2', 'ring-blue-400', 'rounded'));
+              item.classList.add('ring-2', 'ring-blue-400', 'rounded');
+
+              // Focus count input for quick add
+              if (countInput) {
+                countInput.focus();
+                // set default to 1 if empty
+                if (!countInput.value) countInput.value = '1';
+              }
+            });
+          });
+        }
+
+        // Add new tour operator flow
+        if (addTourOperatorBtn && tourOperatorSelect) {
+          addTourOperatorBtn.addEventListener('click', () => {
+            const name = prompt('Шинэ тур оператор компанийн нэрийг оруулна уу:');
+            if (!name) return;
+            const trimmed = name.trim();
+            if (!trimmed) return alert('Нэр хоосон байж болохгүй');
+
+            // Avoid duplicates
+            if ([...tourOperatorSelect.options].some(o => o.value === trimmed)) {
+              // select existing
+              for (let i = 0; i < tourOperatorSelect.options.length; i++) {
+                if (tourOperatorSelect.options[i].value === trimmed) { tourOperatorSelect.selectedIndex = i; break; }
+              }
+              return;
+            }
+
+            const opt = document.createElement('option');
+            opt.value = trimmed; opt.textContent = trimmed;
+            tourOperatorSelect.appendChild(opt);
+            tourOperatorSelect.value = trimmed;
+
+            // Persist in session
+            try {
+              const existing = JSON.parse(sessionStorage.getItem('customTourOperators') || '[]');
+              existing.push(trimmed);
+              sessionStorage.setItem('customTourOperators', JSON.stringify(existing));
+            } catch (e) {
+              console.warn('Could not save custom tour operator', e);
+            }
+          });
+        }
+
+        const leftReset = document.getElementById('leftReset');
+        if (leftReset) leftReset.addEventListener('click', () => {
+          if (totalTravelerEl) totalTravelerEl.textContent = '0';
+          if (leftCounter) leftCounter.textContent = '0';
+          // clear list
+          if (list) list.innerHTML = '<div class="text-gray-500 text-sm italic text-center py-4" id="emptyTouristsMessage">Жуулч нэмээгүй байна</div>';
+          if (window.computeTotals) window.computeTotals();
+        });
+      });
+    </script>
     <script>
       // Debug script to check if table element exists
       document.addEventListener('DOMContentLoaded', function() {

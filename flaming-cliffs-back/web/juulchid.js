@@ -52,7 +52,7 @@ function addTourist() {
   const countInput = document.getElementById('touristCount');
   
   const country = countryInput.value;
-  const count = parseInt(countInput.value) || 1;
+  const count = parseInt(countInput.value) || 0;
   
   console.log('Adding tourist:', country, count); // Debug log
   
@@ -174,6 +174,8 @@ function updateTouristCount() {
   console.log('Updated travelerCount to:', travelerCount); // Debug log
   
   updateDisplay();
+  // If the computeTotals helper (added in the HTML) exists, call it to sync the payment total
+  if (window.computeTotals) window.computeTotals();
 }
 
 // Make functions globally available for HTML onclick handlers
@@ -190,7 +192,7 @@ function collectTouristData() {
   console.log(touristsArray)
   return touristsArray.length > 0 ? touristsArray : [{
     country: 'Unknown',
-    count: 1
+    count: 0
   }];
 }
 
@@ -222,6 +224,8 @@ if (clearAllBtn) {
   travelerCount = DEFAULT_TRAVELER_COUNT;
   if (totalTouristEl) totalTouristEl.textContent = count;
   updateDisplay();
+  // Keep payment total in sync if computeTotals is available
+  if (window.computeTotals) window.computeTotals();
 
   console.log("All cleared!");
   });
@@ -484,6 +488,8 @@ document.addEventListener('DOMContentLoaded', function() {
     updateTouristsList();
     
     updateDisplay();
+    // Ensure computeTotals is called after clearing the form so total updates
+    if (window.computeTotals) window.computeTotals();
   }
 
   // Load initial data with a small delay to ensure DOM is ready
