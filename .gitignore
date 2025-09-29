@@ -45,3 +45,4 @@ backend/test-mongodb.js
 # Ignore web font and image cache
 # web/font/
 # web/img/
+.vercel
