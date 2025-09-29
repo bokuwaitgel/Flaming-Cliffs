@@ -336,11 +336,6 @@ const ValidationUtils = {
       errors.push('Төлбөрийн дүн сөрөг байж болохгүй');
     }
     
-    // Validate vehicle number format (basic check)
-    if (formData.vehicleNumber && !/^[A-Za-z0-9\s\-]+$/.test(formData.vehicleNumber)) {
-      errors.push('Машины дугаарын формат буруу байна');
-    }
-    
     // Validate guide name (basic check)
     if (formData.guideName && formData.guideName.length > 100) {
       errors.push('Хөтчийн нэр хэт урт байна');

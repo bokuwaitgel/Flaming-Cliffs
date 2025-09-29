@@ -473,13 +473,13 @@
     <script>
       let currentData = [];
       let maxValue = 500; // Default max value for chart scaling
-      console.log(window.location.origin)
 
       // API Base URL
       const API_BASE_URL = window.location.hostname === 'localhost' ? 'http://localhost:3000/api' : window.location.origin + '/api';
 
       // Function to fetch country statistics from backend
-      async function fetchCountryStats(period = 'all') {
+      async function fetchCountryStats(period = 'today') {
+        console.log('Fetching country statistics for period:', period);
         try {
           const response = await fetch(`${API_BASE_URL}/country-stats?period=${period}`);
           if (!response.ok) {
@@ -497,15 +497,6 @@
             { country: "Kazakhstan", code: "kz", value: 190 },
             { country: "Japan", code: "jp", value: 170 },
             { country: "USA", code: "us", value: 160 },
-            { country: "Germany", code: "de", value: 150 },
-            { country: "France", code: "fr", value: 140 },
-            { country: "UK", code: "gb", value: 135 },
-            { country: "Australia", code: "au", value: 120 },
-            { country: "Canada", code: "ca", value: 110 },
-            { country: "Italy", code: "it", value: 85 },
-            { country: "Poland", code: "pl", value: 60 },
-            { country: "Turkey", code: "tr", value: 45 },
-            { country: "Switzerland", code: "ch", value: 40 },
           ];
         }
       }
@@ -551,7 +542,7 @@
       }
 
       // Function to fetch general statistics and populate visitor cards
-      async function fetchAndPopulateStatistics(period = 'all') {
+      async function fetchAndPopulateStatistics(period = 'today') {
         try {
           // show loading state on visitor cards
           setVisitorCardsLoading(true);
@@ -856,7 +847,7 @@
         });
 
   // initial load — load 'all' data but ensure monthly donuts populate from tour-guides-and-drivers
-  await loadDataForPeriod('all');
+  await loadDataForPeriod('today');
   // populate monthly guides & drivers immediately
   try { await updateDonutCharts('month'); } catch (e) { console.warn('monthly donut prefill failed', e); }
       });
